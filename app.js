@@ -2,6 +2,8 @@ const express = require("express");
 const colors = require("colors");
 const cors =require('cors')
 require('ejs')
+const controllerUser = require('./controllerUser')
+const path =  require('path')
 const app = express();
 
 
@@ -9,30 +11,24 @@ app.use((req,res,next)=>{//LOGGER
    console.log(`${req.method}  url ${req.url}   Status: ${res.statusCode}`.blue)
    next()
 })
+
 app.use(cors())
-//app.use('/',express.static('./src/public'))//mainmidler 
+
+//SETTINGS
 app.use(express.urlencoded({ extended: true }) );
 app.use( express.json() );
+app.set('views',path.join(__dirname,'views'))
+app.set('view engine','ejs')
+app.use(express.static('./public'))//mainmidler 
 
-
-//TODO
-
-
-app.post('/login',(req,resp)=>{  
-   return resp.json({"username":req.body['username'],"password":true})
+//RUTA PRINCIPAL
+app.get('/',(req,resp)=>{
+    resp.render('index')
 })
 
-app.post('/registro',(req,resp)=>{
-   console.log(req.body)
-   return resp.json({"username":req.body['username'],"password":true})
-})
+app.use(controllerUser)
 
 
-
-app.get('/HomPage',(req,resp)=>{
-   console.log()
-   return resp.sendFile('./src/public/perfil.html',{root:__dirname})
-})
 
 
 
