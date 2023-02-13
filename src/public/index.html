@@ -31,21 +31,17 @@
 
     <main class="contenedor">
       <div class="contenedor_ingresar">
-        <form
-          id="formulario_ingreso"
-          style=""
-          class="form-ingresar-active"
-        >
+        <form id="formulario_ingreso" style="" class="form-ingresar-active">
           <h2>Inicia Sesion</h2>
           <hr />
           <input
-           id="username-input"
+            id="login-username-input"
             class="form_Input-usuario"
             type="text"
             placeholder="@Username"
           />
           <input
-            id="password-input"
+            id="login-password-input"
             class="form_Input-contraseña"
             type="password"
             placeholder="Contraseña minimo 8 caracteres"
@@ -72,29 +68,41 @@
         >
           <h2>Registro</h2>
           <hr />
-          <input class="form_registro_Input-nombres" type="text" placeholder="Nombres" />
           <input
+          id="registro-nombres-input"
+            class="form_registro_Input-nombres"
+            type="text"
+            placeholder="Nombres"
+            
+          />
+
+          <input
+            id="registro-apellidos-input"
             class="form_registro_Input-apellidos"
             type="text"
             placeholder="apellidos"
           />
 
           <input
+          id="registro-usuario-input"
             class="form_registro_Input-usuario"
             type="text"
             placeholder="@Username"
           />
           <input
-          class="form_registro_Input-correo"
-          type="email"
-          placeholder="@correo"
-        />
+          id="registro-correo-input"
+            class="form_registro_Input-correo"
+            type="email"
+            placeholder="@correo"
+          />
           <input
+          id="registro-contraseña-input"
             class="form_registrp_Input-contraseña"
             type="password"
             placeholder="Contraseña minimo 8 caracteres"
           />
           <input
+            id="btn_registro"
             class="form_registro_Input-boton_registrar"
             type="button"
             value="Registrarse"
@@ -102,7 +110,11 @@
           <hr />
           <p>
             Ya tienes una cuenta?
-            <b><a onclick="mostrar_formulario_Registro()" href="/">Inicia aqui</a></b>
+            <b
+              ><a onclick="mostrar_formulario_Registro()" href="/"
+                >Inicia aqui</a
+              ></b
+            >
           </p>
         </form>
       </div>
@@ -125,7 +137,9 @@
     <footer>
       <p>Develop by David Suarez</p>
     </footer>
+    <script src="./js/cargarInfo.js"></script>
+    <script src="./js/registro.js"></script>
     <script src="./js/iinteracion_registrar.js"></script>
-    <script src="./js/validarLoguin.js"></script>
+    <script src="./js/loguin.js"></script>
   </body>
 </html>
