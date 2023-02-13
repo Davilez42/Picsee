@@ -12,6 +12,16 @@ header {
 
 
 }
+#message_err{
+    display: inline-block;
+    text-align: center;
+    background-color: #212121;
+    color: #ff0033;
+    border-radius: 10px;
+    height: 25px;
+    width: 47%;
+     margin-left: 10px;
+}
 
 body {
    background-color:#1c1c1c;
