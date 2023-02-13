@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/home_.css" />
+    <link rel="stylesheet" href="./css/registrar.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="barra_navegacion">
+      <a class="nombreApp" href="/"
+        ><div><p>InstaChat</p></div></a
+      >
+      <div class="menu">
+        <nav>
+          <ul>
+            <li><a href="">Registrarme</a></li>
+            <li><a href="">Ayuda</a></li>
+            <li><a href="">Servicio al Cliente</a></li>
+            <li><a href="">Acerca de nosotros</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="contenedor">
+      <div class="contenedor_ingresar">
+        <form
+          id="formulario_ingreso"
+          style=""
+          class="form-ingresar-active"
+        >
+          <h2>Inicia Sesion</h2>
+          <hr />
+          <input
+           id="username-input"
+            class="form_Input-usuario"
+            type="text"
+            placeholder="@Username"
+          />
+          <input
+            id="password-input"
+            class="form_Input-contraseña"
+            type="password"
+            placeholder="Contraseña minimo 8 caracteres"
+          />
+          <input
+            class="form_Input-boton_registrar"
+            type="button"
+            id="btn"
+            value="Iniciar Sesion"
+          />
+          <hr />
+          <p>
+            No tienes una cuenta?
+            <b
+              ><a onclick="mostrar_formulario_Registro()">Registrate aqui</a></b
+            >
+          </p>
+        </form>
+
+        <form
+          id="formulario_registro"
+          style="display: none"
+          class="form-registro"
+        >
+          <h2>Registro</h2>
+          <hr />
+          <input class="form_registro_Input-nombres" type="text" placeholder="Nombres" />
+          <input
+            class="form_registro_Input-apellidos"
+            type="text"
+            placeholder="apellidos"
+          />
+
+          <input
+            class="form_registro_Input-usuario"
+            type="text"
+            placeholder="@Username"
+          />
+          <input
+          class="form_registro_Input-correo"
+          type="email"
+          placeholder="@correo"
+        />
+          <input
+            class="form_registrp_Input-contraseña"
+            type="password"
+            placeholder="Contraseña minimo 8 caracteres"
+          />
+          <input
+            class="form_registro_Input-boton_registrar"
+            type="button"
+            value="Registrarse"
+          />
+          <hr />
+          <p>
+            Ya tienes una cuenta?
+            <b><a onclick="mostrar_formulario_Registro()" href="/">Inicia aqui</a></b>
+          </p>
+        </form>
+      </div>
+      <div class="contenedor-imagenes">
+        <div class="row">
+          <div class="column">
+            <img src="./icons/2.jpg" alt="" />
+            <img src="./icons/3.jpg" alt="" />
+            <img src="./icons/4.jpg" alt="" />
+          </div>
+          <div class="column">
+            <img src="./icons/pexels-ahmed-akacha-9294122.jpg" alt="" />
+            <img src="./icons/pexels-hilal-bülbül-12604928.jpg" alt="" />
+            <img src="./icons/pexels-işıl-agc-13119203.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Develop by David Suarez</p>
+    </footer>
+    <script src="./js/iinteracion_registrar.js"></script>
+    <script src="./js/validarLoguin.js"></script>
+  </body>
+</html>
