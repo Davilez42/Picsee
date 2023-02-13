@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/home_.css">
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/perfil.css">
-    <title>Document</title>
+    <title>home</title>
 </head>
 <body>
     <header id="barra_navegacion">
@@ -62,80 +62,26 @@
 
         <div id="contenedor_galeria_perfil">
             <div class="row_galeria_perfil">
+                <% let j = 0 %>
+                <% let n = imagenes.length %>
+                <% for(let i=0;i < 3;i++ ){ %>
                 <div class="column_galeria_perfil">
-
-                 <div class="contenedor_imagen">
-                    <img class="imagen_galeria" src="./icons/3.jpg" alt="" />
-                    <div>
-                        <li class="opciones_imagenes">
-                            <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/corazon_like_desactivado.png" ></a></ul>
-                            <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                            <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                        </li>
-                    </div>
-                 </div>
-
-                 <div class="contenedor_imagen">
-                    <img class="imagen_galeria" src="./icons/4.jpg" alt="" />
-                    <div>
-                        <li class="opciones_imagenes">
-                            <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/corazon_like_desactivado.png" ></a></ul>
-                            <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                            <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                        </li>
-                    </div>
-                 </div>
-       
+                        <% for(let k=0;k < 20;k++ ) {%>
+                        <div class="contenedor_imagen"><img class="imagen_galeria" src="./1.jpg" alt="" /><div>
+                                <li class="opciones_imagenes">
+                                    <ul><a class="boton_like"><img class="icono_opciones" src="./icons/corazon_like_desactivado.png" ></a></ul>
+                                    <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
+                                    <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
+                                </li>
+                            </div>
+                        </div>
+                        <% } %>      
                 </div>
-                <div class="column_galeria_perfil">
-                    <div class="contenedor_imagen">
-                        <img class="imagen_galeria" src="./icons/pexels-ahmed-akacha-9294122.jpg" alt="" />
-                        <div>
-                            <li class="opciones_imagenes">
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/corazon_like_desactivado.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                            </li>
-                        </div>
-                     </div>
+                <% } %>
 
-                     <div class="contenedor_imagen">
-                        <img class="imagen_galeria" src="./icons/pexels-işıl-agc-13119203.jpg" alt="" />
-                        <div>
-                            <li class="opciones_imagenes">
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/corazon_like_desactivado.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                            </li>
-                        </div>
-                     </div>
-   
-                </div>
-                <div class="column_galeria_perfil">
-                    <div class="contenedor_imagen">
-                        <img class="imagen_galeria" src="./icons/pexels-işıl-agc-13119203.jpg" alt="" />
-                        <div>
-                            <li class="opciones_imagenes">
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/corazon_like_desactivado.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                            </li>
-                        </div>
-                     </div>
-
-                     <div class="contenedor_imagen">
-                        <img class="imagen_galeria" src="./icons/2.jpg" alt="" />
-                        <div>
-                            <li class="opciones_imagenes">
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/corazon_like_desactivado.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                                <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                            </li>
-                        </div>
-                     </div>
-
-                  </div>
-              </div>
+               
+                
+            </div>
 
         </div>
         <script src="./js/cargar_configuracion_Perfil.js"></script>

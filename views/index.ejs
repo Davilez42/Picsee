@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/normalize.css" type="text/css"/>
-    <link rel="stylesheet" href="./css/home_.css" type="text/css"/>
-    <link rel="stylesheet" href="./css/registrar.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="./css/home_.css" type="text/css" />
+    <link rel="stylesheet" href="./css/registrar.css" type="text/css" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Document</title>
+    <title>principal</title>
   </head>
   <body>
     <header id="barra_navegacion">
@@ -20,8 +20,7 @@
       <div class="menu">
         <nav>
           <ul>
-
-  <li><a onclick="mostrar_formulario_Registro()">Registrarme</a></li>
+            <li><a onclick="mostrar_formulario_Registro()">Registrarme</a></li>
             <li><a href="">Ayuda</a></li>
             <li><a href="">Servicio al Cliente</a></li>
             <li><a href="">Acerca de nosotros</a></li>
@@ -34,7 +33,9 @@
       <div class="contenedor_ingresar">
         <form id="formulario_ingreso" style="" class="form-ingresar-active">
           <h2>Inicia Sesion</h2>
+
           <hr />
+
           <input
             id="login-username-input"
             class="form_Input-usuario"
@@ -47,12 +48,14 @@
             type="password"
             placeholder="Contraseña minimo 8 caracteres"
           />
+          <div id="contenedor_error"></div>
           <input
             class="form_Input-boton_registrar"
             type="button"
             id="btn"
             value="Iniciar Sesion"
           />
+
           <hr />
           <p>
             No tienes una cuenta?
@@ -70,11 +73,10 @@
           <h2>Registro</h2>
           <hr />
           <input
-          id="registro-nombres-input"
+            id="registro-nombres-input"
             class="form_registro_Input-nombres"
             type="text"
             placeholder="Nombres"
-            
           />
 
           <input
@@ -85,19 +87,19 @@
           />
 
           <input
-          id="registro-usuario-input"
+            id="registro-usuario-input"
             class="form_registro_Input-usuario"
             type="text"
             placeholder="@Username"
           />
           <input
-          id="registro-correo-input"
+            id="registro-correo-input"
             class="form_registro_Input-correo"
             type="email"
             placeholder="@correo"
           />
           <input
-          id="registro-contraseña-input"
+            id="registro-contraseña-input"
             class="form_registrp_Input-contraseña"
             type="password"
             placeholder="Contraseña minimo 8 caracteres"
@@ -121,16 +123,16 @@
       </div>
       <div class="contenedor-imagenes">
         <div class="row">
-          <div class="column">
-            <img src="./icons/2.jpg" alt="" />
-            <img src="./icons/3.jpg" alt="" />
-            <img src="./icons/4.jpg" alt="" />
+          <%  let j = 0 %>
+          <% for(let i = 0;i < 2; i++ ){ %> 
+          <div class="column">          
+            <% for(let k= 0; k < 3;k++) {%>            
+            <img src="<%= imagenes[j] %>" alt="" srcset="" />
+            <%   j+=1  %>
+            <% } %>
           </div>
-          <div class="column">
-            <img src="./icons/pexels-ahmed-akacha-9294122.jpg" alt="" />
-            <img src="./icons/pexels-hilal-bülbül-12604928.jpg" alt="" />
-            <img src="./icons/pexels-işıl-agc-13119203.jpg" alt="" />
-          </div>
+
+          <% } %>
         </div>
       </div>
     </main>
