@@ -29,17 +29,18 @@ const validar_Loguin = async (us, pas) => {
       if (respuesta.ok) {
         respuesta.json().then((us) => {
           if (us['password']){
-            alert('contraseña correcta')
             localStorage.setItem("loggedUser",JSON.stringify(us))
             window.location.href="/";
           }
           else{
-            alert('contraseña INCORRECTA')
+            document.getElementById('contenedor_error').innerHTML = '<h4 id="message_err">Contraseña incorrecta</h4>'
+            document.getElementById('login-password-input').style = ' border: 3px solid #ff0033;'
           }
         });
       } else {
-        alert("El usuario no existe");
-      }
+         document.getElementById('contenedor_error').innerHTML = '<h4 id="message_err">El Usuario no existe </h4>'
+         document.getElementById('login-username-input').style = ' border: 1px solid #ff0033;'
+        }
     })
     .catch((err) => {
       console.log("Error al solicitar el recurso", err);
