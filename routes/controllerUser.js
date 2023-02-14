@@ -3,6 +3,7 @@ const {static}= require('express')
 const router = Router()
 
 router.post('/login',(req,resp)=>{  
+   console.log('entraron')
     return resp.json({"username":req.body['username'],"password":true})
  })
  

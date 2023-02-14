@@ -24,7 +24,7 @@ const  obtenerDatos=()=>{
 }
 
 const enviar_registro=async(datos_formularo)=>{
-    const respuesta = await fetch('http://localhost:5000/registro',{
+    const respuesta = await fetch('http://192.168.20.24:5000/registro',{
         method:'POST',
         mode: "cors",
         headers: {

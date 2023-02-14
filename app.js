@@ -46,5 +46,5 @@ app.use(controllerUser)
 
 
 
-app.listen(5000);
+app.listen(5000,"0.0.0.0");
 console.log("server on port:5000".green);

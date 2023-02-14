@@ -1,7 +1,9 @@
 const btn_login = document.querySelector("#btn");
 btn_login.addEventListener("click", (e) => {
+
   const username = document.getElementById("login-username-input").value;
   const password = document.getElementById("login-password-input").value;
+  
   e.preventDefault();
   if (username == "") {
     alert("Porfavor un nombre de usuario");
@@ -11,11 +13,11 @@ btn_login.addEventListener("click", (e) => {
     alert("Porfavor digite una contraseña");
     return;
   }
-
   validar_Loguin(username, password);
 });
 
 const validar_Loguin = async (us, pas) => {
+
   datos = {
     method: "POST",
     mode: "cors",
@@ -24,11 +26,13 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("http://localhost:5000/login", datos)
+   fetch("http://192.168.20.24:5000/login", datos)
     .then((respuesta) => {
+      
       if (respuesta.ok) {
         respuesta.json().then((us) => {
           if (us['password']){
+            
             localStorage.setItem("loggedUser",JSON.stringify(us))
             window.location.href="/";
           }
