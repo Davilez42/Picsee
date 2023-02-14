@@ -3,8 +3,8 @@
 Entity Users{
     *Id_User Integer <<PK>>
     *username varchar(30)
-    *firstnames Varchar(30)
-    *lastnames Varchar(30)
+    *first_names Varchar(30)
+    *last_names Varchar(30)
     *email Varchar(30)
     *password varchar(20)
     *recent_sesion Datetime
