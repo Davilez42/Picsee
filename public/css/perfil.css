@@ -1,11 +1,16 @@
 header {
     position: fixed;
     z-index: 1;
+    background: #fafafa10;
+    backdrop-filter: blur(0.9rem);
     
+}
+body {
+    background-image: url('https://images.unsplash.com/photo-1509023464722-18d996393ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
 }
 
 .menu nav li a {
-    color: rgb(88, 88, 88);
+    color: rgb(200, 199, 199);
 }
 
 #icono_perfil {
@@ -19,8 +24,10 @@ header {
 
 #icono_perfil img {
     padding: 10px;
-    padding-top: 20PX;
-    width: 100PX;
+    margin-top: 6px;
+    height: 60px;
+    border-radius: 50px;
+    width: 100px;
 }
 
 #icono_imbox {
@@ -60,20 +67,27 @@ header {
 }
 
 #formulario_busqueda input {
-    color: black;
     height: 34px;
     padding: 20px;
     margin-top: 17px;
     border-radius: 40px;
     width: 100%;
+
+    background: #fafafa48;
+    backdrop-filter: blur(0.9rem);
 }
-s
-body {
-    background-color: #1c1c1c;
+
+
+#formulario_busqueda input::placeholder {
+    color: #ffffff;
 }
+
+
+
+
 /* TODO separar en otro CSS */
 #contenedor_galeria_perfil .column_galeria_perfil .imagen_galeria {
-    width: 90%;
+    width: 80%;
     object-fit: cover;
     border-radius: 20px;
 
@@ -81,9 +95,14 @@ body {
 }
 
 #contenedor_galeria_perfil .column_galeria_perfil .imagen_galeria:hover {
-    width: 100%;
+    width: 90%;
     object-fit: cover;
     border-radius: 20px;
+}
+
+#contenedor_galeria_perfil .column_galeria_perfil .imagen_galeria:active {
+   image-rendering: auto pixelated ;
+    border-radius: 40px;
 }
 
 .row_galeria_perfil {
@@ -100,14 +119,20 @@ body {
 }
 
 #contenedor_galeria_perfil {
-    float: right;
-    display: block;
-    background-color: #232323;
+
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: 2px solid #fafafa10;
+    background: #00000000;
+    backdrop-filter: blur(0.6rem);
+    margin: auto;
     border-radius: 20px;
     margin-top: 140px;
-    width: 60%;
+    width: 90%;
     height: 600px;
-    overflow: auto;
+    overflow: auto ;
 }
 
 #contenedor_galeria_perfil::-webkit-scrollbar {
@@ -150,7 +175,11 @@ main{
     height: 700px;
 }
 #contenedor_etiquetas_hastags{
-    background-color: #232323;
+    
+    border: 2px solid #fafafa10;
+    background: #fafafa10;
+    backdrop-filter: blur(0.6rem);
+
     display: inline-block;
     position: fixed;
 
@@ -183,7 +212,7 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, O
 
 
 #contenedor_etiquetas_hastags a{
-  color: #989898;
+  color: #dfdfdf;
   font-size: 17px;
   font-family:  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

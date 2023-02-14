@@ -5,8 +5,9 @@ main {
     top: 100px;
     width: 100%;
     margin: auto;
-    border-radius: 10px;
-    background-color: #1c1c1c;
+    border-radius: 40px;
+/*     background-color: #1c1c1c; */
+    
 }
 
 .contenedor_ingresar {
@@ -16,6 +17,11 @@ main {
     margin-left: 5%;
     width: 40%;
     height: 500px;
+
+    border-radius: 20px;
+    border: 2px solid #fafafa10;
+    background: #fafafa10;
+    backdrop-filter: blur(0.6rem);
 
 }
 
@@ -32,9 +38,9 @@ main {
     -webkit-text-fill-color: transparent;
     background-size: 85%;
     position: relative;
-    animation: degradado 1s infinite;
+    animation: degradado 5s infinite;
     font-weight: 1900;
-    font-family: 'Ink Free';
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 @keyframes degradado {
@@ -93,6 +99,11 @@ img:hover {
     width: 50%;
     position: absolute;
     overflow: auto;
+
+    border-radius: 20px;
+    border: 2px solid #fafafa10;
+    background: #fafafa10;
+    backdrop-filter: blur(0.4rem);
 }
 
 /* Modificacion de scroll */
@@ -133,6 +144,7 @@ main div .form-ingresar-active, .form-registro {
 .form_registro_Input-nombres,.form_registro_Input-apellidos{
     width:175px ;
     padding-left: 10px;
+    margin-bottom: 0;
 }
 
 
@@ -146,7 +158,13 @@ main div .form-ingresar-active, .form-registro {
 
 main div form input {
     height: 50px;
-    background-color: #3a3a3a;
+    /* background-color: #3a3a3a; */
+    
+    border: 2px solid #fafafa10;
+    background: #fafafa14;
+    backdrop-filter: blur(0.7rem);
+
+
     margin-bottom: 20px;
     border: none;
     border-radius: 8px;
@@ -154,6 +172,7 @@ main div form input {
 
 main .form-ingresar-active p {
     color: rgb(114, 114, 114);
+    margin-left: 10px;
 }
 
 
@@ -169,6 +188,7 @@ main .form-ingresar-active p {
 .form_registro_Input-boton_registrar{
     border: none;
     color: white;
+    margin: 0;
     background-color: #3f8002;
     display: inline-block;
     width: 365px;
@@ -185,12 +205,18 @@ main .form-ingresar-active p {
 
 
 hr {
-    color: #171717;
+    color: #fafafa10;
     border: solid 1px;
     width: 72%;
 }
 
-
+.form-registro{
+    margin-top: 10px;
+}
+.form-registro p{
+    margin-top: 10px;
+    margin-left: 50px;
+}
 
 
 @media only screen and (max-width:1112px) {
