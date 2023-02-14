@@ -66,16 +66,23 @@
                 <% let n = imagenes.length %>
                 <% for(let i=0;i < 3;i++ ){ %>
                 <div class="column_galeria_perfil">
-                        <% for(let k=0;k < 20;k++ ) {%>
-                        <div class="contenedor_imagen"><img class="imagen_galeria" src="./1.jpg" alt="" /><div>
-                                <li class="opciones_imagenes">
-                                    <ul><a class="boton_like"><img class="icono_opciones" src="./icons/corazon_like_desactivado.png" ></a></ul>
-                                    <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
-                                    <ul><a class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
-                                </li>
-                            </div>
-                        </div>
-                        <% } %>      
+                        <% if(j < n){ %>
+                            <% for(let k=0;k < 5;k++ ) {%>
+                                
+                                    <div class="contenedor_imagen">
+                                    <img class="imagen_galeria" src="<%= imagenes[j] %>" alt="" />
+                                    <div>
+                                        <li class="opciones_imagenes">
+                                            <ul><a id="<%= imagenes[j] %>"  class="boton_like"><img class="icono_opciones" src="./icons/corazon_like_desactivado.png" ></a></ul>
+                                            <ul><a id="<%= imagenes[j] %>" class="boton_like"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul>
+                                            <ul><a id="<%= imagenes[j] %>" class="boton_like"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul>
+                                        </li>
+                                    </div>
+                                </div>
+                                <% j++ %>
+
+                            <% } %> 
+                        <% }%>     
                 </div>
                 <% } %>
 
