@@ -1,0 +1,55 @@
+@startuml
+
+Entity Users{
+    *Id_User Integer <<PK>>
+    *username varchar(30)
+    *firstnames Varchar(30)
+    *lastnames Varchar(30)
+    *email Varchar(30)
+    *password varchar(20)
+    *recent_sesion Datetime
+    *state_sesion bool
+    --
+}
+
+Entity posts  {
+    * Id_post <<PK>>
+    * Id_image <<FK>>
+    * Id_user Integer <<FK>>
+    * upload_date datetime
+    * visible
+    --
+}
+
+Entity Images{
+    *Id_Image Integer <<PK>>
+    *name Varchar(20)
+    *likes Integer
+    --
+}
+
+Entity hastags  {
+    * Id_hastag Integer <<PK>>
+    * name varchar(10) UNIQUE
+
+    --
+}
+
+
+Entity relation_post_to_hastags{
+    id_posts <<FK>>
+    id_hastags <<FK>>
+}
+
+Users "1" ||--o{ "n" posts
+Images "1" ||--|| "1" posts
+posts "0" |o---{ "N" relation_post_to_hastags
+hastags "0" |o---{ "N" relation_post_to_hastags
+
+
+
+
+
+
+
+@enduml
