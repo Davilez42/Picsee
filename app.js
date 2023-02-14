@@ -2,7 +2,7 @@ const express = require("express");
 const colors = require("colors");
 const cors =require('cors')
 require('ejs')
-const controllerUser = require('./controllerUser')
+const controllerUser = require('./routes/controllerUser')
 const path =  require('path');
 const { render } = require("ejs");
 const app = express();
