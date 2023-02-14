@@ -9,6 +9,7 @@ router.post('/login',async(req,resp)=>{
          if (ServiceEncrypted.comparePassword(user_bd.passwrd,req.body.password)){
             return resp.json({
                               "id_user":user_bd.id_user,
+                              "id_avatar":user_bd.id_avatar,
                               "username":user_bd.username,
                               "password":true})
          }
