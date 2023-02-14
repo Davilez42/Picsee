@@ -1,10 +1,20 @@
 const {Router} = require('express')
 const {static}= require('express')
+const ServiceEncrypted =require('../models/ServiceEncrypted')
 const router = Router()
-
-router.post('/login',(req,resp)=>{  
-   console.log('entraron')
-    return resp.json({"username":req.body['username'],"password":true})
+const RepositorioUser = require('../models/RepositorioUsers')
+router.post('/login',async(req,resp)=>{  
+   const user_bd = await RepositorioUser.get_user_Loguin(req.body.username)
+   if(user_bd!=null){
+         if (ServiceEncrypted.comparePassword(user_bd.passwrd,req.body.password)){
+            return resp.json({
+                              "id_user":user_bd.id_user,
+                              "username":user_bd.username,
+                              "password":true})
+         }
+         return resp.json({"password":false})
+   }
+    return resp.sendStatus(404)
  })
  
 router.post('/registro',(req,resp)=>{
@@ -16,7 +26,7 @@ router.post('/registro',(req,resp)=>{
 router.use(static('./storage/FotosPerfil'))//mainmidler 
 router.get('/HomPage', async(req,resp)=>{
 
-   const respuesta = await fetch('https://jsonplaceholder.typicode.com/photos').then(data=>data.json())
+  
     
     
     imagenes =  {"imagenes":["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","11.jpg","12.jpg","13.jpg","14.jpg","14.jpg"]}
