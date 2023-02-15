@@ -13,8 +13,8 @@ const  obtenerDatos=()=>{
     console.log(typeof contraseña)
     datos_formularo =
     {
-        "username": nombres!='' ? nombres : alert('Porfavor digite el nombre'),
-        "apellidos": apellidos!='' ? apellidos : alert('Porfavor digite el campo de apellidos'),
+        "first_names": nombres!='' ? nombres : alert('Porfavor digite el nombre'),
+        "last_names": apellidos!='' ? apellidos : alert('Porfavor digite el campo de apellidos'),
         "username": usuario!='' ? usuario : alert('Porfavor digite el campo de apellidos'),
         "email": correo!='' ? correo : alert('Porfavor digite el campo de apellidos'),
         "password": contraseña!='' ?  (contraseña.length <4 ? alert('La contraseña debe contener almenos 4 caracteres') : contraseña  ): alert('Porfavor digite el campo de apellidos')
@@ -24,7 +24,7 @@ const  obtenerDatos=()=>{
 }
 
 const enviar_registro=async(datos_formularo)=>{
-    const respuesta = await fetch('http://192.168.20.24:5000/registro',{
+    const respuesta = await fetch('http://localhost:5000/registro',{
         method:'POST',
         mode: "cors",
         headers: {
@@ -32,11 +32,14 @@ const enviar_registro=async(datos_formularo)=>{
         },
         body: JSON.stringify(datos_formularo)
     })
-
+    console.log(respuesta.status)
     if (respuesta.ok) {
         const us = await respuesta.json()
         localStorage.setItem("loggedUser",JSON.stringify(us))
         window.location.href="/";
+    }else{
+        const resp = await respuesta.json()
+        alert(`El ${ resp['valFail'] } ya esta en uso`)
     }
 
 }
