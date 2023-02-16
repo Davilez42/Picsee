@@ -5,5 +5,4 @@ const cargar_informacion=()=>{
         }
     
 }
-
 cargar_informacion()

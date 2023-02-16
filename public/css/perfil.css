@@ -6,7 +6,7 @@ header {
     
 }
 body {
-    background-image: url('https://images.unsplash.com/photo-1509023464722-18d996393ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+    background-image: url('/icons/fondo_perfil.jpg');
 }
 
 .menu nav li a {
@@ -130,7 +130,7 @@ body {
     margin: auto;
     border-radius: 20px;
     margin-top: 140px;
-    width: 90%;
+    width: 60%;
     height: 600px;
     overflow: auto ;
 }
