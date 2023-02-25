@@ -1,4 +1,4 @@
-var isActive; 
+let isActive; 
 window.onfocus = function () { isActive = 1; }; 
 window.onblur = function () { isActive = 0; };
 
