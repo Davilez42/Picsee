@@ -17,10 +17,12 @@ const insert_user =async(user)=>{
      return await conection.execute(`Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion,state_sesion) VALUES (?,?,?,?,?,?,?)`,
         [user.username,user.first_names,user.last_names,user.email,user.password,'2023-01-02',1])
         .then(()=>{
-           return okconection.execute(`SELECT id_user from users WHERE username = '${user.username}' `)
+            return   conection.execute(`SELECT id_user from users WHERE username = '${user.username}' `)
+           
         })
         .catch( (rason)=>{
-          return   rason.sqlMessage.split(' ').pop().slice(1,-1);
+            console.log("pasa por qui")
+            return  rason.sqlMessage.split(' ').pop().slice(1,-1);
         })
               
 

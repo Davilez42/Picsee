@@ -10,7 +10,6 @@ const  obtenerDatos=()=>{
     const correo = document.getElementById('registro-correo-input').value;
     const contraseña = document.getElementById('registro-contraseña-input').value;
     const dato ="DASDSAD"
-    console.log(typeof contraseña)
     datos_formularo =
     {
         "first_names": nombres!='' ? nombres : alert('Porfavor digite el nombre'),
@@ -32,7 +31,6 @@ const enviar_registro=async(datos_formularo)=>{
         },
         body: JSON.stringify(datos_formularo)
     })
-    console.log(respuesta.status)
     if (respuesta.ok) {
         const us = await respuesta.json()
         localStorage.setItem("loggedUser",JSON.stringify(us))

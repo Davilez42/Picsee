@@ -27,11 +27,11 @@ router.post('/login',async(req,resp)=>{
 router.post('/registro',async (req,resp)=>{
     console.log(req.body)
       const respuesta = await RepositorioUser.insert_user(req.body)      
-         if(respuesta!='ok'){
+      if(typeof respuesta != "object"){ 
             return resp.status(418).json({"valFail":respuesta})
          }
       return resp.json({
-         "id_user":respuesta['id'],
+         "id_user":  respuesta[0][0].id_user,
          "id_avatar":'default_avatar.png',
          "username":req.body.username,
          "password":true})
