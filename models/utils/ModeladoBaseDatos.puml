@@ -16,15 +16,17 @@ Entity posts  {
     * Id_post <<PK>>
     * Id_image <<FK>>
     * Id_user Integer <<FK>>
+    * likes Integer 
     * upload_date datetime
     * visible
     --
 }
 
 Entity Images{
-    *Id_Image Integer <<PK>>
+    *id_Image Integer <<PK>>
     *name Varchar(20)
-    *likes Integer
+    *format varchar(10)
+
     --
 }
 
