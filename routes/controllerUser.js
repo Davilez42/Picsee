@@ -1,9 +1,10 @@
-const {Router, query} = require('express')
+const {Router} = require('express')
 const {static}= require('express')
 const ServiceEncrypted =require('../models/ServiceEncrypted')
 const router = Router()
 const RepositorioUser = require('../models/RepositorioUsers')
-
+const RepositorioPosts =  require('../models/RepositorioPosts')
+const controllerPosts = require('../routes/controllerPosts')
 
 
 router.post('/login',async(req,resp)=>{  
@@ -38,13 +39,15 @@ router.post('/registro',async (req,resp)=>{
  })
  
 
-router.use(static('./storage/FotosPerfil'))//mainmidler 
+router.use(static('./storage/FotosPerfil'))//mainmidler:una vez este logueadio o inicia sesion; tiene acceso a la foto de perfil
+
 router.get('/HomPage', async(req,resp)=>{
-    imagenes =  {"imagenes":["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","11.jpg","12.jpg","13.jpg","14.jpg","14.jpg"]}
+  const imag = await RepositorioPosts.getPosts();
+    imagenes =  {"imagenes":imag}
     resp.render('homePage',imagenes)
  })
 
-router.patch('/state_sesion/',(req,resp)=>{
+router.put('/state_sesion/',(req,resp)=>{
    const datos = req.query
    RepositorioUser.changed_State(datos.id,datos.state_sesion,'x')
    resp.sendStatus(200)
@@ -58,6 +61,7 @@ router.delete('/Delete_User',(req,resp)=>{
 
 
 
+router.use(controllerPosts)
 
 
 module.exports = router
