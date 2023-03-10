@@ -1,6 +1,8 @@
 
 const getConection = require("./ConfigDataBase");
-const getDateTimeNow = require("./ServiceDateTime")
+const getDateTimeNow = require("./ServiceDateTime");
+
+
 const get_user_Loguin =async(username) => { 
     const conection = await  getConection()
     const result = await conection.execute(`SELECT id_user,id_avatar,username,passwrd from users WHERE username = '${username}'`)

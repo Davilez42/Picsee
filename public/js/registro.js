@@ -9,7 +9,6 @@ const  obtenerDatos=()=>{
     const usuario = document.getElementById('registro-usuario-input').value;
     const correo = document.getElementById('registro-correo-input').value;
     const contraseña = document.getElementById('registro-contraseña-input').value;
-    const dato ="DASDSAD"
     datos_formularo =
     {
         "first_names": nombres!='' ? nombres : alert('Porfavor digite el nombre'),
