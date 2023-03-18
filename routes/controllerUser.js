@@ -4,6 +4,8 @@ const ServiceEncrypted =require('../models/ServiceEncrypted')
 const router = Router()
 const RepositorioUser = require('../models/RepositorioUsers')
 const RepositorioPosts =  require('../models/RepositorioPosts')
+const RepositorioHastags =  require("../models/RepositorioHastags")
+
 const controllerPosts = require('../routes/controllerPosts')
 
 
@@ -42,10 +44,30 @@ router.post('/registro',async (req,resp)=>{
 router.use(static('./storage/FotosPerfil'))//mainmidler:una vez este logueadio o inicia sesion; tiene acceso a la foto de perfil
 
 router.get('/HomPage', async(req,resp)=>{
-  const imag = await RepositorioPosts.getPosts();
-    imagenes =  {"imagenes":imag}
-    resp.render('homePage',imagenes)
+   const hastags =  await RepositorioHastags.getHastags();
+   console.log(req.query["i_dh"])
+  
+ if(req.query["i_dh"]!=undefined){
+      console.log(req.query.i_dh)
+      const posts = await RepositorioPosts.getPostsByhastag(req.query.i_dh);
+      resp.render('homePage',{
+      "imagenes":posts,
+      "hastags":hastags
+    })
+   }
+ 
+
+   
+   const posts = await RepositorioPosts.getPosts();
+    resp.render('homePage',{
+      "imagenes":posts,
+      "hastags":hastags
+    })
  })
+
+
+
+
 
 router.put('/state_sesion/',(req,resp)=>{
    const datos = req.query
