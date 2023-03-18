@@ -32,6 +32,7 @@ Entity Images{
 
 Entity hastags  {
     * Id_hastag Integer <<PK>>
+    * used Integer 
     * name varchar(10) UNIQUE
 
     --
