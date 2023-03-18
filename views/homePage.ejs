@@ -12,7 +12,7 @@
 <body>
     <header id="barra_navegacion">
         <a class="nombreApp" href=""
-          ><div><p>InstaChat</p></div></a
+          ><div><p>PicMont</p></div></a
         >
         <div class="menu">
           <nav>
@@ -44,17 +44,12 @@
         <div id="contenedor_etiquetas_hastags">
             <div id="contenedor_hastags">
                 <h4>Hastags</h4>
-                <a href="">#Amor</a>
-                <a href="">#Cultura</a>  
-                <a href="">#MusicaLover</a>  
-                <a href="">#Nocher</a>  
-                <a href="">#Dark</a>  
-                <a href="">#Dance</a>  
-                <a href="">#Dolor</a>
-                 <a href="">#Nocher</a>  
-                <a href="">#Dark</a>  
-                <a href="">#Dance</a>  
-                <a href="">#Dolor</a>       
+                <% let m = hastags.length %>
+                <% for(let i = 0;i < m;i++) {%>
+                    <a href="/HomPage?i_dh=<%= hastags[i].id_hastag %>"><%= hastags[i].name %></a>
+                <%}%>   
+                
+      
             </div>
             
         </div>
