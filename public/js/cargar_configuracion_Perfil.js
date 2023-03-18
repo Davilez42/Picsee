@@ -21,7 +21,7 @@ btn_cerrarSesion.addEventListener("click",()=>{
 
 const btn_eliminarCuenta = document.querySelector('#btn_eliminarCuenta')
 btn_eliminarCuenta.addEventListener('click',async ()=>{
- const resp = await fetch(`http://localhost:5000/Delete_User?id_user=${JSON.parse(localStorage.getItem('loggedUser')).id_user}`,{
+ const resp = await fetch(`http://192.168.20.20:5000/Delete_User?id_user=${JSON.parse(localStorage.getItem('loggedUser')).id_user}`,{
     method:'DELETE',
     mode:'cors'
  })

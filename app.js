@@ -3,9 +3,10 @@ const colors = require("colors");
 const cors =require('cors')
 require('ejs')
 const controllerUser = require('./routes/controllerUser')
-
-
 const RepositorioPosts =  require('./models/RepositorioPosts')
+
+
+
 const path =  require('path');
 const { render } = require("ejs");
 const app = express();

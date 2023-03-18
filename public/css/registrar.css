@@ -226,7 +226,7 @@ hr {
         height: 100%;
         padding: 0;
         margin: 0;
-        background-color: #1c1c1c;
+
     }
  
 
@@ -259,7 +259,7 @@ hr {
         width: 100%;
         margin: 0;
         align-content: center;
-
+        
 
     }
 
@@ -267,7 +267,6 @@ hr {
         position: relative;
         margin-left:20%;
         width: 50%;
-        background-color: #1c1c1c;
    
     }
 
@@ -296,7 +295,7 @@ hr {
         margin: auto;
         border-radius: 0px;
 
-        background-color: #ffff;
+       
     }
 
 }
@@ -324,7 +323,7 @@ hr {
         width: 300px;
         font-size: 40px;
 
-
+       
     }
     hr{
         width: 100%;
@@ -368,7 +367,7 @@ hr {
         width: 100%;
         margin: 0;
         padding-left: 2%;
-        background-color: #1c1c1c;
+
    
     }
     main div .form-ingresar-active p,.form-registro p {
