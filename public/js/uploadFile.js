@@ -25,18 +25,15 @@ const uploadFile = async event => {
     }).then((resp)=>{
         if (resp.ok) {
             alert('Momento cargado exitosamente')
+            window.location.href = "/"
             return
         }
         alert('el Momento NO se ha cargado exitosamente')
+        window.location.href = "/"
     }).catch((error)=>{
         alert(error)
     })
 }
-
-
-
-
-
 
 document.querySelector('#archivo').addEventListener('change',event=>{
     document.querySelector('#send').addEventListener('click',()=>{

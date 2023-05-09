@@ -16,6 +16,10 @@ class FileController{
 
                 })
 
+        }).catch((error)=>{
+            res.sendStatus(400).json({
+                "error":error
+            })
         })
     }
 }
