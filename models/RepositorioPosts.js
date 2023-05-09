@@ -47,9 +47,12 @@ const setLikePost = async (id_post, id_user) => {
 
 const setPost = async(id_user,name_file,tags,visible)=>{
   const conection = await getConection();
-  const id_image = await RepositorioImages.setImage(name_file)
+  const id_image = await RepositorioImages.setImage(name_file);
   //TODO
-  //conection.execute('')
+  console.log(getDateTimeNow.getDateTimeNow())
+  return conection.execute(`Insert into posts (id_image,id_user,likes,upload_date,visibe)
+  VALUES (${id_image},${id_user},${0},"${getDateTimeNow.getDateTimeNow()}",${visible})
+  `).then(()=>id_image)
 }
 
 module.exports = {

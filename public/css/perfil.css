@@ -118,7 +118,7 @@ body {
     margin-right: 5px;
 }
 
-#contenedor_galeria_perfil {
+#contenedor_galeria_perfil , #contenedor_subirmomento{
 
     display: inline-block;
     position: absolute;
@@ -130,9 +130,17 @@ body {
     margin: auto;
     border-radius: 20px;
     margin-top: 140px;
-    width: 60%;
+    width: 90%;
     height: 600px;
     overflow: auto ;
+}
+
+#contenedor_subirmomento{
+    color: #000000;
+    background-color: #dedede;
+}
+#contenedor_subirmomento input{
+    color: #000000;
 }
 
 #contenedor_galeria_perfil::-webkit-scrollbar {
