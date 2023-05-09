@@ -5,25 +5,37 @@ const router = Router()
 const RepositorioUser = require('../models/RepositorioUsers')
 const RepositorioPosts =  require('../models/RepositorioPosts')
 const RepositorioHastags =  require("../models/RepositorioHastags")
-
+const RepositorioImages = require('../models/RepositorioImages')
+const FileController = require('./FileController')
 const controllerPosts = require('../routes/controllerPosts')
-
+const ServiceWebAccessToken = require('../models/ServiceWebAccessToken')
+const fileController = new FileController();
 
 router.post('/login',async(req,resp)=>{  
    const user_bd = await RepositorioUser.get_user_Loguin(req.body.username)
    if(user_bd!=null){
          if (ServiceEncrypted.comparePassword(user_bd.passwrd,req.body.password)){
-            return resp.json({
+            const data = {
+               "id_user":user_bd.id_user,
+               "id_avatar":user_bd.id_avatar,
+               "username":user_bd.username,
+               "password":true};
+            const access_token = ServiceWebAccessToken.generateAccessToken({"id_user":data.id_user,
+                                                                              "username":user_bd.username})
+
+            return resp.header('auth',access_token).json({
                               "id_user":user_bd.id_user,
                               "id_avatar":user_bd.id_avatar,
                               "username":user_bd.username,
-                              "password":true})
+                              "password":true,
+                              "token":access_token})
          }
          return resp.json({"password":false})
    }
     return resp.sendStatus(404)
  })
  
+ ///JSON WEB TOKEN 
 
 
 
@@ -33,38 +45,31 @@ router.post('/registro',async (req,resp)=>{
       if(typeof respuesta != "object"){ 
             return resp.status(418).json({"valFail":respuesta})
          }
+         const access_token = ServiceWebAccessToken.generateAccessToken({"username":req.body.username,
+                                                                              "password":req.body.password})
+
       return resp.json({
          "id_user":  respuesta[0][0].id_user,
          "id_avatar":'default_avatar.png',
          "username":req.body.username,
-         "password":true})
+         "password":true,
+      "token":access_token})
  })
  
 
 router.use(static('./storage/FotosPerfil'))//mainmidler:una vez este logueadio o inicia sesion; tiene acceso a la foto de perfil
 
-router.get('/HomPage', async(req,resp)=>{
+
+
+
+
+router.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{
    const hastags =  await RepositorioHastags.getHastags();
-   console.log(req.query["i_dh"])
-  
- if(req.query["i_dh"]!=undefined){
-      console.log(req.query.i_dh)
-      const posts = await RepositorioPosts.getPostsByhastag(req.query.i_dh);
-      resp.render('homePage',{
-      "imagenes":posts,
-      "hastags":hastags
-    })
-   }
-
-   
- 
-
-   
    const posts = await RepositorioPosts.getPosts();
-    resp.render('homePage',{
+   resp.render('homePage',{
       "imagenes":posts,
       "hastags":hastags
-    })
+    })   
  })
 
 
@@ -77,9 +82,14 @@ router.patch('/state_sesion/',(req,resp)=>{
    resp.sendStatus(200)
 })
 
-router.delete('/Delete_User',(req,resp)=>{
-   RepositorioUser.delet_user(req.query)
-   return resp.sendStatus(200)
+router.delete('/Delete_User',ServiceWebAccessToken.validateToken, async(req,resp)=>{
+  const id = req.query.id_user
+   const imagenes_eliminar = await  RepositorioImages.deleteImages(id);
+   fileController.deleteFiles(imagenes_eliminar).then(()=>{
+      RepositorioUser.delet_user(req.query).then(()=>{resp.sendStatus(200)})
+   })
+   .catch(()=>{resp.sendStatus(400)})
+   
 })
 
 

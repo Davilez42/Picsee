@@ -31,8 +31,8 @@ const insert_user =async(user)=>{
 }
 
 const delet_user= async(user)=>{
-    const conection = await getConection()
-    conection.execute(`DELETE from users where id_user = ${user.id_user}`)
+    const conection = await getConection();
+    return  conection.execute(`DELETE from users where id_user = ${user.id_user}`)   
 }
 
 

@@ -15,4 +15,12 @@ const setImage = async(name_file)=>{
     
   }
 
-module.exports = {setImage};
+const deleteImages= async(user)=>{
+const conection = await getConection();
+return conection.execute(`Select  concat( i.id_image,"_",i.name,".", i.format_)  AS f_name 
+                      from posts p
+                      join images i on p.id_image = i.id_image
+                      where p.id_user = ${user}`).then(data=>data[0]);
+}  
+
+module.exports = {setImage,deleteImages};
