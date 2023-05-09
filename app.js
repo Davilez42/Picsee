@@ -13,7 +13,7 @@ const app = express();
 
 app.use((req,res,next)=>{//LOGGER
    console.log(` IP: ${req.ip.green} :METHOD ${req.method}  url ${req.url}   Status: ${res.statusCode}`.blue)
-   next()
+   next()//Continua con la ruta
 })
 
 app.use(cors())
@@ -21,7 +21,7 @@ app.use(cors())
 //SETTINGS
 app.use(express.urlencoded({ extended: true }) );
 app.use( express.json() );
-app.set('views',path.join(__dirname,'views'))
+app.set('views',path.join(__dirname,'views'))//especifico el motor de vistas
 app.set('view engine','ejs')
 app.use(express.static('./storage/GaleriaImagenes'))//mainmidler 
 app.use(express.static('./public'))//mainmidler 

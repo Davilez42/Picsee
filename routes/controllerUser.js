@@ -55,6 +55,8 @@ router.get('/HomPage', async(req,resp)=>{
       "hastags":hastags
     })
    }
+
+   
  
 
    
@@ -69,7 +71,7 @@ router.get('/HomPage', async(req,resp)=>{
 
 
 
-router.put('/state_sesion/',(req,resp)=>{
+router.patch('/state_sesion/',(req,resp)=>{
    const datos = req.query
    RepositorioUser.changed_State(datos.id,datos.state_sesion,'x')
    resp.sendStatus(200)

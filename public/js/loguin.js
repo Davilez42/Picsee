@@ -6,7 +6,7 @@ btn_login.addEventListener("click", (e) => {
   
   e.preventDefault();
   if (username == "") {
-    alert("Porfavor un nombre de usuario");
+    alert("Porfavor digite un nombre de usuario");
     return;
   }
   if (password == "") {
@@ -26,7 +26,7 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("http://192.168.20.20:5000/login", datos)
+   fetch("http://localhost:5000/login", datos)
     .then((respuesta) => {
       
       if (respuesta.ok) {
