@@ -1,6 +1,6 @@
 const getConection = require("./ConfigDataBase");
 const getDateTimeNow = require("./ServiceDateTime");
-
+const RepositorioImages = require("./RepositorioImages")
 const getPosts_Relevant = async () => {
   const conection = await getConection();
   const posts =
@@ -44,9 +44,18 @@ const setLikePost = async (id_post, id_user) => {
     });
 };
 
+
+const setPost = async(id_user,name_file,tags,visible)=>{
+  const conection = await getConection();
+  const id_image = await RepositorioImages.setImage(name_file)
+  //TODO
+  //conection.execute('')
+}
+
 module.exports = {
   getPosts_Relevant,
   getPosts,
   setLikePost,
-  getPostsByhastag
+  getPostsByhastag,
+  setPost
 };
