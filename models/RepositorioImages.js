@@ -3,10 +3,14 @@ const getConection = require("./ConfigDataBase");
 
 const setImage = async(name_file)=>{
     const conection = await getConection();
-    const file_name = name_file.split('.')[0]
-    const exten = name_file.split('.')[1]
+    let file_name = name_file.split('.')
+    const exten = file_name.pop()
+    file_name = file_name.join(".")
+    console.log(file_name)
+
+   
     return  conection.execute(`Insert into artgalery.images (name,format_) VALUES("${file_name}","${exten}")`)
-    .then(()=>{
+    .then(async()=>{
      return conection.execute(`Select id_image from images where name="${file_name}"`).then(date=> date[0][0].id_image)
           .catch((error)=>{
         return error;
