@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="./css/home_.css" type="text/css" />
+    <link rel="stylesheet" href="./css/registrar.css" type="text/css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Inicio</title>
+  </head>
+  <body>
+    <header id="barra_navegacion">
+      <a class="nombreApp" href="/"
+        ><div><p>PicMont</p></div></a
+      >
+      <div class="menu">
+        <nav>
+          <ul>
+            <li><a onclick="mostrar_formulario_Registro()">Registrarme</a></li>
+            <li><a href="">Ayuda</a></li>
+            <li><a href="">Servicio al Cliente</a></li>
+            <li><a href="">Acerca de nosotros</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="contenedor">
+      <div class="contenedor_ingresar">
+        <form id="formulario_ingreso" style="" class="form-ingresar-active">
+          <h2>Inicia Sesion</h2>
+
+          <hr />
+
+          <input
+            id="login-username-input"
+            class="form_Input-usuario"
+            type="text"
+            placeholder="@Username"
+          />
+          <input
+            id="login-password-input"
+            class="form_Input-contraseña"
+            type="password"
+            placeholder="Contraseña minimo 8 caracteres"
+          />
+          <div id="contenedor_error"></div>
+          <input
+            class="form_Input-boton_registrar"
+            type="button"
+            id="btn"
+            value="Iniciar Sesion"
+          />
+
+          <hr />
+          <p>
+            No tienes una cuenta?
+            <b
+              ><a onclick="mostrar_formulario_Registro()">Registrate aqui</a></b
+            >
+          </p>
+        </form>
+
+        <form
+          id="formulario_registro"
+          style="display: none"
+          class="form-registro"
+        >
+          <h2>Registro</h2>
+          <hr />
+          <input
+            id="registro-nombres-input"
+            class="form_registro_Input-nombres"
+            type="text"
+            placeholder="Nombres"
+          />
+
+          <input
+            id="registro-apellidos-input"
+            class="form_registro_Input-apellidos"
+            type="text"
+            placeholder="apellidos"
+          />
+
+          <input
+            id="registro-usuario-input"
+            class="form_registro_Input-usuario"
+            type="text"
+            placeholder="@Username"
+          />
+          <input
+            id="registro-correo-input"
+            class="form_registro_Input-correo"
+            type="email"
+            placeholder="@correo"
+          />
+          <input
+            id="registro-contraseña-input"
+            class="form_registrp_Input-contraseña"
+            type="password"
+            placeholder="Contraseña minimo 8 caracteres"
+          />
+          <input
+            id="btn_registro"
+            class="form_registro_Input-boton_registrar"
+            type="button"
+            value="Registrarse"
+          />
+          <hr />
+          <p>
+            Ya tienes una cuenta?
+            <b
+              ><a onclick="mostrar_formulario_Registro()" href="/"
+                >Inicia aqui</a
+              ></b
+            >
+          </p>
+        </form>
+      </div>
+      <div class="contenedor-imagenes">
+      </div>
+
+    </main>
+
+    <footer>
+      <p>Develop by David Suarez</p>
+    </footer>
+    <script src="./js/cargarSesion.js"></script>
+    <script src="./js/cargarPostsRelevants.js"></script>
+    <script src="./js/registro.js"></script>
+    <script src="./js/iinteracion_registrar.js"></script>
+    <script src="./js/loguin.js"></script>
+  </body>
+</html>

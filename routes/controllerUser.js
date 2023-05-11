@@ -57,22 +57,6 @@ router.post('/registro',async (req,resp)=>{
  })
  
 
-router.use(static('./storage/FotosPerfil'))//mainmidler:una vez este logueadio o inicia sesion; tiene acceso a la foto de perfil
-
-
-
-
-
-router.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{
-   const hastags =  await RepositorioHastags.getHastags();
-   const posts = await RepositorioPosts.getPosts();
-   resp.render('homePage',{
-      "imagenes":posts,
-      "hastags":hastags
-    })   
- })
-
-
 
 
 
@@ -84,18 +68,14 @@ router.patch('/state_sesion/',(req,resp)=>{
 
 router.delete('/Delete_User',ServiceWebAccessToken.validateToken, async(req,resp)=>{
   const id = req.query.id_user
-   const imagenes_eliminar = await  RepositorioImages.deleteImages(id);
+   const imagenes_eliminar = await  RepositorioImages.getImagesById(id);
    fileController.deleteFiles(imagenes_eliminar).then(()=>{
-      RepositorioUser.delet_user(req.query).then(()=>{resp.sendStatus(200)})
+      RepositorioUser.delet_user(req.query).then(()=>{       
+         RepositorioImages.deleteImages(imagenes_eliminar).then(()=>{resp.sendStatus(200)})
+      })     
    })
-   .catch(()=>{resp.sendStatus(400)})
-   
+   .catch(()=>{resp.sendStatus(400)})  
 })
 
-
-
-
 router.use(controllerPosts)
-
-
 module.exports = router

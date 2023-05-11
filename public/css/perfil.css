@@ -20,6 +20,23 @@ body {
 }
 
 
+.opciones_imagenes{
+
+}
+
+
+.box_like{
+
+   display: inline-block;
+
+    width: 30px;
+    margin-left: 5px;
+    margin: 5px;
+}
+
+.boton_like{
+    display: inline-block;
+}
 
 
 #icono_perfil img {
@@ -159,16 +176,14 @@ body {
 }
 
 .opciones_imagenes ul{
-    float: left;
     display: inline-block;
     color: aliceblue;
-    margin: 10px;
-    margin-left: 10%;
+    margin-left: 5%;
+    margin-top: 10px;
     margin-right: 5px;
 }
-.opciones_imagenes a{
-   display: inline-block;
-   width: 100%;
+.opciones_imagenes input{
+    float: left;
 }
 
 .icono_opciones{
