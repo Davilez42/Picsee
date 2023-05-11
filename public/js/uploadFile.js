@@ -16,11 +16,13 @@ const uploadFile = async event => {
     const form = new FormData()
     form.append("archivo",archivo[0])
     
-    const id_user = JSON.parse(localStorage.getItem('loggedUser')).id_user 
+    const id_user = JSON.parse(localStorage.getItem('loggedUser')).id_user
+    const token = JSON.parse(localStorage.getItem('loggedUser')).token  
     
     fetch(`http://localhost:5000/uploadFile/${id_user}`,{
         method:"POST",
         mode: "cors",
+        headers:{"auth":token},
         body:form
     }).then((resp)=>{
         if (resp.ok) {
@@ -36,8 +38,7 @@ const uploadFile = async event => {
 }
 
 document.querySelector('#archivo').addEventListener('change',event=>{
-    document.querySelector('#send').addEventListener('click',()=>{
-    
+    document.querySelector('#send').addEventListener('click',()=>{   
         uploadFile(event)
     })
 })
