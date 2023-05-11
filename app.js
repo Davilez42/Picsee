@@ -2,13 +2,11 @@ const express = require("express");
 const colors = require("colors");
 const cors =require('cors')
 const controllerUser = require('./routes/controllerUser')
-const RepositorioPosts =  require('./models/RepositorioPosts')
-
-
-
+const ServiceWebAccessToken = require('./models/ServiceWebAccessToken')
 const path =  require('path');
 const { render } = require("ejs");
 const app = express();
+
 
 
 app.use((req,res,next)=>{//LOGGER
@@ -25,17 +23,18 @@ app.set('views',path.join(__dirname,'views'))//especifico el motor de vistas
 app.set('view engine','ejs')
 app.use(express.static('./storage/GaleriaImagenes'))//mainmidler 
 app.use(express.static('./public'))//mainmidler 
-
+app.use(express.static('./storage/FotosPerfil'))/
 
 //RUTA PRINCIPAL
 app.get('/',async(req,resp) =>{
-    //TODO se consulta las imagenes mas virales de los ultimo dia 
-   const imag = await  RepositorioPosts.getPosts_Relevant()
-    imagenes =  {"imagenes_":imag}
-    resp.render('index',imagenes)
+    resp.sendFile('./public/inicio.html',{root:__dirname})
 })  
 
 
+app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{   
+    resp.status(200).sendFile('./public/homPage.html',{root:__dirname})
+  })
+ 
 
 app.use(controllerUser)
 
