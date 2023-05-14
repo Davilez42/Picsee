@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/home_.css">
+    <link rel="stylesheet" href=".../public/css/normalize.css">
+    <link rel="stylesheet" href="../public/css/perfil.css">
+    <title>home</title>
+</head>
+<body>
+    <header id="barra_navegacion">
+        <a class="nombreApp" href=""
+          ><div><p>PicMont</p></div></a
+        >
+        <div class="menu">
+          <nav>
+            <ul>
+              <li><a href="" >Inicio</a></li>
+              <li><a id="btn_subirMomento" >Subir momento</a></li>
+              <li><a id="btn_cerrarSesion" >Cerrar Sesion</a></li>
+              <li><a id="btn_eliminarCuenta" >Eliminar Cuenta</a></li>
+            </ul>
+          </nav>
+         
+        </div>
+        <form id="formulario_busqueda"> <input id="barra_busqueda" type="search" name="" id="" placeholder="busca algo"></form>
+        <a class="contenedor_icon_search" href=""><img src="./icons/search_icon_white.png" alt=""></a>
+        
+        
+        
+        <div id="icono_perfil">          
+            <img id="avatar" src="" alt="">
+        </div>
+        <div id="icono_imbox">
+            <a class="contenedor_icon_imbox" href=""><img id="imbox_icon" src="./icons/icono_imbox.png" alt=""></a>
+        </div>
+
+      </header>
+      <div id="contenedor_etiquetas_hastags">
+        <div id="contenedor_hastags">
+            <h4>Hastags</h4>
+            <% let m = hastags.length %>
+            <% for(let i = 0;i < m;i++) {%>
+                <a href="/HomPage?i_dh=<%= hastags[i].id_hastag %>"><%= hastags[i].name %></a>
+            <%}%>   
+            
+  
+        </div>
+        
+    </div>
+
+      <main >
+
+       <div id="contenedor_subirmomento" style="display: none;">
+        <h1>Estamos trabajando para mejorar esta funcionalidad! :D </h1>
+        <form>
+            <input id="archivo" type="file" required  placeholder="Carga tu imagen aqui">
+        </form>
+        <input type="submit" id="send" value="SubirImagen">
+       </div>
+
+        
+
+        <div id="contenedor_galeria_perfil" >
+            <div class="row_galeria_perfil">
+
+                <div class="column_galeria_perfil">
+                      
+       
+                                    <div class="contenedor_imagen">
+                                    <img class="imagen_galeria" src="<%= imagenes[j].f_name %>" alt="" />
+                                    <div>
+                                        <li class="opciones_imagenes">
+                                            <ul><a id="<%= imagenes[j].id_post %>"  class="boton_like"> <img class="icono_opciones" src="./icons/corazon_like_desactivado.png" > <%= imagenes[j].likes %></a></ul>
+                                            <!-- <ul><a id="<%= imagenes[j] %>" class="boton_compartir"><img class="icono_opciones" src="/./icons/icono_compartir.png" ></a></ul> -->
+                                            <!-- <ul><a id="<%= imagenes[j] %>" class="boton_comentar"><img class="icono_opciones" src="/./icons/icono_comentario.png" ></a></ul> -->
+                                        </li>
+                                    </div>
+                                </div>
+              
+                </div>
+                          
+            </div>
+
+        </div>
+      
+      </main>
+    
+</body>
+</html>
