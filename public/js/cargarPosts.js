@@ -1,64 +1,88 @@
 const cargarPosts =async (query)=>{
     const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
     const id_user = JSON.parse(window.localStorage.getItem('loggedUser')).id_user
-    const respuesta = await fetch(`http://localhost:5000/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
+    const respuesta = await fetch(`http://192.168.1.7:5000/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
     if (respuesta.ok) {
         const datos =  await respuesta.json()    
         const tamaño = datos["imagenes_"].length
-        let j = 0
-        const row = document.querySelector(".row_galeria_perfil")
-        row.innerHTML = ""
+        const contenedor_galeria_perfil = document.querySelector("#contenedor_galeria_perfil")
+       contenedor_galeria_perfil.innerHTML = ""
+      
+        const fragmento = document.createDocumentFragment()
 
-        for (let index = 0; index <4; index++) {          
-            const column_galeria = document.createElement("DIV")
-            column_galeria.classList.add("column_galeria_perfil")          
-            for (let k = 0;k<6;k++) {
-                if(j<tamaño){   
-                    let column = document.createElement("DIV")
-                     column.classList.add("contenedor_imagen")     
+        let column_posts = document.createElement('DIV')
+        column_posts.classList.add('column-posts')
 
-                    const imagen = document.createElement('IMG')
-                    imagen.setAttribute('src',datos["imagenes_"][j].f_name)
-                    imagen.classList.add('imagen_galeria')
-                    column.appendChild(imagen)
 
-                    const div = document.createElement("DIV")
-                    const li = document.createElement("LI")
-                    li.classList.add('opciones_imagenes')
-                    const ul =  document.createElement("UL")
-                    const a = document.createElement("DIV")
-                    a.setAttribute("id",datos["imagenes_"][j].id_post)
-                    a.classList.add("boton_like")
-                    
-                    const icon = document.createElement("IMG")
-                    icon.classList.add('icono_opciones')
-                    icon.setAttribute("id_post",datos["imagenes_"][j].id_post)
-                    icon.setAttribute("liked",datos["imagenes_"][j].liked)
-                    const icon_png = (datos["imagenes_"][j].liked==0)? './icons/corazon_like_desactivado.png' :'./icons/corazon.png'  
-                    icon.setAttribute('src',icon_png)
-                    
+        let top = 1
+        console.log(tamaño)
+        const limite_por_columna = parseInt(tamaño/3) 
+        console.log(limite_por_columna)
+        let columna_actual = 0
+        console.log(datos)
+        for (let index = 0; index <tamaño; index++) { 
+                    if (columna_actual==3) {
+                        break;
+                    }
+                            
+                            let contenedor_post = document.createElement("DIV")
+                            contenedor_post.classList.add("contenedor_post")
+                            
+                            let contenedor_imagen = document.createElement("DIV")
+                            contenedor_imagen.classList.add("contenedor_imagen")  
 
-                    a.appendChild(icon)
+                            const imagen = document.createElement('IMG')
+                            imagen.setAttribute('src',datos["imagenes_"][index].f_name)
+                            imagen.classList.add('imagen_galeria')
 
-                    const div_likes = document.createElement("DIV")
-                    div_likes.setAttribute('idhl_post',datos["imagenes_"][j].id_post)
-                    div_likes.classList.add('box_like')
-                    div_likes.appendChild(document.createTextNode(datos["imagenes_"][j].likes))
-                  
+                            contenedor_imagen.appendChild(imagen)
 
-                    ul.appendChild(a)
-                    ul.appendChild(div_likes)
-                    li.appendChild(ul)
-                    div.appendChild(li)
-                    column.appendChild(div)
-                    column_galeria.appendChild(column)
-                j++;
-             }
-            }          
-            row.appendChild(column_galeria)   
+                            contenedor_post.appendChild(contenedor_imagen)
+
+                            const div = document.createElement("DIV")
+                            div.classList.add('contenedor-opciones')
+                            const li = document.createElement("LI")
+                            li.classList.add('opciones_imagenes')
+                            const ul =  document.createElement("UL")
+                            const a = document.createElement("DIV")
+                            a.setAttribute("id",datos["imagenes_"][index].id_post)
+                            a.classList.add("boton_like")
+                            
+                            const icon = document.createElement("IMG")
+                            icon.classList.add('icono_opciones')
+                            icon.setAttribute("id_post",datos["imagenes_"][index].id_post)
+                            icon.setAttribute("liked",datos["imagenes_"][index].liked)
+                            const icon_png = (datos["imagenes_"][index].liked==0)? './icons/corazon_like_desactivado.png' :'./icons/corazon.png'  
+                            icon.setAttribute('src',icon_png)
+                            
+
+                            a.appendChild(icon)
+
+                            const div_likes = document.createElement("DIV")
+                            div_likes.setAttribute('idhl_post',datos["imagenes_"][index].id_post)
+                            div_likes.classList.add('box_like')
+                            div_likes.appendChild(document.createTextNode(datos["imagenes_"][index].likes))
+
+                            li.appendChild(a)
+                            li.appendChild(div_likes)
+                            ul.appendChild(li)
+                            div.appendChild(ul)
+                            contenedor_post.appendChild(div)                                             
+                            column_posts.appendChild(contenedor_post)
+          
+                    if(top ==limite_por_columna){
+                        top=1
+                        fragmento.appendChild(column_posts)
+                        column_posts = document.createElement("DIV")
+                        column_posts.classList.add('column-posts')
+                        console.log(index,"crea Columna")
+                        columna_actual++;
+                        continue
+                    }
+                    top++;
         }
-        
-
+            
+        contenedor_galeria_perfil.appendChild(fragmento)
     }
 }
 
@@ -86,7 +110,7 @@ const iteraccion_like = async (event)=>{
     const component = event.target
         const id_user = JSON.parse(window.localStorage.getItem('loggedUser')).id_user
         const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
-        const respuesta = await fetch(`http://localhost:5000/lkd/post/${component.getAttribute("id_post")}/liked/user/${id_user}`,{method:"PATCH",headers:{"auth":token}})      
+        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${component.getAttribute("id_post")}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})      
         if(respuesta.ok){
                 component.setAttribute("liked","1")
                 
