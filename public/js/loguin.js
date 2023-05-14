@@ -26,7 +26,7 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("http://localhost:5000/login", datos)
+   fetch("http://192.168.1.7:5000/login", datos)
     .then((respuesta) => {
       
       if (respuesta.ok) {

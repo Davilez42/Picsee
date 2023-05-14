@@ -5,6 +5,7 @@ const controllerUser = require('./routes/controllerUser')
 const ServiceWebAccessToken = require('./models/ServiceWebAccessToken')
 const path =  require('path');
 const { render } = require("ejs");
+const { hostname } = require("os");
 const app = express();
 
 
@@ -34,11 +35,9 @@ app.get('/',async(req,resp) =>{
 app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{   
     resp.status(200).sendFile('./public/homPage.html',{root:__dirname})
   })
- 
-
 app.use(controllerUser)
+app.use(cors())
 
+app.listen(5000,'192.168.1.7');
 
-
-app.listen(5000);
 console.log("server on port:5000".green);
