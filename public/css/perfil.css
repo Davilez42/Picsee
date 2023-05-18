@@ -225,7 +225,8 @@ ul .opciones_imagenes {
     border-radius: 5px;
     background: #0000000a;
     backdrop-filter: blur(0.10rem);
-    transition: 0.5s;
+    transition: 0.9s;
+   
 }
 
 .contenedor_post:active{
@@ -237,6 +238,16 @@ ul .opciones_imagenes {
     -webkit-transform:scale(1.1);transform:scale(1.1);
    
 }
+.boton_like:active #contenedor_galeria_perfil{
+    filter: blur(0);
+}
+#contenedor_galeria_perfil:active .contenedor_post {
+   filter: blur(4px);
+}
+#contenedor_galeria_perfil .contenedor_post:active {
+    filter: blur(0);
+ }
+
 main{
    overflow: visible;
 }
