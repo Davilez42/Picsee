@@ -9,7 +9,10 @@ const RepositorioImages = require('../models/RepositorioImages')
 const FileController = require('./FileController')
 const controllerPosts = require('../routes/controllerPosts')
 const ServiceWebAccessToken = require('../models/ServiceWebAccessToken')
+const fileupload = require('express-fileupload');
 const fileController = new FileController();
+router.use(fileupload())
+
 
 router.post('/login',async(req,resp)=>{  
    const user_bd = await RepositorioUser.get_user_Loguin(req.body.username)
@@ -41,19 +44,25 @@ router.post('/login',async(req,resp)=>{
 
 router.post('/registro',async (req,resp)=>{
     console.log(req.body)
-      const respuesta = await RepositorioUser.insert_user(req.body)      
-      if(typeof respuesta != "object"){ 
-            return resp.status(418).json({"valFail":respuesta})
-         }
+            
+  
+
+      try {
+         const respuesta = await RepositorioUser.insert_user(req.body)
          const access_token = ServiceWebAccessToken.generateAccessToken({"username":req.body.username,
                                                                               "password":req.body.password})
-
       return resp.json({
-         "id_user":  respuesta[0][0].id_user,
+         "id_user":  respuesta,
          "id_avatar":'default_avatar.png',
          "username":req.body.username,
          "password":true,
       "token":access_token})
+            
+      } catch (rason) {
+            const r = rason.sqlMessage.split(' ').pop().slice(1,-1)
+            return resp.status(418).json({"valFail":r})
+      }
+         
  })
  
 
@@ -67,15 +76,32 @@ router.patch('/state_sesion/',(req,resp)=>{
 })
 
 router.delete('/Delete_User',ServiceWebAccessToken.validateToken, async(req,resp)=>{
-  const id = req.query.id_user
-   const imagenes_eliminar = await  RepositorioImages.getImagesById(id);
-   fileController.deleteFiles(imagenes_eliminar).then(()=>{
-      RepositorioUser.delet_user(req.query).then(()=>{       
-         RepositorioImages.deleteImages(imagenes_eliminar).then(()=>{resp.sendStatus(200)})
-      })     
-   })
-   .catch(()=>{resp.sendStatus(400)})  
+  const id = req.query.id_user;
+  const id_avatar = req.query.id_avatar;
+  //console.log(id_avatar,"IDE EXISTENTE")
+   try {
+      const imagenes_eliminar = await  RepositorioImages.getImagesById(id);
+      await RepositorioUser.delet_user(req.query);
+      await RepositorioImages.deleteImages(imagenes_eliminar);  
+      await  fileController.deleteFiles(imagenes_eliminar,'GaleriaImagenes');
+      if (id_avatar!="default_avatar.png") {
+         await  fileController.deleteFiles([{"f_name":id_avatar}],'FotosPerfil');   
+      }
+      
+      
+    
+    resp.sendStatus(200)
+
+   } catch (error) {
+      resp.status(400).json({"error":error})
+   }
+
+
 })
+
+
+router.patch('/changedAvatar/:id_user',ServiceWebAccessToken.validateToken,fileController.saveAvatar)
+
 
 router.use(controllerPosts)
 module.exports = router
