@@ -11,6 +11,7 @@ const setHastags = async (hastags)=>{
     let hastags_bd = await getHastags()
     hastags_bd = hastags_bd.map(d=>d.name)
     //console.log(hastags_bd)   
+    
     let values = [] 
     for(n of hastags){
         if(!hastags_bd.includes(n)){
