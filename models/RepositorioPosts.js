@@ -1,6 +1,7 @@
 const getConection = require("./ConfigDataBase");
 const getDateTimeNow = require("./ServiceDateTime");
 const RepositorioImages = require("./RepositorioImages")
+const RepositorioHastags = require("./RepositorioHastags")
 const getPosts_Relevant = async () => {
   const conection = await getConection();
   const posts =
@@ -72,14 +73,19 @@ const getLikesByIdPost =async (id_post)=>{
   return likes[0][0]
 }
 
-const setPost = async(id_user,name_file,tags,visible)=>{
+const setPost = async(id_user,name_file,hastags,visible)=>{
   const conection = await getConection();
   const id_image = await RepositorioImages.setImage(name_file);
+  const ids_hastags = await RepositorioHastags.setHastags(hastags)
   //TODO
-  console.log(getDateTimeNow.getDateTimeNow())
+  //console.log(getDateTimeNow.getDateTimeNow())
   return conection.execute(`Insert into posts (id_image,id_user,likes,upload_date,visibe)
   VALUES (${id_image},${id_user},${0},"${getDateTimeNow.getDateTimeNow()}",${visible})
-  `).then(()=>id_image)
+  `).then((data)=>{
+    console.log(data)
+  //return RepositorioHastags.setRelationHastags(data[0].insertId).then(()=>id_image)
+return id_image  
+})
 }
 
 module.exports = {

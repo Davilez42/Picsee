@@ -5,9 +5,12 @@ class FileController{
     uploadFile = async (req,res,nexy)=>{
         const id_user = req.params.id_user
         const archivo =  req.files.archivo;
+        const hastags = req.headers.hastags.split(',')
+        console.log(hastags)
+
         const name_file = archivo.name;
 
-        RepositorioPost.setPost(id_user,name_file,'Amor',1).then((id_image)=>{
+        RepositorioPost.setPost(id_user,name_file,hastags,1).then((id_image)=>{
                const ruta_upload =  __dirname + "/../storage/GaleriaImagenes/" + id_image+"_"+name_file
                 archivo.mv(ruta_upload,(error)=>{
                     if (error){
