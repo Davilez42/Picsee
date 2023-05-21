@@ -3,11 +3,10 @@ const {Router} =  require('express')
 const RepositorioPosts = require('../models/RepositorioPosts')
 const FileController = require('../routes/FileController')
 const fileController =  new FileController()
-const fileupload = require('express-fileupload');
 const RepositorioHastags =  require("../models/RepositorioHastags")
 const ServiceWebAccessToken = require('../models/ServiceWebAccessToken')
 const router = Router()
-router.use(fileupload())
+
 
 
 

@@ -22,7 +22,7 @@ const btn_eliminarCuenta = document.querySelector('#btn_eliminarCuenta')
 btn_eliminarCuenta.addEventListener('click',async ()=>{
   const user =JSON.parse(localStorage.getItem('loggedUser'))
   if(user!=undefined){
-    const resp = await fetch(`http://192.168.1.7:5000/Delete_User?id_user=${user.id_user}`,{
+    const resp = await fetch(`http://192.168.1.7:5000/Delete_User?id_user=${user.id_user}&id_avatar=${user.id_avatar}`,{
     method:'DELETE',
     mode:'cors',
     headers:{"auth":user.token}
@@ -30,6 +30,9 @@ btn_eliminarCuenta.addEventListener('click',async ()=>{
   if (resp.ok){
     localStorage.removeItem('loggedUser')
     window.location.href = '/'
+  }else{
+    const mensaje = await resp.json()
+    console.log(mensaje.error)
   }
 }else{
   alert("NO SEAS MAMON BORRANDO CUENTAAS AJENAS :D")

@@ -1,50 +1,86 @@
 
 
 document.querySelector("#btn_subirMomento").addEventListener('click',()=>{
-document.getElementById("contenedor_galeria_perfil").style.display = "none";
-document.getElementById("contenedor_etiquetas_hastags").style.display = "none";
-document.getElementById("contenedor_subirmomento").style= "display:relative";
+    document.getElementById("contenedor_galeria_perfil").style.display = "none";
+    document.getElementById("contenedor_etiquetas_hastags").style.display = "none";
+    document.getElementById("contenedor_subirmomento").style= "display:relative";
 })
 
-const uploadFile = async event => {
-    const archivo =  event.target.files;
-    let hastags =  document.getElementById('input_hastags').value
-    hastags = hastags.split(' ').map(h => h.slice(1))   
-    console.log(hastags)
+const uploadFile = async (event,pet,meth) => {
+    const archivo =  event.target.files; 
     const ar = archivo[0]
     if (!["image/png","image/jpeg"].includes(ar.type)){
         alert("Porfavor sube una imagen!")
         return
     }
-    const form = new FormData()
-    form.append("archivo",archivo[0])
+    
 
+   
+
+    const form = new FormData()
     
-    const id_user = JSON.parse(localStorage.getItem('loggedUser')).id_user
-    const token = JSON.parse(localStorage.getItem('loggedUser')).token  
+    form.append("archivo",archivo[0])
+    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    const id_user = user.id_user
+    const token = user.token  
     
-    fetch(`http://192.168.1.7:5000/uploadFile/${id_user}`,{
-        method:"POST",
+
+    let hastags = null;
+     if(pet =='uploadFile'){
+    hastags =  document.getElementById('input_hastags').value
+    hastags = hastags.split(' ').map(h => h.slice(1))
+    }
+
+    const respuesta = await fetch(`http://192.168.1.7:5000/${pet}/${id_user}`,{
+        method:meth,
         mode: "cors",
         headers:{"auth":token,"hastags":hastags},
         body:form
-    }).then((resp)=>{
-        if (resp.ok) {
+    })
+
+    
+    if(pet=='uploadFile'){
+        if (respuesta.ok) {
             alert('Momento cargado exitosamente')
             window.location.href = "/"
             return
         }
         alert('el Momento NO se ha cargado exitosamente')
         window.location.href = "/"
-    }).catch((error)=>{
-        alert(error)
-    })
+        
+    }
+    if(pet=='changedAvatar'){
+        if (respuesta.ok) {
+
+            const resp_img = await respuesta.json();
+            user.id_avatar = resp_img.id_avatar
+            window.localStorage.setItem('loggedUser',JSON.stringify(user))
+            alert('avatar cargado exitosamente')
+            window.location.href = "/"
+            return
+        }
+        alert('el avatar NO se ha cambiado exitosamente')
+        window.location.href = "/"
+        
+    }
+    
 }
 
+
+
+
+
 document.querySelector('#archivo').addEventListener('change',event=>{
-    document.querySelector('#send').addEventListener('click',()=>{   
-        uploadFile(event)
+    document.querySelector('#send_post').addEventListener('click',()=>{   
+        uploadFile(event,'uploadFile','POST')
     })
 })
+
+document.querySelector('#archivo_avatar').addEventListener('change',event=>{
+    document.querySelector('#send_avatar').addEventListener('click',()=>{        
+        uploadFile(event,'changedAvatar','PATCH')
+    })
+})
+
 
 
