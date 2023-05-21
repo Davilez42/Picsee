@@ -76,7 +76,9 @@ const getLikesByIdPost =async (id_post)=>{
 const setPost = async(id_user,name_file,hastags,visible)=>{
   const conection = await getConection();
   const id_image = await RepositorioImages.setImage(name_file);
-  const ids_hastags = await RepositorioHastags.setHastags(hastags)
+  if(hastags!=null){
+  let  ids_hastags = await RepositorioHastags.setHastags(hastags)
+  }
   //TODO
   //console.log(getDateTimeNow.getDateTimeNow())
   return conection.execute(`Insert into posts (id_image,id_user,likes,upload_date,visibe)
@@ -84,7 +86,7 @@ const setPost = async(id_user,name_file,hastags,visible)=>{
   `).then((data)=>{
     console.log(data)
   //return RepositorioHastags.setRelationHastags(data[0].insertId).then(()=>id_image)
-return id_image  
+  return id_image  
 })
 }
 

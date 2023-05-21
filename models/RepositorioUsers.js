@@ -18,16 +18,18 @@ const insert_user =async(user)=>{
         const conection = await getConection()
      return await conection.execute(`Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion,state_sesion) VALUES (?,?,?,?,?,?,?)`,
         [user.username,user.first_names,user.last_names,user.email,user.password,'2023-01-02',1])
-        .then(()=>{
-            return   conection.execute(`SELECT id_user from users WHERE username = '${user.username}' `)
+        .then((data)=>{
+            return   data[0].insertId
            
         })
-        .catch( (rason)=>{
-            console.log("pasa por qui")
-            return  rason.sqlMessage.split(' ').pop().slice(1,-1);
-        })
+      
               
+}
 
+const changed_Avatar = async (id_user,name_image)=>{
+    const conection = await getConection();
+    return  conection.execute(`UPDATE users SET id_avatar = "${name_image}"  WHERE id_user = ${id_user} `)
+    
 }
 
 const delet_user= async(user)=>{
@@ -47,5 +49,6 @@ module.exports = {
     get_user_Loguin,
     insert_user,
     changed_State,
-    delet_user
+    delet_user,
+    changed_Avatar
 }
