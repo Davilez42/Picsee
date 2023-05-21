@@ -7,11 +7,8 @@ const setImage = async(name_file)=>{
     const exten = file_name.pop()
     file_name = file_name.join(".")
     return  conection.execute(`Insert into artgalery.images (name,format_) VALUES("${file_name}","${exten}")`)
-    .then(async()=>{
-     return conection.execute(`Select id_image from images where name="${file_name}"`).then(date=> date[0][0].id_image)
-          .catch((error)=>{
-        return error;
-          })
+    .then(async(data)=>{
+     return data[0].insertId
     })
     
   }
