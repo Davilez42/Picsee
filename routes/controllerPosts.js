@@ -24,7 +24,7 @@ router.get('/Posts/:option',ServiceWebAccessToken.validateToken,async(req,resp)=
 
     if (req.params.option=="filter") {
         const id_hastag = req.query.id_h
-        const posts_currents = await RepositorioPosts.getPostsByhastag(id_hastag)
+        const posts_currents = await RepositorioPosts.getPostsByhastag(req.headers["id"],id_hastag)
         posts = posts_currents;
     }
 

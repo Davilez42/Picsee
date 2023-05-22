@@ -30,7 +30,7 @@ const uploadFile = async (event,pet,meth) => {
     hastags =  document.getElementById('input_hastags').value
     hastags = hastags.split(' ').map(h => h.slice(1))
     }
-
+    console.log("SE OBTIENEN ",hastags)
     const respuesta = await fetch(`http://192.168.1.7:5000/${pet}/${id_user}`,{
         method:meth,
         mode: "cors",

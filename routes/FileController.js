@@ -27,6 +27,7 @@ class FileController{
                 })
 
         }).catch((error)=>{
+            console.error("ERROR DE COPIADO",error)
             res.sendStatus(400)
         })
     }
