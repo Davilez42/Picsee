@@ -70,9 +70,9 @@ const setLikePost = async (id_post, id_user) => {
     .execute(`UPDATE posts set likes = likes ${operacion} 1  where id_post = ${id_post}`)
     .then(async() => {
       if(operacion=="+"){
-     return conection.execute(`Insert into users_post_liked (id_post,id_user) VALUES(${id_post},${id_user})`).then(()=>{
-      return 1
-     })
+          return conection.execute(`Insert into users_post_liked (id_post,id_user) VALUES(${id_post},${id_user})`).then(()=>{
+            return 1
+          })
       }
       else{
         return conection.execute(`DELETE from users_post_liked where id_post=${id_post} and id_user=${id_user}`).then(()=>{
@@ -93,13 +93,10 @@ const setPost = async(id_user,name_file,hastags,visible)=>{
   const conection = await getConection();
   const id_image = await RepositorioImages.setImage(name_file);
   
-  //TODO
-  //console.log(getDateTimeNow.getDateTimeNow())
   return conection.execute(`Insert into posts (id_image,id_user,likes,upload_date,visibe)
   VALUES (${id_image},${id_user},${0},"${getDateTimeNow.getDateTimeNow()}",${visible})
   `).then((data)=>{
     console.log(data)
-
     if(hastags!=null){
       return RepositorioHastags.setHastags(hastags).then(()=>{
            return  RepositorioHastags.setRelationHastags(data[0].insertId,hastags).then(()=>id_image)

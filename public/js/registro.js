@@ -22,7 +22,7 @@ const  obtenerDatos=()=>{
 }
 
 const enviar_registro=async(datos_formularo)=>{
-    const respuesta = await fetch('http://192.168.1.7:5000/registro',{
+    const respuesta = await fetch('http://192.168.1.7:5000/registerUser',{
         method:'POST',
         mode: "cors",
         headers: {
@@ -32,11 +32,16 @@ const enviar_registro=async(datos_formularo)=>{
     })
     if (respuesta.ok) {
         const us = await respuesta.json()
+       if(us['succes']){
         localStorage.setItem("loggedUser",JSON.stringify(us))
         window.location.href="/";
+       }
+       else{
+        alert(`El ${ us['valFail'] } ya esta en uso`)
+        }
     }else{
-        const resp = await respuesta.json()
-        alert(`El ${ resp['valFail'] } ya esta en uso`)
+        const us = await respuesta.json()
+        alert(us['messageError'])
     }
 
 }

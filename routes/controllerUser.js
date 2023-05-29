@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const {static}= require('express')
-const ServiceEncrypted =require('../models/ServiceEncrypted')
+const serviceEncrypted =require('../models/ServiceEncrypted')
 const router = Router()
 const RepositorioUser = require('../models/RepositorioUsers')
 const RepositorioPosts =  require('../models/RepositorioPosts')
@@ -14,65 +14,89 @@ const fileController = new FileController();
 router.use(fileupload())
 
 
-router.post('/login',async(req,resp)=>{  
-   const user_bd = await RepositorioUser.get_user_Loguin(req.body.username)
-   if(user_bd!=null){
-         if (ServiceEncrypted.comparePassword(user_bd.passwrd,req.body.password)){
+router.post('/validateUser',async(req,resp)=>{ 
+   
+   try {
+      const user_bd = await RepositorioUser.get_user_Loguin(req.body.username)
+      if (user_bd.length == 0) {
+         return resp.status(200).json({"username":[false,req.body.username]})
+      }
+      console.log(serviceEncrypted.comparePassword(user_bd[0].passwrd,req.body.password))
+      console.log(user_bd[0].passwrd)
+      console.log(req.body.password)
+      if (serviceEncrypted.comparePassword(user_bd[0].passwrd,req.body.password)){
             const data = {
-               "id_user":user_bd.id_user,
-               "id_avatar":user_bd.id_avatar,
-               "username":user_bd.username,
-               "password":true};
+                  "id_user":user_bd[0].id_user,
+                  "id_avatar":user_bd[0].id_avatar,
+                  "username":[true,user_bd[0].username],
+                  "password":true};
             const access_token = ServiceWebAccessToken.generateAccessToken({"id_user":data.id_user,
-                                                                              "username":user_bd.username})
-
-            return resp.header('auth',access_token).json({
-                              "id_user":user_bd.id_user,
-                              "id_avatar":user_bd.id_avatar,
-                              "username":user_bd.username,
-                              "password":true,
-                              "token":access_token})
-         }
-         return resp.json({"password":false})
+                                                                           "username":user_bd.username})
+            data['token']=access_token
+            return resp.header('auth',access_token).json(data)     
+            }
+         return resp.status(200).json({"username":[true,req.body.username],"password":false})     
+            
+   } catch (rason) {
+      if(rason.code === 'ECONNREFUSED') {
+         return resp.status(400).json({"messageError":"error:No se pudo conectar a la base de datos"})
+      }
+   
+         return resp.status(400).json({"messageError":rason.message})
+         
+      }
+      
    }
-    return resp.sendStatus(404)
- })
+
+ )
  
  ///JSON WEB TOKEN 
 
 
 
-router.post('/registro',async (req,resp)=>{
-    console.log(req.body)
-            
-  
-
+router.post('/registerUser',async (req,resp)=>{
       try {
          const respuesta = await RepositorioUser.insert_user(req.body)
          const access_token = ServiceWebAccessToken.generateAccessToken({"username":req.body.username,
                                                                               "password":req.body.password})
-      return resp.json({
-         "id_user":  respuesta,
-         "id_avatar":'default_avatar.png',
-         "username":req.body.username,
-         "password":true,
-      "token":access_token})
+         return resp.status(200).json({
+            "succes":true,
+            "id_user": respuesta,
+            "id_avatar":'default_avatar.png',
+            "username":[true,req.body.username],
+            "password":true,
+            "token":access_token})
             
       } catch (rason) {
-            const r = rason.sqlMessage.split(' ').pop().slice(1,-1)
-            return resp.status(418).json({"valFail":r})
+            if(rason.code === 'ER_DUP_ENTRY'){
+               const r = rason.sqlMessage.split(' ').pop().slice(1,-1)
+               return resp.status(200).json({"succes":false,"valFail":r})}
+            if(rason.code === 'ECONNREFUSED') {
+               return resp.status(400).json({"messageError":"error: No se pudo conectar a la base de datos"})
+            }
+               return resp.status(400).json({"messageError":rason.message})
+            }
+            
+       
       }
-         
- })
+ )
  
 
 
 
 
 router.patch('/state_sesion/',(req,resp)=>{
+  try {
    const datos = req.query
    RepositorioUser.changed_State(datos.id,datos.state_sesion,'x')
-   resp.sendStatus(200)
+    return resp.sendStatus(200)
+   
+  } catch (rason) {
+   if(rason.code === 'ECONNREFUSED') {
+      return resp.status(400).json({"messageError":"error:No se pudo conectar a la base de datos"})
+   }
+   return resp.status(400).json({"messageError":rason.message})
+  }
 })
 
 router.delete('/Delete_User',ServiceWebAccessToken.validateToken, async(req,resp)=>{
@@ -92,8 +116,11 @@ router.delete('/Delete_User',ServiceWebAccessToken.validateToken, async(req,resp
     
     resp.sendStatus(200)
 
-   } catch (error) {
-      resp.status(400).json({"error":error})
+   } catch (rason) {
+      if(rason.code === 'ECONNREFUSED') {
+         return resp.status(400).json({"messageError":"error: No se pudo conectar a la base de datos"})
+      }
+     return resp.status(400).json({"error":rason})
    }
 
 

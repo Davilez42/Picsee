@@ -21,7 +21,7 @@ const uploadFile = async (event,pet,meth) => {
     
     form.append("archivo",archivo[0])
     const user = JSON.parse(localStorage.getItem('loggedUser'));
-    const id_user = user.id_user
+    const id_user = user.id_user[1]
     const token = user.token  
     
 
@@ -45,7 +45,8 @@ const uploadFile = async (event,pet,meth) => {
             window.location.href = "/"
             return
         }
-        alert('el Momento NO se ha cargado exitosamente')
+        const rason = await  respuesta.json();
+        alert(`el Momento NO se ha cargado exitosamente debido a: ${rason['messageError']}`)
         window.location.href = "/"
         
     }
