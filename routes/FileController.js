@@ -18,8 +18,8 @@ class FileController{
                const ruta_upload =  __dirname + "/../storage/GaleriaImagenes/" + id_image+"_"+name_file
                 archivo.mv(ruta_upload,(error)=>{
                     if (error){
-                        res.sendStatus(404)
-                    return
+                        res.status(404).json({"messageError":error.message})
+                        return
                     }
                     console.log("RESPONDE OK")
                     res.sendStatus(200)
@@ -27,8 +27,7 @@ class FileController{
                 })
 
         }).catch((error)=>{
-            console.error("ERROR DE COPIADO",error)
-            res.sendStatus(400)
+            res.status(400).json({"messageError":error.message})
         })
     }
 
