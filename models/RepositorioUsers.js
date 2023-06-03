@@ -11,7 +11,8 @@ const get_user_Loguin =async(username) => {
 };
 
 const insert_user =async(user)=>{
-    const password_encrypt = serviceEncrypted.encrypted(user.password)
+    const password_encrypt = await serviceEncrypted.encrypted(user.password)
+    console.log(password_encrypt);
      const conection = await getConection()
      return await conection.execute(`Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion,state_sesion) VALUES (?,?,?,?,?,?,?)`,
         [user.username,user.first_names,user.last_names,user.email,password_encrypt,'2023-01-02',1])
@@ -36,9 +37,10 @@ const delet_user= async(user)=>{
 
 
 const changed_State= async(id,state)=>{
-  const conection = await getConection()
-   console.log('se cambia en baseDts:',id,state, getDateTimeNow.getDateTimeNow() )
-   conection.execute(`UPDATE users SET state_sesion=${state},recent_sesion= '${getDateTimeNow.getDateTimeNow()}' where id_user=${id}`);
+    const conection = await getConection()
+    //console.log('se cambia en baseDts:',id,state, getDateTimeNow.getDateTimeNow() )
+    const resp = await  conection.execute(`UPDATE users SET state_sesion=${state},recent_sesion= '${getDateTimeNow.getDateTimeNow()}' where id_user=${id}`);
+    return resp
 }
 
 
