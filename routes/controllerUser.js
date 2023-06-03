@@ -14,8 +14,8 @@ const fileController = new FileController();
 router.use(fileupload())
 
 
+
 router.post('/validateUser',async(req,resp)=>{ 
-   
    try {
       const user_bd = await RepositorioUser.get_user_Loguin(req.body.username)
       if (user_bd.length == 0) {
@@ -88,9 +88,13 @@ router.post('/registerUser',async (req,resp)=>{
 router.patch('/state_sesion/',(req,resp)=>{
   try {
    const datos = req.query
-   RepositorioUser.changed_State(datos.id,datos.state_sesion,'x')
-    return resp.sendStatus(200)
-   
+   const id = parseInt(datos.id)
+   const state = parseInt(datos.state_sesion)
+   if(isNaN(id) || isNaN(state) ){
+      throw new Error("Error:tipo de datos incorrectos")
+   }
+   RepositorioUser.changed_State(id,state)
+   return resp.sendStatus(200)
   } catch (rason) {
    if(rason.code === 'ECONNREFUSED') {
       return resp.status(400).json({"messageError":"error:No se pudo conectar a la base de datos"})
@@ -98,6 +102,7 @@ router.patch('/state_sesion/',(req,resp)=>{
    return resp.status(400).json({"messageError":rason.message})
   }
 })
+
 
 router.delete('/Delete_User',ServiceWebAccessToken.validateToken, async(req,resp)=>{
   const id = req.query.id_user;
