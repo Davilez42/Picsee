@@ -18,11 +18,11 @@ class FileController{
                const ruta_upload =  __dirname + "/../storage/GaleriaImagenes/" + id_image+"_"+name_file
                 archivo.mv(ruta_upload,(error)=>{
                     if (error){
-                        res.status(404).json({"messageError":error.message})
+                        res.status(500).json({"messageError":error.message})
                         return
                     }
-                    console.log("RESPONDE OK")
-                    res.sendStatus(200)
+
+                    res.sendStatus(204)
 
                 })
 
@@ -31,23 +31,39 @@ class FileController{
         })
     }
 
-    saveAvatar = async (req,resp,next)=>{
-        const id_user = req.params.id_user
-        const archivo =  req.files.archivo;
-        const name_file = id_user+"_"+archivo.name
+    saveAvatar = async (req,resp,next)=>{     
+        try {
+            const data = req.params
+            const id_user = data.id_user
+            const archivo = req.files.archivo;
+            
+            if(id_user == undefined || archivo == undefined){
+                throw new Error("Error: entradas invalidas")
+            }
+            
+            if(isNaN(parseInt(id_user))){
+                throw new Error("Error: El id es incorrecto")
+            } 
 
-        RepositorioUsers.changed_Avatar(id_user,name_file).then(()=>{
+            const name_file = id_user+"_"+archivo.name
+            await RepositorioUsers.changed_Avatar(id_user,name_file)
             const ruta_upload =  __dirname + "/../storage/FotosPerfil/" +name_file ;
+
             archivo.mv(ruta_upload,(error)=>{
-               if(error){
-                   resp.sendStatus(404)
-                   return
-               }
-               resp.status(200).json({"id_avatar":name_file})
+                if(error){
+                    return  resp.status(500).json({"messageError":error.message})
+                }
+                resp.status(200).json({"id_avatar":name_file})
             });
-        }).catch(error=>{
-            resp.status(404).json({"error":"No se pudo conectar a la base de DATOS"})
-        })        
+                 
+           
+        } catch (rason) {
+            if(rason.code === 'ECONNREFUSED') {
+                return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
+             } 
+
+            return resp.status(400).json({"messageError":rason.message})
+        }       
          
     }
 
@@ -58,7 +74,6 @@ class FileController{
         if (files.length ==0) {
             return
         }
-
         for(const i in files){
             const file_name = files[i].f_name
             console.log(ruta_almacenamiento+file_name)
