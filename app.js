@@ -5,10 +5,7 @@ const controllerUser = require('./routes/controllerUser')
 const ServiceWebAccessToken = require('./models/ServiceWebAccessToken')
 const path =  require('path');
 const { render } = require("ejs");
-const { hostname } = require("os");
 const app = express();
-
-
 
 app.use((req,res,next)=>{//LOGGER
    console.log(` IP: ${req.ip.green} :METHOD ${req.method}  url ${req.url}   Status: ${res.statusCode}`.blue)
@@ -16,7 +13,6 @@ app.use((req,res,next)=>{//LOGGER
 })
 
 app.use(cors())
-
 //SETTINGS
 app.use(express.urlencoded({ extended: true }) );
 app.use( express.json() );
