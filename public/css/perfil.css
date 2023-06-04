@@ -4,7 +4,7 @@ header {
 
     background: #000000d9;
     backdrop-filter: blur(0.8rem);
-     height: 4.1rem;
+    height: min-content;
 }
 body {
     background: url('../icons/pantalla2.jpg');
@@ -21,6 +21,7 @@ nav li a {
 
 #icono_perfil {
     float: right;
+    
     height: 100%;
     width: 60px;
 }
@@ -47,6 +48,7 @@ nav li a {
 #icono_perfil img {
     padding: 10px;
     height: 60px;
+    object-fit: cover;
     border-radius: 50px;
     width: 100px;
 }
@@ -331,7 +333,7 @@ font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helve
 
  @media only screen and (max-width :792px) {
     main{
-     padding-top: 120px;
+     padding-top: 40px;
     } 
     .column-posts{
         height:max-content;
@@ -346,13 +348,14 @@ font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helve
   }
   @media only screen and (max-width :700px) {
     main{
-     padding-top: 150px;
+     padding-top: 120px;
     }   
   }
 
   @media only screen and (max-width :504px) {
     main{
-     padding-top: 300px;
-    }   
+        padding-top: 120px;
+    }  
+ 
   }
  
