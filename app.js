@@ -12,7 +12,9 @@ app.use((req,res,next)=>{//LOGGER
    next()//Continua con la ruta
 })
 
-app.use(cors())
+app.use(cors({
+  origin:['http://127.0.0.1:5500']
+}))
 //SETTINGS
 app.use(express.urlencoded({ extended: true }) );
 app.use( express.json() );
@@ -32,8 +34,6 @@ app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{
     resp.status(200).sendFile('./public/homPage.html',{root:__dirname})
   })
 app.use(controllerUser)
-app.use(cors())
 
 app.listen(5000,'192.168.1.7');
-
 console.log("server on port:5000".green);
