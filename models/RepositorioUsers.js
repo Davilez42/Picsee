@@ -12,7 +12,6 @@ const get_user_Loguin =async(username) => {
 
 const insert_user =async(user)=>{
     const password_encrypt = await serviceEncrypted.encrypted(user.password)
-    console.log(password_encrypt);
      const conection = await getConection()
      return await conection.execute(`Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion,state_sesion) VALUES (?,?,?,?,?,?,?)`,
         [user.username,user.first_names,user.last_names,user.email,password_encrypt,'2023-01-02',1])

@@ -5,14 +5,13 @@ const generateAccessToken = (data) => {
 };
 
 const validateToken = (req, res, next) => {
-  console.log(req.params.option)
   if(req.params.option=="relevants"){
     next()
     return
   } 
 
   const token = req.query.t_ken || req.headers["auth"];
-  console.log("TOKEN EN SERVIDOR",token)
+  //console.log("TOKEN EN SERVIDOR",token)
   if (!token) {
     res.render('info.ejs',{message:"Acceso Denegado,No se meta donde no debe...deje de joder mka🤣"})
     return;
