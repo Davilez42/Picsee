@@ -2,7 +2,7 @@ const getConection = require('../models/ConfigDataBase')
 
 const getHastags= async()=>{
     const conection  = await  getConection()
-    const resp = await  conection.execute("SELECT id_hastag,name from hastags")
+    const resp = await  conection.execute("SELECT id_hastag,name from hastags limit 10")
     return resp[0]
 }
 
