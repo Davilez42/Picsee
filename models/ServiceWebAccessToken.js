@@ -14,7 +14,7 @@ const validateToken = (req, res, next) => {
   const token = req.query.t_ken || req.headers["auth"];
   console.log("TOKEN EN SERVIDOR",token)
   if (!token) {
-    res.render('info.ejs',{message:"Acceso Denegado,No se meta donde no debe deje de joder mka🤣"})
+    res.render('info.ejs',{message:"Acceso Denegado,No se meta donde no debe...deje de joder mka🤣"})
     return;
   }
 
