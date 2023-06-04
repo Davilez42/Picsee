@@ -48,7 +48,10 @@ const validar_Loguin = async (us, pas) => {
           }
         });
       }else{
-        alert(us['messageError'])
+       respuesta.json().then(data=>{
+        alert(data['messageError'])
+       });
+        
       } 
     })
     .catch((err) => {

@@ -6,9 +6,7 @@ const fileController =  new FileController()
 const RepositorioHastags =  require("../models/RepositorioHastags")
 const ServiceWebAccessToken = require('../models/ServiceWebAccessToken')
 const router = Router()
-
-
-
+require("dotenv").config()
 
 router.get('/Posts/:option',ServiceWebAccessToken.validateToken,async(req,resp)=>{
    try { 
@@ -21,7 +19,6 @@ router.get('/Posts/:option',ServiceWebAccessToken.validateToken,async(req,resp)=
             const posts_currents = await RepositorioPosts.getPosts(req.headers["id"]); 
             posts = posts_currents;
         }
-
         if (req.params.option=="filter") {
             const id_hastag = req.query.id_h
             const posts_currents = await RepositorioPosts.getPostsByhastag(req.headers["id"],id_hastag)
@@ -31,7 +28,7 @@ router.get('/Posts/:option',ServiceWebAccessToken.validateToken,async(req,resp)=
         imagenes =  {"imagenes_":posts}
         return resp.status(200).json(imagenes)
     } catch (rason) {
-        if(rason.code === 'ECONNREFUSED') {
+        if(rason.code === process.env.dataBaseConectionRefused) {
             return resp.status(400).json({"messageError":"error: No se pudo conectar a la base de datos"})
         }
     }
@@ -43,8 +40,8 @@ router.get('/Hastags',async (req,resp)=>{
     const hastags =  await RepositorioHastags.getHastags();
     return resp.status(200).json({"hastags":hastags})
   } catch (rason) {
-    if(rason.code === 'ECONNREFUSED') {
-        return resp.status(400).json({"messageError":"error: No se pudo conectar a la base de datos"})
+    if(rason.code === process.env.dataBaseConectionRefused) {
+        return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
     }
   }
 })
@@ -58,7 +55,7 @@ router.patch('/lkd/post/:id_post/liked/user/:id_user',ServiceWebAccessToken.vali
         return resp.json({"accion":resps,"likes":likes.likes})
     } catch (error) {
         console.log(error)
-        if(rason.code === 'ECONNREFUSED') {
+        if(rason.code === process.env.dataBaseConectionRefused) {
             return resp.status(400).json({"messageError":"error: No se pudo conectar a la base de datos"})
         }
         return resp.sendStatus(404)

@@ -21,7 +21,7 @@ const uploadFile = async (event,pet,meth) => {
     
     form.append("archivo",archivo[0])
     const user = JSON.parse(localStorage.getItem('loggedUser'));
-    const id_user = user.id_user[1]
+    const id_user = user.id_user
     const token = user.token  
     
 
@@ -59,8 +59,11 @@ const uploadFile = async (event,pet,meth) => {
             alert('avatar cargado exitosamente')
             window.location.href = "/"
             return
+        }else{
+            const data =  await respuesta.json()
+            alert(`el avatar NO se ha cambiado exitosamente debido a: ${data.messageError}`)
         }
-        alert('el avatar NO se ha cambiado exitosamente')
+        
         window.location.href = "/"
         
     }
