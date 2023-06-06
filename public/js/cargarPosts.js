@@ -44,16 +44,19 @@ const cargarPosts =async (query)=>{
                             const li = document.createElement("LI")
                             li.classList.add('opciones_imagenes')
                             const ul =  document.createElement("UL")
+
                             const a = document.createElement("DIV")
                             a.setAttribute("id",datos["imagenes_"][index].id_post)
-                            a.classList.add("boton_like")
+                            
                             
                             const icon = document.createElement("IMG")
                             icon.classList.add('icono_opciones')
                             icon.setAttribute("id_post",datos["imagenes_"][index].id_post)
                             icon.setAttribute("liked",datos["imagenes_"][index].liked)
+
                             const icon_png = (datos["imagenes_"][index].liked==0)? './icons/corazon_like_desactivado.png' :'./icons/corazon.png'  
                             icon.setAttribute('src',icon_png)
+                            icon.classList.add("boton_like")
                             
 
                             a.appendChild(icon)
@@ -63,8 +66,9 @@ const cargarPosts =async (query)=>{
                             div_likes.classList.add('box_like')
                             div_likes.appendChild(document.createTextNode(datos["imagenes_"][index].likes))
 
+                            a.appendChild(div_likes)
                             li.appendChild(a)
-                            li.appendChild(div_likes)
+                            
                             ul.appendChild(li)
                             div.appendChild(ul)
                             contenedor_post.appendChild(div)                                             
@@ -107,10 +111,12 @@ const cargarHastags=async()=>{
 }
 
 const iteraccion_like = async (event)=>{
-    const component = event.target
+        const component = event.target
         const id_user = JSON.parse(window.localStorage.getItem('loggedUser')).id_user
         const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
-        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${component.getAttribute("id_post")}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})      
+        const id_post = component.getAttribute("id_post")
+        console.log(id_post);
+        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})      
         if(respuesta.ok){
                 component.setAttribute("liked","1")
                 
