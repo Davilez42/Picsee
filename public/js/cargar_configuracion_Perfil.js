@@ -8,7 +8,7 @@ const autentificacion=()=>{
     }
     user = JSON.parse(localStorage.getItem('loggedUser'))//cargo el usuario que esta logeado
     document.getElementById('avatar').src = user['id_avatar']//cargo el avatar
-    document.getElementById('barra_busqueda').placeholder = `Busca algo ${user['username']} !` 
+    document.getElementById('barra_busqueda').placeholder = `Busca algo ${user['username'][1]} !` 
 }
 autentificacion()
 
@@ -32,7 +32,7 @@ btn_eliminarCuenta.addEventListener('click',async ()=>{
     window.location.href = '/'
   }else{
     const mensaje = await resp.json()
-    console.log(mensaje.error)
+    console.log(mensaje.messageError)
   }
 }else{
   alert("NO SEAS MAMON BORRANDO CUENTAAS AJENAS :D")

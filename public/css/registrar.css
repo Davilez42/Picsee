@@ -18,7 +18,7 @@ main {
     width: 40%;
     height: 500px;
 
-    border-radius: 20px;
+    border-radius: 5px;
     border: 2px solid #fafafa10;
     background: #fafafa10;
     backdrop-filter: blur(0.6rem);
@@ -101,8 +101,7 @@ img:hover {
     width: 50%;
     position: absolute;
     overflow: auto;
-
-    border-radius: 20px;
+    border-radius: 5px;
     border: 2px solid #fafafa10;
     background: #fafafa10;
     backdrop-filter: blur(0.4rem);
@@ -181,6 +180,7 @@ main .form-ingresar-active p {
 .form_Input-boton_registrar {
     border: none;
     color: white;
+    cursor: pointer;
     background-color: #fd690d;
     display: inline-block;
     width: 150px;
@@ -191,19 +191,13 @@ main .form-ingresar-active p {
     border: none;
     color: white;
     margin: 0;
+    cursor: pointer;
     background-color: #3f8002;
     display: inline-block;
     width: 365px;
     transition: 0.2s;
 }
 
-
-
-.form_Input-boton_registrar:hover {
-    background-color: #e95d06;
-    display: inline-block;
-    width: 50%;
-}
 
 
 hr {
@@ -341,17 +335,7 @@ hr {
         background-color: #fb8237;
         width: 160px;
     }
-    .form_Input-boton_registrar:active {
-        margin-left: 26%;
 
-        border: none;
-        color: white;
-        background-color: #fd6304;
-        width: 160px;
-        animation-name: cerrar_boton  ;
-        animation-duration: 2s;
-        animation-iteration-count: 1;
-    }
     @keyframes cerrar_boton {
         0%{
             width: 160px;

@@ -26,22 +26,24 @@
       <input id="barra_busqueda" type="search" name="" id="" placeholder="busca algo">
      <a class="contenedor_icon_search" href=""><img src="./icons/search_icon_white.png" alt=""></a> 
         
-     
-     <div id="icono_perfil">          
+    <div class="icono_menu" style="display:none">
+      <img src="./icons/menu-principal.png"  alt="">  
+    </div>
+    
+     <div id="icono_perfil" >           
       <img id="avatar" src="" alt="">
       </div>
 
-     <nav>
+     <nav class="barra_navegacion">
       <ul>
         <li><a href="#" >Explorar</a></li>
         <li><a href="#" >Comunidad</a></li>
         <li><a href="#" >Ayuda</a></li>
         <li><a href="#" id="btn_subirMomento" >Subir momento</a></li>
-        <li><a href="#" id="btn_cerrarSesion" >C_Sn</a></li>
-        <li><a href="#" id="btn_eliminarCuenta" >D_C</a></li>
-        <li><a href="#" id="btn_subirMomento" >Perfil</a></li>
       </ul>
-     </nav>  
+     </nav>
+     
+    
         
        <!--  <div id="icono_imbox">
             <a class="contenedor_icon_imbox" href=""><img id="imbox_icon" src="./icons/icono_imbox.png" alt=""></a>
@@ -50,6 +52,23 @@
        
 
       </header>
+
+    <div class="barra_navegacion_desplegable" hidden>
+        <div id="icono_perfil" >           
+        <img id="avatar" src="" alt="">
+        </div>
+        <ul>
+          <li><a href="#" id="btn_perfil" >Perfil</a></li> 
+          <hr>      
+          <li><a href="#" id="btn_subirMomento" >Subir momento</a></li>
+          <li><a href="#" id="btn_cerrarSesion" >cerrar sesion</a></li>
+          <li><a href="#" >Explorar</a></li>
+          <li><a href="#" >Comunidad</a></li>
+          <li><a href="#" >Ayuda</a></li>
+          <li><a href="#" id="btn_eliminarCuenta" >eliminar cuenta</a></li>
+        
+        </ul>
+      </div>  
 
       <main >
 
@@ -111,7 +130,7 @@
 
               
         </div>
-
+        <script src="./js/desplegar_menu.js"></script>
         <script src="./js/cargar_configuracion_Perfil.js"></script>    
         <script src="./js/cargarPosts.js"></script>    
         <script src="./js/seguimiento_sesion.js"></script>
