@@ -1,5 +1,5 @@
 
-const getConection = require("./ConfigDataBase");
+const getConection = require("./db");
 const getDateTimeNow = require("./ServiceDateTime");
 const serviceEncrypted = require('./ServiceEncrypted')
 
@@ -16,11 +16,8 @@ const insert_user =async(user)=>{
      return await conection.execute(`Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion,state_sesion) VALUES (?,?,?,?,?,?,?)`,
         [user.username,user.first_names,user.last_names,user.email,password_encrypt,'2023-01-02',1])
         .then((data)=>{
-            return data[0].insertId
-           
+            return data[0].insertId          
         })
-      
-              
 }
 
 const changed_Avatar = async (id_user,name_image)=>{
@@ -29,9 +26,15 @@ const changed_Avatar = async (id_user,name_image)=>{
     
 }
 
-const delet_user= async(user)=>{
+const delet_user= async(id_user)=>{
     const conection = await getConection();
-    return  conection.execute(`DELETE from users where id_user = ${user.id_user}`)   
+    return  conection.execute(`DELETE from users where id_user = ${id_user}`)   
+}
+
+const existUser = async(id_user)=>{
+    const conection = await getConection();
+    const resp = await conection.execute(`SELECT * from users where id_user = ${id_user}`)  
+    return resp[0].length != 0 
 }
 
 
@@ -48,5 +51,6 @@ module.exports = {
     insert_user,
     changed_State,
     delet_user,
-    changed_Avatar
+    changed_Avatar,
+    existUser
 }

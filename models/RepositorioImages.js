@@ -1,5 +1,5 @@
 
-const getConection = require("./ConfigDataBase");
+const getConection = require("./db");
 
 const setImage = async(name_file)=>{
     const conection = await getConection();

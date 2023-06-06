@@ -1,8 +1,10 @@
 const express = require("express");
 const colors = require("colors");
 const cors =require('cors')
-const controllerUser = require('./routes/controllerUser')
-const ServiceWebAccessToken = require('./models/ServiceWebAccessToken')
+const config = require('./config')
+const userRoutes = require('./routes/userRoutes')
+const authRoutes = require('./routes/authRoutes')
+const ServiceWebAccessToken = require('./middleware/ServiceWebAccessToken')
 const path =  require('path');
 const { render } = require("ejs");
 const app = express();
@@ -29,11 +31,14 @@ app.get('/',async(req,resp) =>{
     resp.sendFile('./public/inicio.html',{root:__dirname})
 })  
 
-
 app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{   
     resp.status(200).sendFile('./public/homPage.html',{root:__dirname})
   })
-app.use(controllerUser)
 
-app.listen(5000,'192.168.1.7');
-console.log("server on port:5000".green);
+app.use(authRoutes)
+app.use(userRoutes)
+
+app.listen(config.PORT,config.HOST,()=>{
+  console.log("server on port:5000".green);
+});
+

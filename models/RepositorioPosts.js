@@ -1,4 +1,4 @@
-const getConection = require("./ConfigDataBase");
+const getConection = require("./db");
 const getDateTimeNow = require("./ServiceDateTime");
 const RepositorioImages = require("./RepositorioImages")
 const RepositorioHastags = require("./RepositorioHastags")

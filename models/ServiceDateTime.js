@@ -7,8 +7,6 @@ const getDateTimeNow=()=>{
     return `${año}-${mes}-${dia} ${hora}`
 }
 
-
-
 module.exports = {
     getDateTimeNow
 }
