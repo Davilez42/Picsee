@@ -1,7 +1,18 @@
-const bd = require("mysql2/promise");
+const mysql2 = require("mysql2/promise");
 const config =  require('../config')
- const getConection = async()=>{
-   return await bd.createConnection(config.DB_CONFIG);   
-}
 
-module.exports = getConection
+
+const dbconnection = mysql2.createPool(config.DB_CONFIG) 
+  dbconnection.on('connection', function (connection) {
+    console.log('DB Connection established');
+
+    connection.on('error', function (err) {
+      console.error(new Date(), 'MySQL error', err.code);
+    });
+    connection.on('close', function (err) {
+      console.error(new Date(), 'MySQL close', err);
+    });
+
+  });
+module.exports = dbconnection;
+

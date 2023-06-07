@@ -5,9 +5,11 @@ const config = require('./config')
 const userRoutes = require('./routes/userRoutes')
 const authRoutes = require('./routes/authRoutes')
 const ServiceWebAccessToken = require('./middleware/ServiceWebAccessToken')
-const path =  require('path');
-const { render } = require("ejs");
+const path = require('path');
+
 const app = express();
+
+
 
 app.use((req,res,next)=>{//LOGGER
    console.log(` IP: ${req.ip.green} :METHOD ${req.method}  url ${req.url}   Status: ${res.statusCode}`.blue)
@@ -38,7 +40,4 @@ app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{
 app.use(authRoutes)
 app.use(userRoutes)
 
-app.listen(config.PORT,config.HOST,()=>{
-  console.log("server on port:5000".green);
-});
-
+module.exports = app
