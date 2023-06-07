@@ -1,6 +1,5 @@
 const RepositorioPosts = require('../models/RepositorioPosts')
 const FileController = require('./fileController')
-const fileController =  new FileController()
 const RepositorioHastags =  require("../models/RepositorioHastags")
 require("dotenv").config()
 
@@ -44,18 +43,17 @@ const getposts= async(req,resp)=>{
 
 const setlike = async(req,resp)=>{
     try {
-        if(req.params.id_post == undefined || req.params.id_user == undefined){
+        if(req.params.id_post == undefined ){
             throw new Error('Error: entradas incorrectas')
         }
-        const id_user = parseInt(req.params.id_user);
         const id_post = parseInt(req.params.id_post)
-        if(isNaN(id_user) || isNaN(id_post)){
+        if( isNaN(id_post)){
             throw new Error('Error: Tipos de datos incorrectos')
         }
     
-        const resps =  await RepositorioPosts.setLikePost(id_post,id_user);
-        const likes = await RepositorioPosts.getLikesByIdPost(id_post)
-        return resp.json({"accion":resps,"likes":likes.likes})
+        await RepositorioPosts.setLikePost(id_post,req.params.id_user);
+
+        return resp.sendStatus(200)
     } catch (rason) {
    
         if(rason.code === process.env.dataBaseConectionRefused) {

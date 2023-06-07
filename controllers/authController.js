@@ -2,6 +2,9 @@ const RepositorioUser = require('../models/RepositorioUsers')
 const ServiceWebAccessToken = require('../middleware/ServiceWebAccessToken')
 const serviceEncrypted =require('../models/ServiceEncrypted')
 require("dotenv").config();
+
+
+
 const valdiateUser = async(req,resp)=>{ 
     try {
        //Verifico los datos recibidos
