@@ -116,25 +116,28 @@ const iteraccion_like = async (event)=>{
         const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
         const id_post = component.getAttribute("id_post")
         console.log(id_post);
-        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})      
-        if(respuesta.ok){
-                component.setAttribute("liked","1")
-                
-                respuesta.json().then(d=>{
-                   const box_like = document.querySelector(`div[idhl_post="${component.getAttribute("id_post")}"]`)
-                    box_like.textContent = d.likes
-                    console.log(d)
-                    if(d.accion == 1) { 
-                        component.setAttribute("src","./icons/corazon.png")
-                    }
-                    else
-                    {component.setAttribute("src","./icons/corazon_like_desactivado.png")}
-                })            
-         }
-         else{
-            console.log("Error en el servidor")
-         }
 
+        const box_like = document.querySelector(`div[idhl_post="${component.getAttribute("id_post")}"]`)                            
+      
+
+        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
+        if(respuesta.ok){                        
+            if(component.getAttribute("liked")==="0") { 
+                component.setAttribute("liked",1)
+                box_like.textContent = parseInt(box_like.textContent)+1 
+                component.setAttribute("src","./icons/corazon.png")
+            }
+            else
+            {
+                component.setAttribute("liked",0)
+                box_like.textContent = parseInt(box_like.textContent)-1 
+                component.setAttribute("src","./icons/corazon_like_desactivado.png")
+            }
+                    
+         }else{
+            console.log("Error en el servidor,No se pudo guardar el like")
+         }
+         
         }
  
 
