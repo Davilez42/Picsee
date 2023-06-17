@@ -31,11 +31,28 @@ const cargarPosts =async (query)=>{
                             let contenedor_imagen = document.createElement("DIV")
                             contenedor_imagen.classList.add("contenedor_imagen")  
 
+                            contenedor_imagen.addEventListener('mouseenter',mostrar_info)
+                            contenedor_imagen.addEventListener('mouseleave',ocultar_info)
+
+                            let contenedor_info_autor = document.createElement('DIV')
+                            contenedor_info_autor.classList.add('contenedor_info_autor')
+
+                            contenedor_info_autor.setAttribute('hidden','')
+
+                            let avatar_autor = document.createElement('IMG')
+                            avatar_autor.setAttribute('src',datos["imagenes_"][index].avatar_autor)
+
+                            contenedor_info_autor.appendChild(avatar_autor)
+                            const username_autor  = document.createTextNode(datos["imagenes_"][index].username_autor)
+                            contenedor_info_autor.appendChild(username_autor)
+
+
                             const imagen = document.createElement('IMG')
                             imagen.setAttribute('src',datos["imagenes_"][index].f_name)
                             imagen.classList.add('imagen_galeria')
 
                             contenedor_imagen.appendChild(imagen)
+                            contenedor_imagen.appendChild(contenedor_info_autor)
 
                             contenedor_post.appendChild(contenedor_imagen)
 
@@ -73,7 +90,7 @@ const cargarPosts =async (query)=>{
                             div.appendChild(ul)
                             contenedor_post.appendChild(div)                                             
                             column_posts.appendChild(contenedor_post)
-          
+                 
                     if(top ==limite_por_columna){
                         top=1
                         fragmento.appendChild(column_posts)
@@ -88,6 +105,17 @@ const cargarPosts =async (query)=>{
             
         contenedor_galeria_perfil.appendChild(fragmento)
     }
+}
+
+
+const mostrar_info = (event)=>{
+    console.log(event.target.childNodes);
+    event.target.childNodes[1].removeAttribute('hidden')
+}
+
+const ocultar_info = (event)=>{
+    console.log(event.target.childNodes);
+    event.target.childNodes[1].setAttribute('hidden','')
 }
 
 
