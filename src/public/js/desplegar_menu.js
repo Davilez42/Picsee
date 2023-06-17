@@ -15,6 +15,7 @@ if(width<=500){
     document.querySelector('#icono_perfil').remove()
     document.querySelector('.icono_menu').removeAttribute('style')
     document.querySelector('.barra_navegacion').remove()
+    document.querySelector('.barra_navegacion_desplegable #btn_subirMomento').removeAttribute('hidden')
     document.querySelector('.icono_menu').addEventListener('click',()=>{
     
     if(document.querySelector('.barra_navegacion_desplegable').getAttribute('hidden')===''){
@@ -24,7 +25,8 @@ if(width<=500){
     }
 })
 }else{
-document.querySelector('#icono_perfil').removeAttribute('hidden')
+
+document.querySelector('#avatar_').setAttribute('hidden','')
 document.querySelector('.barra_navegacion_desplegable').setAttribute('hidden','')
 }
 

@@ -14,9 +14,10 @@ const getPosts_Relevant = async () => {
 };
 
 const getPosts = async (id_user) => {
-  const posts = await dbconnection.query(`SELECT id_post,likes, concat( id_image,"_",name,".", format_)  AS f_name 
+  const posts = await dbconnection.query(`SELECT id_post,likes, concat( id_image,"_",name,".", format_)  AS f_name ,username as username_autor,id_avatar as avatar_autor
                                                 FROM posts
                                                 join images using (id_image)
+                                                join users using (id_user)
                                                 order by upload_date DESC`);
   
   let likes = await dbconnection.query(`Select id_post from users_post_liked where id_user=${id_user} `)                                               
@@ -32,10 +33,16 @@ const getPosts = async (id_user) => {
   return posts[0];
 };
 
+
+const existRelation = async(id_post,id_user)=>{
+  return  dbconnection.execute(`SELECT * from users_post_liked where id_post=${id_post} and id_user=${id_user}`)
+}
+
 const getPostsByhastag = async (id_user,id_hastag) => {
-  let posts = await dbconnection.execute(`select id_post,likes, concat( id_image,"_",name,".", format_)  AS f_name
+  let posts = await dbconnection.execute(`select id_post,likes, concat( id_image,"_",name,".", format_)  AS f_name,username as username_autor,id_avatar as avatar_autor
     from posts p 
     join images using (id_image)
+    join users using (id_user)
     join relation_post_to_hastags rpth  using(id_post) 
     where id_hastag = ${id_hastag} `);
 
@@ -53,23 +60,18 @@ const getPostsByhastag = async (id_user,id_hastag) => {
     return posts[0];
 };
 
-const setLikePost = async (id_post, id_user,OP) => {
-  console.log('ENTRA EN EL METODO'.blue);
-  let operacion = OP
-
-  await dbconnection.query(`UPDATE posts set likes = likes ${operacion} 1  where id_post = ${id_post};`)
-
-  if(operacion==="+"){
-    console.log('INSERTA'.green);
-    await dbconnection.query(`Insert into users_post_liked (id_post,id_user) VALUES(${id_post},${id_user})`)
-  }
-  else{
-    await  dbconnection.query(`DELETE from users_post_liked where id_post=${id_post} and id_user=${id_user}`)
-   console.log('ELIMINA'.red);
-  }
-
-    
+const setLikePost = async (id_post, id_user) => {
+ 
+  await dbconnection.query(`UPDATE posts set likes = likes + 1  where id_post = ${id_post};`)
+  await dbconnection.query(`Insert into users_post_liked (id_post,id_user) VALUES(${id_post},${id_user})`)   
+return
 };
+
+const deleteLike=async(id_post,id_user)=>{
+  await dbconnection.query(`UPDATE posts set likes = likes - 1  where id_post = ${id_post};`)
+  await  dbconnection.query(`DELETE from users_post_liked where id_post=${id_post} and id_user=${id_user}`)
+return
+}
 
 const setPost = async(id_user,name_file,hastags,visible)=>{
   const id_image = await RepositorioImages.setImage(name_file);
@@ -94,6 +96,8 @@ module.exports = {
   getPosts,
   setLikePost,
   getPostsByhastag,
-  setPost
+  setPost,
+  existRelation,
+  deleteLike
 
 };

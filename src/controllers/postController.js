@@ -43,7 +43,6 @@ const getposts= async(req,resp)=>{
 
 const setlike = async(req,resp)=>{
     try {
-        console.log("ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         if(req.params.id_post == undefined ){
             throw new Error('Error: entradas incorrectas')
         }
@@ -51,8 +50,14 @@ const setlike = async(req,resp)=>{
         if( isNaN(id_post)){
             throw new Error('Error: Tipos de datos incorrectos')
         }
+        const resultado = await RepositorioPosts.existRelation(req.params.id_post,req.params.id_user)
+        console.log(resultado[0]);
+        if (resultado[0].length==0){
+            await RepositorioPosts.setLikePost(req.params.id_post,req.params.id_user)
+        }else{
+            await RepositorioPosts.deleteLike(req.params.id_post,req.params.id_user)
+        }
     
-         await RepositorioPosts.setLikePost(id_post,req.params.id_user,req.params.op);
 
         return resp.sendStatus(200)
     } catch (rason) {
@@ -60,6 +65,7 @@ const setlike = async(req,resp)=>{
         if(rason.code === process.env.dataBaseConectionRefused) {
             return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
         }
+        console.log(rason.message);
         return resp.sendStatus(404)
     }
     

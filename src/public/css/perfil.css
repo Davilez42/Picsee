@@ -202,7 +202,8 @@ ul .opciones_imagenes {
   margin-left: 20px;
   transition: 0.3s;
 }
-.contenedor_imagen{     
+.contenedor_imagen{ 
+    position: relative;    
     padding-top:1rem ;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -220,11 +221,29 @@ ul .opciones_imagenes {
 }
 
 
-.contenedor_imagen img:hover {
+.contenedor_imagen img:hover  {
     image-rendering: auto pixelated ;
-
     filter: opacity(.8);
  }
+
+ 
+
+ .contenedor_info_autor{
+    color:  white;
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+    z-index: 1;
+ }
+
+ .contenedor_info_autor img{
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50px;
+    width: 50px;
+ }
+
 
  .column-posts{
     height:max-content;
@@ -334,7 +353,7 @@ font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helve
     width: 30%;
     height: min-content;
     background-color: #242424;
-    border-radius: 1px;
+    border-radius: 5px;
 }
 
 .barra_navegacion_desplegable ul li a{
@@ -366,9 +385,7 @@ list-style-type: none;
 
    
  }
- .barra_navegacion_desplegable #btn_subirMomento{
-    display: none;
- }
+
 
  @media only screen and (max-width :792px) {
     main{

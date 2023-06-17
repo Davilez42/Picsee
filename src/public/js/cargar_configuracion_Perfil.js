@@ -7,6 +7,7 @@ const autentificacion=()=>{
         return
     }
     user = JSON.parse(localStorage.getItem('loggedUser'))//cargo el usuario que esta logeado
+    document.getElementById('avatar_').src = user['id_avatar']//cargo el avatar
     document.getElementById('avatar').src = user['id_avatar']//cargo el avatar
     document.getElementById('barra_busqueda').placeholder = `Busca algo ${user['username'][1]} !` 
 }
