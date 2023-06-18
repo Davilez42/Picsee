@@ -15,7 +15,7 @@ const uploadFile = async (pet,meth) => {
     
     
     
-    const user = JSON.parse(localStorage.getItem('loggedUser'));
+    const user = JSON.parse(sessionStorage.getItem('loggedUser'));
     const id_user = user.id_user
     const token = user.token  
     
@@ -43,15 +43,14 @@ const uploadFile = async (pet,meth) => {
         }
         const rason = await  respuesta.json();
         alert(`el Momento NO se ha cargado exitosamente debido a: ${rason['messageError']}`)
-        window.location.href = "/"
-        
+        window.location.href = "/"      
     }
     if(pet=='changedAvatar'){
         if (respuesta.ok) {
             imagenes_cargadas = []
             const resp_img = await respuesta.json();
             user.id_avatar = resp_img.id_avatar
-            window.localStorage.setItem('loggedUser',JSON.stringify(user))
+            window.sessionStorage.setItem('loggedUser',JSON.stringify(user))
             alert('avatar cargado exitosamente')
             window.location.href = "/"
             return
@@ -63,7 +62,7 @@ const uploadFile = async (pet,meth) => {
         window.location.href = "/"
         
     }
-    
+    imagenes_cargadas = []
 }
 
 
@@ -72,10 +71,8 @@ const uploadFile = async (pet,meth) => {
 
 document.querySelector('#archivo').addEventListener('change',event=>{
     file = event.target.files
-    if (file.length>0 && imagenes_cargadas.length<5) {
-
-        imagenes_cargadas.push(file[0])
-        
+    if (file.length>0 && imagenes_cargadas.length<4) {
+        imagenes_cargadas.push(file[0])       
         const filereader = new FileReader()
         filereader.onload = (event)=>{
           const element =   document.querySelector('.previews')
@@ -96,11 +93,9 @@ document.querySelector('#archivo').addEventListener('change',event=>{
    
 })
 
-
 document.querySelector('#send_post').addEventListener('click',()=>{   
     uploadFile('uploadFile','POST')
 })
-
 
 document.querySelector('#archivo_avatar').addEventListener('change',event=>{
     document.querySelector('#send_avatar').addEventListener('click',()=>{        

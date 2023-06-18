@@ -109,18 +109,18 @@ const cargarPosts =async (query)=>{
 
 
 const mostrar_info = (event)=>{
-    console.log(event.target.childNodes);
+    //console.log(event.target.childNodes);
     event.target.childNodes[1].removeAttribute('hidden')
 }
 
 const ocultar_info = (event)=>{
-    console.log(event.target.childNodes);
+   // console.log(event.target.childNodes);
     event.target.childNodes[1].setAttribute('hidden','')
 }
 
 
 const cargarHastags=async()=>{
-    const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
+    const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
     const respuesta = await fetch("/Hastags",{method:"GET",headers:{"auth":token}});
     if(respuesta.ok){
         const hastags =  await respuesta.json()
@@ -140,8 +140,8 @@ const cargarHastags=async()=>{
 
 const iteraccion_like = async (event)=>{
         const component = event.target
-        const id_user = JSON.parse(window.localStorage.getItem('loggedUser')).id_user
-        const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
+        const id_user = JSON.parse(window.sessionStorage.getItem('loggedUser')).id_user
+        const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
         const id_post = component.getAttribute("id_post")
 
 

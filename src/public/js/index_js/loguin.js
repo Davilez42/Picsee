@@ -5,15 +5,15 @@ btn_login.addEventListener("click", (e) => {
   const password = document.getElementById("login-password-input").value;
   
   e.preventDefault();
-  if (username == "") {
+  if (username.trim() === "") {
     alert("Porfavor digite un nombre de usuario");
     return;
   }
-  if (password == "") {
+  if (password.trim() === "") {
     alert("Porfavor digite una contraseña");
     return;
   }
-  validar_Loguin(username, password);
+  validar_Loguin(username.trim(), password.trim());
 });
 
 const validar_Loguin = async (us, pas) => {
