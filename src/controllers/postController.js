@@ -51,7 +51,7 @@ const setlike = async(req,resp)=>{
             throw new Error('Error: Tipos de datos incorrectos')
         }
         const resultado = await RepositorioPosts.existRelation(req.params.id_post,req.params.id_user)
-        console.log(resultado[0]);
+        //console.log(resultado[0]);
         if (resultado[0].length==0){
             await RepositorioPosts.setLikePost(req.params.id_post,req.params.id_user)
         }else{

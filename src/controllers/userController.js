@@ -32,6 +32,13 @@ const delete_User = async(req,resp)=>{
  
  
  }
+const setPreInfo = async(req,resp)=>{
+   try {
+      //TODO
+      console.log(req.params);
+   } catch (error) {
+      
+   }
+}
 
-
-module.exports = {delete_User}
+module.exports = {delete_User,setPreInfo}

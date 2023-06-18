@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <link rel="stylesheet" href="./css/normalize.css" type="text/css" />
     <link rel="stylesheet" href="./css/index.css" type="text/css" />
     <link rel="stylesheet" href="./css/registrar.css" type="text/css" />
     <link rel="shortcut icon" href="./icons/logo3.png" type="image/x-icon">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Inicio</title>
@@ -16,7 +20,7 @@
     <header id="barra_navegacion">
       
 
-      <img src="./icons/sendPic.png" class="icono_logo_2" alt="">
+      <a href="/"><img src="./icons/sendPic.png" class="icono_logo_2" alt=""></a>
   
       <a class="nombreApp" href="/#"><div><p>PicMont</p></div></a>
       
@@ -32,15 +36,13 @@
     </header>
     
     <main class="contenedor">
-
       <div class="contenedor_ingresar" >
-
         <div class="container_logo">
           <img src="./icons/sendPic.png" hidden class="icono_logo_1" alt="">
         </div>
         <div id="formulario_ingreso"  class="form-ingresar-active">
-           
-          <h2>Iniciar sesion</h2>
+           <div class="contenedor-titulo" ><h2>Iniciar sesion</h2></div>
+          
        
           <input
             id="login-username-input"
@@ -69,8 +71,8 @@
           </div>
         </div>
 
-        <div id="formulario_registro" hidden class="form-registro">
-          <h2>Registro</h2>
+        <div id="formulario_registro" style="display: none;" class="form-registro">
+          <div class="contenedor-titulo"><h2>Registro</h2></div>
      
           <input
             id="registro-nombres-input"
@@ -104,6 +106,12 @@
             type="password"
             placeholder="Contraseña minimo 8 caracteres"
           />
+          <input
+          id="registro-contraseña-input-2"
+          class="form_registrp_Input-contraseña"
+          type="password"
+          placeholder="confirmar contraseña"
+        />
           <a id="btn_registro" class="form_registro_Input-boton_registrar" >Registrarse</a>
       
           <div class="info-">
@@ -119,10 +127,30 @@
               >
             </p>
           </div>
-          <p class="info_termino">Al unirte aceptas los terminos y condiciones</p>
+          <p class="info_termino">Al unirte aceptas los terminos y condiciones ®</p>
         </div>
+
+        <div id="formulario_datosUsuario" style="display: none;"  class="form-infoUsuario">
+          <div class="contenedor-titulo"><h2>Ayudanos a conocerte mejor 'usuario'</h2></div>
+          
+          <input id="infoUsuario-pais-input"class="form_infoUsuario-pais-input"type="text"placeholder="Pais"/>       
+          <input id="infoUsuario-ciudad-input"class="form_infoUsuario-ciudad-input"type="text"placeholder="Ciudad"/>
+          <a id="btn_infouser" class="form_infoUsuario_Input-boton_continuar" >Continuar</a>
+        </div> 
+      
+      
       </div>
       
+      <div class="contenedor-avatar" style="display: none;"> 
+        <div class="contenedor-titulo"><h2>Sube una foto de perfil</h2></div>
+        <div class="previ"><img class="avatar_preview" src="./default_avatar.png" alt=""></div>
+   
+        <input id="avatar_archivo" class="form-input-avatar" type="file" >
+   
+        
+      </div>
+
+
       <div class="contenedor-imagenes" >
       </div>
 
@@ -148,19 +176,20 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ab exercitationem non saepe nulla, tenetur, quisquam incidunt sint repellat facere debitis nesciunt delectus eaque dolorem aut provident molestiae molestias inventore?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit numquam delectus necessitatibus sed excepturi sapiente, facere ex reiciendis eaque rerum culpa exercitationem! Itaque, totam. Aliquid praesentium nam a unde recusandae?
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci rem maiores magnam voluptatem accusantium necessitatibus eum, nobis enim nesciunt quos porro libero perferendis vero quidem quia neque blanditiis amet ratione.
       </p>
+    
     </div>
 
 
 
 
     <footer>
-      <p>Develop by David Suarez</p>
+      <p>Develop by David Suarez®</p>
     </footer>
-    <script src="./js/cargarSesion.js"></script>
-    <script src="./js/cargarPostsRelevants.js"></script>
-    <script src="./js/registro.js"></script>
-    <script src="./js/interacion_forms.js"></script>
-    <script src="./js/interacion_navbar.js"></script>
-    <script src="./js/loguin.js"></script>
+    <script src="./js/index_js/cargarSesion.js"></script>
+    <script src="./js/index_js/cargarPostsRelevants.js"></script>
+    <script src="./js/index_js/registro.js"></script>
+    <script src="./js/index_js/interacion_forms.js"></script>
+    <script src="./js/index_js/interacion_navbar.js"></script>
+    <script src="./js/index_js/loguin.js"></script>
   </body>
 </html>

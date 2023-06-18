@@ -23,8 +23,6 @@ header {
     font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
     width: 90%;
     margin: 0 auto;
-    
-
 }
 .contenedor-nosotros img{
     width: 100%;
@@ -34,25 +32,27 @@ header {
 
 #message_err{
     display: inline-block;
-    text-align: center;
- 
+    text-align: center; 
     color: #ff0033;
     border-radius: 10px;
     height: 25px;
     width: 47%;
 
 }
+#contenedor_error{
+    width: 100%;
+}
+
 .info-{
     margin-top: 10px;
     padding-top: 10px;
+    width: 100%;
     border: 1px solid rgb(220, 220, 220);
     height: 50px;
 }
 
 body {
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-color:white ;
-
 }
 
 
@@ -82,8 +82,6 @@ nav ul li {
 }
 
 input {
-
-    margin-top: 20px;
     border-radius: 6px;
     height: 27px;
     color: #000000;
@@ -102,7 +100,7 @@ input {
     height: 35px;
 } */
 .icono_logo_2{
-    width: 3%;
+    width: 40px;
     float: left;
     margin-top: 10px;
     margin-left: 10px;

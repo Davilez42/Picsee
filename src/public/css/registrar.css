@@ -21,11 +21,14 @@ div .icono_logo_1{
     height: 500px;
 }
 
-.contenedor_ingresar h2 {
-
+.contenedor-titulo h2 {
+  
     font-size: 40px;
     color: rgb(54, 54, 54);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.contenedor-titulo{
+    width: 100%;
 }
 
 
@@ -78,6 +81,7 @@ main div .img_publicacion {
 
 }
 
+
 .contenedor-imagenes::-webkit-scrollbar-thumb {
     width: 7px;
     height: 10px;
@@ -87,7 +91,16 @@ main div .img_publicacion {
 }
 
 main div .form-ingresar-active, .form-registro {
+    display: flex;  
+    flex-wrap: wrap;
+    gap: 15px;
+    transition: all 0.10s;
+}
+.form-ingresar-active{
     width: 55%;
+}
+.form-registro{
+    width: 65%;
 }
 
 .form_Input-usuario,.form_Input-contraseña {
@@ -98,9 +111,9 @@ main div .form-ingresar-active, .form-registro {
 
 
 .form_registro_Input-nombres,.form_registro_Input-apellidos{
-    width:175px ;
+    width:48% ;
     padding-left: 10px;
-    margin-bottom: 15px;
+   
 }
 
 
@@ -111,6 +124,43 @@ main div .form-ingresar-active, .form-registro {
     padding-left: 10px;
 }
 
+.form-infoUsuario{
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.form_infoUsuario-ciudad-input,.form_infoUsuario-pais-input{
+    width: 60%;
+    height: 50px;
+    border-radius: 1px;
+    padding-left: 10px;
+}
+
+.contenedor-avatar{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    gap: 1px;
+    
+}
+
+.form-input-avatar{
+    width: 600px;
+    border: 0 ;
+    border-radius: 0;
+    height: 60px;
+}
+.form-input-avatar:hover{
+    border: 0 ;
+}
+
+.avatar_preview{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 100px;
+}
 
 main div div input {
     height: 50px;
@@ -120,8 +170,6 @@ main div div input {
     background: #fafafa14;
     backdrop-filter: blur(0.7rem);
 
-
-    margin-bottom: 20px;
     border: 1px solid #212121;
     border-radius: 3px;
 }
@@ -132,7 +180,7 @@ main .form-ingresar-active p {
 }
 
 
-.form_Input-boton_registrar,.form_registro_Input-boton_registrar {
+.form_Input-boton_registrar,.form_registro_Input-boton_registrar,.form_infoUsuario_Input-boton_continuar{
     color: white;
     cursor: pointer;
     display: inline-block;
@@ -148,6 +196,12 @@ main .form-ingresar-active p {
     background-color: #ff6200;
    
 }
+
+.form_infoUsuario_Input-boton_continuar{
+    width: 60%;
+    background-color: #0015ff;
+}
+
 .form_Input-boton_registrar:hover {
     background-color: #ff7927; 
 }
@@ -175,10 +229,19 @@ main .form-ingresar-active p {
     color: #a3a3a3;
 }
 
+
+@media only screen and (max-width:1280px) {
+    .form_registro_Input-nombres,.form_registro_Input-apellidos{
+        width:47%;
+        margin-top: 0;
+    }
+}
+
+
+
 @media only screen and (max-width:1000px) {
 
     .contenedor_ingresar {
-        position: relative;
         height: 100%;
         padding: 0;
         margin: 0;
@@ -223,8 +286,8 @@ main .form-ingresar-active p {
 
     main div .form-ingresar-active,.form-registro {
         position: relative;
-        margin-left:20%;
         width: 50%;
+        margin: 0 auto;
    
     }
 
@@ -234,7 +297,7 @@ main .form-ingresar-active p {
         
     }
     .form_registro_Input-nombres,.form_registro_Input-apellidos{
-        width:100%;
+        width:48%;
         margin-top: 0;
     }
     .form_registro_Input-boton_registrar{
@@ -257,24 +320,54 @@ main .form-ingresar-active p {
 
 }
 @media only screen and (max-width:826px) {
+
     .contenedor_ingresar h2 {
       text-align: center;
 
     }
+    .form_infoUsuario-pais-input,.form_infoUsuario-ciudad-input,.form_infoUsuario_Input-boton_continuar{
+        width: 100%;
+    }
+    .previ{
+        margin: 0 auto;
+    }
+    .contenedor-avatar{
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .form-registro p {
+        text-align: center;
+        margin-top: 0;
+        margin: 0 auto;
+    }
+  
+   
+
     main div .form-ingresar-active p,.form-registro p{
         text-align: center;
    
+    }
+    .form_Input-usuario,
+    .form_Input-contraseña,.form_registro_Input-usuario,.form_registro_Input-correo,.form_registrp_Input-contraseña,.form_registro_Input-nombres,.form_registro_Input-apellidos {
+        display: block;
+        width: 99%;
+
     }
 }
 
 @media only screen and (max-width:490px) {
 
+    main{
+        padding-top: 30px;
+    }
+  
     .nombreApp{
         display: none;
     }
 
     .form_registro_Input-boton_registrar{
-        width: 93%;   
+        width: 100%;   
     }
     .form_Input-boton_registrar {
         border: none;
@@ -282,9 +375,7 @@ main .form-ingresar-active p {
         background-color: #fb8237;
         width: 99%;
     }
-
   
-   
     main div .form-ingresar-active,.form-registro {
 
         position: relative;
@@ -298,10 +389,5 @@ main .form-ingresar-active p {
         text-align: center;
    
     }
-    .form_Input-usuario,
-    .form_Input-contraseña,.form_registro_Input-usuario,.form_registro_Input-correo,.form_registrp_Input-contraseña,.form_registro_Input-nombres,.form_registro_Input-apellidos {
-        display: block;
-        width: 99%;
-
-    }
+ 
 }
