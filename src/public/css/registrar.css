@@ -1,21 +1,27 @@
 main {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    position: relative;
+
+    display: flex;
+
     color: white;
-    top: 100px;
-    width: 100%;
-    margin: auto;
+    
+    width: 90%;
+    
+ margin-left: 100px;
+    padding-top: 100px;
+    
     border-radius: 40px;
-/*     background-color: #1c1c1c; */
+   
+
     
 }
 
 .contenedor_ingresar {
-    content: '';
-    position: relative;
+
+
+
     display: inline-block;
-    margin-left: 5%;
-    width: 40%;
+    width: 45%;
     height: 500px;
 
     border-radius: 5px;
@@ -72,35 +78,28 @@ img{
     width: 10%;
 }
 
-img:hover {
-    position: relative;
-    width: 120%;
 
-}
 
-.column:hover {
-    width: 600px;
-}
 
 .row {
-    height: 100%;
+    position: relative;
     display: flex;
-
-
 }
 
 .column {
     flex: 25%;
     height: 100%;
+    overflow: hidden;
     margin-right: 5px;
 }
 
 .contenedor-imagenes {
-    display: inline-block;
-    height: 100%;
+
+    float: left;
     width: 50%;
-    position: absolute;
+    height: 500px;
     overflow: auto;
+    
     border-radius: 5px;
     border: 2px solid #fafafa10;
     background: #fafafa10;
@@ -110,6 +109,7 @@ img:hover {
 /* Modificacion de scroll */
 .contenedor-imagenes::-webkit-scrollbar {
     width: 7px;
+
     background-color: #1f1f1f;
     border-radius: 20px;
 
@@ -118,7 +118,7 @@ img:hover {
 .contenedor-imagenes::-webkit-scrollbar-thumb {
     width: 7px;
     height: 10px;
-    background-color: #414141;
+    background-color: #000000;
     border-radius: 20px;
 
 }
@@ -215,7 +215,7 @@ hr {
 }
 
 
-@media only screen and (max-width:1112px) {
+@media only screen and (max-width:1000px) {
 
     .contenedor_ingresar {
         position: relative;

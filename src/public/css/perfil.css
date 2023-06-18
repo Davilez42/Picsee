@@ -83,7 +83,15 @@ nav li a {
     transition: 0.4s;
 }
 
-
+.input_hastags-label{
+    text-align:  center;
+    display: block;
+    width: 100%;
+}
+.input-group{
+    width: 80%;
+    margin: 0 auto;
+}
 
 
 
@@ -132,43 +140,88 @@ header input::placeholder {
 
 
 #contenedor_subirmomento{
-     width: 50%;
+    width: 60%;
+    display: flex;
     margin: 0 auto;
- 
-   padding-top: 8rem;
-    
-    border-radius: 20px;
+    height: min-content;
+    padding-top: 6rem;
     overflow: visible ;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .contenedor_opciones_inputs{
-    height: 26rem;
+    height: min-content;
     position: relative;
+    width: 100%;   
+    border-radius: 6px;
     background-color: #ffffffd9;
 }
 
+
+
 .form-control{
-    width: 60%;
+    width: 80%;
+    border-radius: 0;
     margin: 20px auto;
 }
 
 #contenedor_subirmomento p{
    text-align: center;
-   font-size: 2rem;
+}
+.sendPic_icon,.changedAvatar_icon{
+    width: 6%;
+    height: 6%;
+}
+
+.previews{
+    background-color: #c7c7c7;
+    width: 80%;
+    display: flex;
+    gap: 1rem;
+    margin: 20px auto;
+
+}
+
+#preview{
+    width: 10rem;
+    object-fit: cover;
+    height: 260px;
+    border-radius: 10px;
+
 }
 .checks{
     margin: 0 auto;
-   width: max-content;
+    width: max-content;
 }
 .btn-success{
     height: 50px;
     width: 100%;
 }
-.envioo{
-    width: max-content;
-    margin: 40px auto;
+.contenedor_btn{
+    
+    background-color: #4ab051;
+    border-radius: 5px;
+    width: 80%;
+    margin: 20px auto;
+}
+.contenedor_btn:hover{
+    background-color: #59b55f;
+    color: white;
 }
 
+#send_post img{
+    width: 4%;
+    margin-left: 5px;
+}
+#send_post {
+    width: 100%;
+}
+.btn_send_avatar{
+    color: white;
+    width: 100%;
+    font-size: 18px;
+}
 
 
 #contenedor_galeria_perfil::-webkit-scrollbar {

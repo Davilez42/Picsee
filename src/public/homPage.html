@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./css/perfil.css">
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
+    <link rel="shortcut icon" href="./icons/logo3.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 
@@ -74,8 +74,13 @@
 
        <div id="contenedor_subirmomento" style="display: none;">
         <div class="contenedor_opciones_inputs ">
-          <p>Cargar Momento<p>
+          <p><img class="sendPic_icon" src="./icons/sendPic.png" alt=""><p>
+            
+         <div class="previews">
+
+         </div>
           <input id="archivo" class="form-control form-control-lg" type="file" >
+            
           
          <div class="checks">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -83,26 +88,28 @@
             privado
           </label>
          </div>
-         <div class="input-group">
-          <span class="input-group-text">#Hastags</span>
+
+         
+          <div class="input-group">
+          <div class="input_hastags-label" >Hastags</div>
           <textarea  id="input_hastags" class="form-control" aria-label="With textarea" placeholder="Ejemplo: #amor #universo #sentimientos"></textarea>
+          </div>
+        
+          <div class="contenedor_btn">
+            <a  class="btn" id="send_post" ><img src="./icons/upload.png" alt=""></a>
+      
+          </div>     
         </div>
 
-        <div>
-          <input id="archivo_avatar" class="form-control form-control-lg" type="file" >
-          <input type="submit" class="btn btn-danger" id="send_avatar" value="Subir Imagen de Perfil">
-        </div>
             
-         
-        
-        <div class="envioo">
-          <input type="submit" class="btn btn-success" id="send_post" value="SubirImagen">
-    
-         </div>
+        <div class="contenedor_opciones_inputs">
+          <p><img class="changedAvatar_icon" src="./icons/changeAvatar.png" ><p>
+          <input id="archivo_avatar" class="form-control form-control-lg" type="file" >
+          <div class="contenedor_btn">
+            <a  class="btn btn_send_avatar" id="send_avatar" >Actualizar</a>
+          </div>
           
         </div>
-            
-      
          
         
        </div>
