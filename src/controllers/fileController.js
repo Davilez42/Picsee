@@ -7,10 +7,10 @@ const {unlink} = require('fs')
 require('dotenv')
 class FileController{
     uploadFile = async (req,res,nexy)=>{
-        const id_user = req.params.id_user
-        let archivos =  req.files.archivo;
-        let hastags = req.headers.hastags.split(',')
         try {
+                const id_user = req.params.id_user
+                let archivos =  req.files.archivo;
+                let hastags = req.headers.hastags.split(',')
                 if(hastags.length ==1 && hastags[0].length ==0){
                     hastags =null;
                 }
@@ -53,7 +53,7 @@ class FileController{
             const id_user = data.id_user
             const img_ant = req.headers.id_avatar
             const archivo = req.files.archivo;
-            console.log(img_ant);
+
 
             if(id_user == undefined || archivo == undefined){
                 throw new Error("Error: entradas invalidas")
@@ -72,8 +72,10 @@ class FileController{
                 }
                 resp.status(200).json({"id_avatar":name_file})
             });
-               
-            this.deleteFiles([{"f_name":img_ant}],'PerfilPics')
+              if(img_ant!='default_avatar.png'){
+                this.deleteFiles([{"f_name":img_ant}],'PerfilPics')
+              } 
+            
            
         } catch (rason) {
             if(rason.code === process.env.dataBaseConectionRefused) {
