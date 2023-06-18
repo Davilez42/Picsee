@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/normalize.css" type="text/css" />
-    <link rel="stylesheet" href="./css/home_.css" type="text/css" />
+    <link rel="stylesheet" href="./css/index.css" type="text/css" />
     <link rel="stylesheet" href="./css/registrar.css" type="text/css" />
     <link rel="shortcut icon" href="./icons/logo3.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,64 +14,64 @@
   </head>
   <body>
     <header id="barra_navegacion">
-      <a class="nombreApp" href="/"><div><p>PicMont</p></div></a>
+      
+
+      <img src="./icons/sendPic.png" class="icono_logo_2" alt="">
+  
+      <a class="nombreApp" href="/#"><div><p>PicMont</p></div></a>
+      
       <div class="menu">
+        
         <nav>
-          <ul>
-            <li><a onclick="mostrar_formulario_Registro()">Registrarme</a></li>
-            <li><a href="">Ayuda</a></li>
-            <li><a href="">Servicio al Cliente</a></li>
-            <li><a href="">Acerca de nosotros</a></li>
+          <ul>              
+            <li><a class="sobreNosotros" href="#">Acerca de nosotros</a></li>
+            <li><a href="#">Ayuda</a></li>
           </ul>
         </nav>
       </div>
     </header>
-
+    
     <main class="contenedor">
+
       <div class="contenedor_ingresar" >
-        <form id="formulario_ingreso"  class="form-ingresar-active">
-          <h2>Inicia Sesion</h2>
 
-          <hr />
-
+        <div class="container_logo">
+          <img src="./icons/sendPic.png" hidden class="icono_logo_1" alt="">
+        </div>
+        <div id="formulario_ingreso"  class="form-ingresar-active">
+           
+          <h2>Iniciar sesion</h2>
+       
           <input
             id="login-username-input"
             class="form_Input-usuario"
             type="text"
-            placeholder="@Username"
+            placeholder="usuario"
           />
           <input
             id="login-password-input"
             class="form_Input-contraseña"
             type="password"
-            placeholder="Contraseña minimo 8 caracteres"
+            placeholder="contraseña"
           />
           <div id="contenedor_error"></div>
     
-          <input
-          class="form_Input-boton_registrar"
-          type="button"
-          id="btn"
-          value="Iniciar Sesion"
-        />
+          <a class="form_Input-boton_registrar"  id="btn"/>iniciar Sesion</a>
     
 
-          <hr />
-          <p>
-            No tienes una cuenta?
-            <b
-              ><a onclick="mostrar_formulario_Registro()">Registrate aqui</a></b
-            >
-          </p>
-        </form>
+          <div class="info-">
+            <p>
+              ¿No tienes una cuenta?
+              <b
+                ><a onclick="mostrar_formulario_Registro()">Registrate aqui</a></b
+              >
+            </p>
+          </div>
+        </div>
 
-        <form 
-          id="formulario_registro"
-          style="display: none"
-          class="form-registro"
-        >
+        <div id="formulario_registro" hidden class="form-registro">
           <h2>Registro</h2>
-          <hr />
+     
           <input
             id="registro-nombres-input"
             class="form_registro_Input-nombres"
@@ -90,7 +90,7 @@
             id="registro-usuario-input"
             class="form_registro_Input-usuario"
             type="text"
-            placeholder="@Username"
+            placeholder="Nombre de usuario"
           />
           <input
             id="registro-correo-input"
@@ -104,22 +104,23 @@
             type="password"
             placeholder="Contraseña minimo 8 caracteres"
           />
-          <input
-            id="btn_registro"
-            class="form_registro_Input-boton_registrar"
-            type="button"
-            value="Registrarse"
-          />
-          <hr />
-          <p>
-            Ya tienes una cuenta?
-            <b
-              ><a onclick="mostrar_formulario_Registro()" href="/"
-                >Inicia aqui</a
-              ></b
-            >
-          </p>
-        </form>
+          <a id="btn_registro" class="form_registro_Input-boton_registrar" >Registrarse</a>
+      
+          <div class="info-">
+            
+            
+            <p>
+            
+              Ya tienes una cuenta?
+              <b
+                ><a onclick="mostrar_formulario_Registro()" 
+                  >Inicia aqui</a
+                ></b
+              >
+            </p>
+          </div>
+          <p class="info_termino">Al unirte aceptas los terminos y condiciones</p>
+        </div>
       </div>
       
       <div class="contenedor-imagenes" >
@@ -127,13 +128,39 @@
 
     </main>
 
+    <div class="contenedor-nosotros" hidden>
+
+      <img src="https://img.freepik.com/free-photo/3d-abstract-wave-pattern-background_53876-104422.jpg?w=900&t=st=1687071008~exp=1687071608~hmac=4c826c206e012d5a2da84984faaad30fc9ce8ce0fd4cb1a1cb234bcee7ae7587" alt="">
+
+      <h1>Sobre Nosotros....</h1>
+      <p>Somos una plataforma orientada a fotografos.. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, odit voluptatibus, perspiciatis dignissimos molestias deserunt amet totam sint nemo aliquam maxime ex laudantium consequuntur nostrum! Delectus mollitia laboriosam repudiandae placeat.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quasi ipsam officia voluptatem expedita non optio ab alias magni laudantium animi deleniti, aspernatur blanditiis harum recusandae. Distinctio mollitia eos cum.
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis assumenda fuga veritatis excepturi aperiam recusandae voluptatem officia ad, ab dicta iure, modi placeat at repudiandae praesentium deleniti officiis nisi dolorum!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam magnam quos dolor architecto voluptates odio. Eligendi vitae assumenda debitis iusto similique tempore. Debitis, architecto blanditiis atque dolore commodi laudantium minus!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ab exercitationem non saepe nulla, tenetur, quisquam incidunt sint repellat facere debitis nesciunt delectus eaque dolorem aut provident molestiae molestias inventore?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit numquam delectus necessitatibus sed excepturi sapiente, facere ex reiciendis eaque rerum culpa exercitationem! Itaque, totam. Aliquid praesentium nam a unde recusandae?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci rem maiores magnam voluptatem accusantium necessitatibus eum, nobis enim nesciunt quos porro libero perferendis vero quidem quia neque blanditiis amet ratione.
+      </p>
+
+      <p>Somos una plataforma orientada a fotografos.. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, odit voluptatibus, perspiciatis dignissimos molestias deserunt amet totam sint nemo aliquam maxime ex laudantium consequuntur nostrum! Delectus mollitia laboriosam repudiandae placeat.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quasi ipsam officia voluptatem expedita non optio ab alias magni laudantium animi deleniti, aspernatur blanditiis harum recusandae. Distinctio mollitia eos cum.
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis assumenda fuga veritatis excepturi aperiam recusandae voluptatem officia ad, ab dicta iure, modi placeat at repudiandae praesentium deleniti officiis nisi dolorum!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam magnam quos dolor architecto voluptates odio. Eligendi vitae assumenda debitis iusto similique tempore. Debitis, architecto blanditiis atque dolore commodi laudantium minus!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ab exercitationem non saepe nulla, tenetur, quisquam incidunt sint repellat facere debitis nesciunt delectus eaque dolorem aut provident molestiae molestias inventore?Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit numquam delectus necessitatibus sed excepturi sapiente, facere ex reiciendis eaque rerum culpa exercitationem! Itaque, totam. Aliquid praesentium nam a unde recusandae?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci rem maiores magnam voluptatem accusantium necessitatibus eum, nobis enim nesciunt quos porro libero perferendis vero quidem quia neque blanditiis amet ratione.
+      </p>
+    </div>
+
+
+
+
     <footer>
       <p>Develop by David Suarez</p>
     </footer>
     <script src="./js/cargarSesion.js"></script>
     <script src="./js/cargarPostsRelevants.js"></script>
     <script src="./js/registro.js"></script>
-    <script src="./js/iinteracion_registrar.js"></script>
+    <script src="./js/interacion_forms.js"></script>
+    <script src="./js/interacion_navbar.js"></script>
     <script src="./js/loguin.js"></script>
   </body>
 </html>

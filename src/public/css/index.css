@@ -3,34 +3,56 @@ header {
   
     clear: both;
     width: 100%;
+    height: 80px;
     
    
     font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
     /* background-color: #1c1c1c; */
 
-    background-color: #0000004a;
+
 
 }
+
+
+
+.contenedor-nosotros{
+   
+    text-justify: auto;
+    color: rgb(0, 0, 0);
+    height: max-content;
+    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
+    width: 90%;
+    margin: 0 auto;
+    
+
+}
+.contenedor-nosotros img{
+    width: 100%;
+    object-fit: cover;
+    height: 400px;
+}
+
 #message_err{
     display: inline-block;
     text-align: center;
-    background-color: #212121;
+ 
     color: #ff0033;
     border-radius: 10px;
     height: 25px;
     width: 47%;
-     margin-left: 10px;
+
+}
+.info-{
+    margin-top: 10px;
+    padding-top: 10px;
+    border: 1px solid rgb(220, 220, 220);
+    height: 50px;
 }
 
 body {
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background-image: url('../icons/fondo_perfil.jpg');
-    background-size: cover;
+    background-color:white ;
 
-}
-
-.contenedor{
-    display: inline-block;
 }
 
 
@@ -45,6 +67,7 @@ body {
 
 nav {
     float: left;
+    
     margin-left: 10px;
 }
 
@@ -59,12 +82,12 @@ nav ul li {
 }
 
 input {
-    margin-left: 10px;
+
     margin-top: 20px;
     border-radius: 6px;
     height: 27px;
-    color: #fefefe;
-    border: 1px solid rgb(182, 182, 182);
+    color: #000000;
+    border: 1px solid #212121;
     transition: border 0.1s;
 }
 
@@ -78,12 +101,18 @@ input {
     width: 80px;
     height: 35px;
 } */
-
+.icono_logo_2{
+    width: 3%;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 nav ul li a {
     text-decoration: none;
-    color: rgb(199, 194, 194);
-    font-weight: bold;
-    font-size: 13px;
+    color: rgb(0, 0, 0);
+  
+    font-size: 14px;
+    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
     cursor: pointer;
     transition: 0.1s;
 }
@@ -128,13 +157,12 @@ nav ul li a:hover::before {
 
 .nombreApp div:hover{
     width: 100%;
-    height: 60px;
-    background-color: #fefefe;
-      
+
+
 }
 
 .nombreApp div p{
-    color: #fb3ff8; 
+    color: #929292; 
     margin: 0;
     padding: 0;
     transition: 0.3s;
@@ -164,18 +192,18 @@ nav a:link{
 
 
 input:hover {
-    border: 1px solid rgb(61, 215, 250);
+    border: 1px solid rgb(0, 0, 0);
 }
 
 
 
 
 input::placeholder {
-    color: #dcdbdb;
+    color: #000000;
 }
 
 input:focus {
-    border: 0.1px solid rgb(61, 215, 250);
+    border: 0.1px solid rgb(0, 0, 0);
     outline: none;
     
 }
@@ -191,9 +219,10 @@ footer p{
     
 }
 
-form p b a{
+div p b a{
+    cursor: pointer;
     text-decoration: none;
-    color: #3f5efb;
+    color: #323232;
 }
 
 

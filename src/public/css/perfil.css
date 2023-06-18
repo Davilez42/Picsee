@@ -1,13 +1,13 @@
 header {
     position: fixed;
     z-index: 1;
-
-    background: #000000d9;
+   /*  #000000d9 */
+    background: #ffffffd9;
     backdrop-filter: blur(0.8rem);
     height: min-content;
 }
 body {
-    background: url('../icons/pantalla2.jpg');
+    background-color: rgb(241, 241, 241);
 }
 
 nav{
@@ -15,8 +15,11 @@ nav{
 }
 
 
-nav li a {
-    color: rgb(200, 199, 199);
+.barra_navegacion li a {
+    
+    color: rgb(1, 1, 1);
+
+    
 }
 
 #icono_perfil {
@@ -33,7 +36,7 @@ nav li a {
     width: 60px;
     height:60px;
     padding: 9px;
-    padding-top: 13px;
+    padding-top: 19px;
     float: right;
 }
 .opciones_imagenes{
@@ -44,7 +47,7 @@ nav li a {
 .box_like{
     float: right;
     margin-left: 10px;
-    color: #ffffff;
+    color: #3f3f3f;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     
 }
@@ -103,13 +106,13 @@ header input {
     margin-left: 10px;
     border-radius: 40px;
     width: 30%;
-    border: 1px solid rgb(42, 42, 42);
-    background: #70707039;
-    backdrop-filter: blur(0.9rem);
+    border: 1px solid rgb(255, 255, 255);
+    background: #ababab39;
+    backdrop-filter: blur(0.1rem);
     transition: .6s;
 }
 header input:hover {
-    border: 1px solid rgb(163, 163, 163);
+    border: 1px solid rgb(58, 58, 58);
 }
 
 
@@ -175,12 +178,11 @@ header input::placeholder {
 }
 
 .previews{
-    background-color: #c7c7c7;
     width: 80%;
     display: flex;
     gap: 1rem;
     margin: 20px auto;
-
+    flex-wrap: wrap;
 }
 
 #preview{
@@ -205,6 +207,11 @@ header input::placeholder {
     width: 80%;
     margin: 20px auto;
 }
+
+.contenedor_btn a{
+    
+   color: #ffffff;
+}
 .contenedor_btn:hover{
     background-color: #59b55f;
     color: white;
@@ -218,7 +225,6 @@ header input::placeholder {
     width: 100%;
 }
 .btn_send_avatar{
-    color: white;
     width: 100%;
     font-size: 18px;
 }
@@ -338,10 +344,10 @@ main{
    overflow: visible;
 }
 #contenedor_etiquetas_hastags{
-    background: #000000d9;
+    background: #ffffffd9;
     backdrop-filter: blur(0.9rem);
-    border-top:1px solid #3737378d ;
-    border-bottom:2px solid #fafafa10 ;
+
+    border-bottom:1px solid #29292910 ;
     z-index: 1;
     display: flex;
     position: fixed;
@@ -350,7 +356,7 @@ main{
     width: 100%;
 }
 #contenedor_etiquetas_hastags p{
- color: #c5c5c5;
+ color: #353535;
  display: inline-block;
  font-size: 14px;
 
@@ -379,13 +385,13 @@ font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helve
 
 
 #contenedor_etiquetas_hastags a{
-  color: #9a9a9a;
+  color: #727272;
   font-size: 14px;
   font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
 }
 
 #contenedor_hastags a:hover{
-    color: #ebebeb;
+    color: #000000;
     text-decoration: dotted;
     
  }
@@ -439,8 +445,27 @@ list-style-type: none;
    
  }
 
+ @media only screen and (max-width :894px) {
+    main{
+     padding-top: 40px;
+    } 
+    .column-posts{
+        height:max-content;
+        display: flex;
+        /* width: 23rem; */
+        width: 47%;
+        gap: 2rem;
+        flex-wrap: wrap;
+     }
+     #contenedor_etiquetas_hastags{
+        position: relative;
+        margin-top: 20px;
+        z-index: 0;
+    }
+     
+  }
 
- @media only screen and (max-width :792px) {
+  @media only screen and (max-width :680px) {
     main{
      padding-top: 40px;
     } 
@@ -455,29 +480,25 @@ list-style-type: none;
      
      
   }
-  @media only screen and (max-width :700px) {
-    main{
-     padding-top: 120px;
-    }   
-  }
+ 
 
-  @media only screen and (max-width :504px) {
+
+  @media only screen and (max-width :750px) {
     main{
-        padding-top: 8px;
+        padding-top: 1px;
     }  
 
     .barra_navegacion_desplegable{
-
         width: 70%;
- 
     }
     #contenedor_etiquetas_hastags{
         position: relative;
+        margin-top: 55px;
         z-index: 0;
     }
 
     #contenedor_galeria_perfil{
-        padding-top: 10px;
+        padding-top: 1px;
     }
     #btn_subirMomento{
         display: block;
@@ -485,6 +506,21 @@ list-style-type: none;
      #contenedor_etiquetas_hastags p{
         display: none;
      }
- 
+     #contenedor_subirmomento{
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+        height: min-content;
+        padding-top: 4rem;
+        overflow: visible ;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    #preview{
+        width: 9rem;   
+    }
+    #barra_busqueda{
+        width: 65%;
+    }
   }
  
