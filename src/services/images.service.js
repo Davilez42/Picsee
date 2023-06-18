@@ -1,14 +1,21 @@
 
 const dbconnection = require("./db.service");
 
-const setImage = async(name_file)=>{
-    let file_name = name_file.split('.')
-    const exten = file_name.pop()
-    file_name = file_name.join(".")
-    return  dbconnection.execute(`Insert into artgalery.images (name,format_) VALUES("${file_name}","${exten}")`)
-    .then(async(data)=>{
-     return data[0].insertId
-    })
+const setImages = async(name_file)=>{    
+    let ids = []
+    for (const name of name_file) {
+      let file_name = name.split('.')
+      const exten = file_name.pop()
+      file_name = file_name.join(".")
+      await  dbconnection.execute(`Insert into artgalery.images (name,format_) VALUES ("${file_name}","${exten}") `)
+          .then(async(data)=>{
+          ids.push(data[0].insertId)
+          })
+    }
+
+    return ids
+    
+    
     
   }
 
@@ -35,4 +42,4 @@ const deleteImages= async(images)=>{
   return dbconnection.execute(`DELETE from images where id_image in ${consulta}`)
 }
 
-module.exports = {setImage,getImagesById,deleteImages};
+module.exports = {setImages,getImagesById,deleteImages};

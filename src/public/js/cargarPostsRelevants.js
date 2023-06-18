@@ -9,7 +9,7 @@ const cargarPosts =async ()=>{
         const row = document.createElement("DIV")
         row.classList.add("row")
         for (let index = 0; index <2; index++) {
-            console.log("entra")           
+     
             let column = document.createElement("DIV")
             column.classList.add("column")             
             for (let k = 0;k<5;k++) {

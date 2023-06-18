@@ -34,11 +34,17 @@ const getIdHastagsByName = async(hastags)=>{
 }
 
 
-const  setRelationHastags =  async(id_post,hastags) => {
+const  setRelationHastags =  async(id_posts,hastags) => {
     let ids = await getIdHastagsByName(hastags)
-    ids = ids.map(d=>`(${id_post},${d})`)
+    let values = []
+    for (const id_post of id_posts) {
+        for (const id_hastag of ids) {
+            values.push(`(${id_post},${id_hastag})`)
+        }
+    }
+    
     console.log(ids)
-    return dbconnection.execute(`INSERT into relation_post_to_hastags (id_post,id_hastag) VALUES ${ids.join(',')}`)
+    return dbconnection.execute(`INSERT into relation_post_to_hastags (id_post,id_hastag) VALUES ${values.join(',')}`)
 }
 
 module.exports = {

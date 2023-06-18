@@ -73,22 +73,22 @@ const deleteLike=async(id_post,id_user)=>{
 return
 }
 
-const setPost = async(id_user,name_file,hastags,visible)=>{
-  const id_image = await RepositorioImages.setImage(name_file);
-  console.log(getDateTimeNow.getDateTimeNow());
-  return dbconnection.query(`Insert into posts (id_image,id_user,likes,upload_date,visibe)
-  VALUES (${id_image},${id_user},${0},"${getDateTimeNow.getDateTimeNow()}",${visible})
-  `).then((data)=>{
-
-    if(hastags!=null){
-      return RepositorioHastags.setHastags(hastags).then(()=>{
-           return  RepositorioHastags.setRelationHastags(data[0].insertId,hastags).then(()=>id_image)
-      }) 
-    }
-    return id_image
+const setPosts = async(id_user,ids_images,visible)=>{
   
+  console.log(getDateTimeNow.getDateTimeNow());
+  let ids_posts = []
+  const current_time = getDateTimeNow.getDateTimeNow()
+  for (const id of ids_images) {
+    
+   await dbconnection.query(`Insert into posts (id_image,id_user,likes,upload_date,visibe)
+    VALUES (${id},${id_user},${0},"${current_time}",${visible})
+    `).then(data=>{
+      ids_posts.push(data[0].insertId)
     })
+  }
 
+ 
+  return ids_posts
 }
 
 module.exports = {
@@ -96,7 +96,7 @@ module.exports = {
   getPosts,
   setLikePost,
   getPostsByhastag,
-  setPost,
+  setPosts,
   existRelation,
   deleteLike
 

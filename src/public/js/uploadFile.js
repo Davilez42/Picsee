@@ -1,25 +1,25 @@
 
 
+
 document.querySelector("#btn_subirMomento").addEventListener('click',()=>{
     document.getElementById("contenedor_galeria_perfil").style.display = "none";
     document.getElementById("contenedor_etiquetas_hastags").style.display = "none";
     document.getElementById("contenedor_subirmomento").style= "display:relative";
 })
 
-const uploadFile = async (event,pet,meth) => {
-    const archivo =  event.target.files; 
-    const ar = archivo[0]
-    if (!["image/png","image/jpeg"].includes(ar.type)){
-        alert("Porfavor sube una imagen!")
-        return
+let imagenes_cargadas = []
+const uploadFile = async (pet,meth) => {
+    const form = new FormData()
+    for (const ar of imagenes_cargadas) {
+        if (!["image/png","image/jpeg"].includes(ar.type)){
+            alert("Porfavor sube una imagen!")
+            return
+        }
+        form.append("archivo",ar)
     }
     
-
-   
-
-    const form = new FormData()
     
-    form.append("archivo",archivo[0])
+    
     const user = JSON.parse(localStorage.getItem('loggedUser'));
     const id_user = user.id_user
     const token = user.token  
@@ -27,20 +27,21 @@ const uploadFile = async (event,pet,meth) => {
 
     let hastags = null;
      if(pet =='uploadFile'){
-    hastags =  document.getElementById('input_hastags').value
-    hastags = hastags.split(' ').map(h => h.slice(1))
+        hastags =  document.getElementById('input_hastags').value
+        hastags = hastags.split(' ').map(h => h.slice(1))
     }
-    console.log("SE OBTIENEN ",hastags)
+
     const respuesta = await fetch(`http://192.168.1.7:5000/${pet}/${id_user}`,{
         method:meth,
         mode: "cors",
-        headers:{"auth":token,"hastags":hastags},
+        headers:{"auth":token,"hastags":hastags,"id_avatar":user.id_avatar},
         body:form
     })
 
     
     if(pet=='uploadFile'){
         if (respuesta.ok) {
+            imagenes_cargadas = []
             alert('Momento cargado exitosamente')
             window.location.href = "/"
             return
@@ -52,7 +53,7 @@ const uploadFile = async (event,pet,meth) => {
     }
     if(pet=='changedAvatar'){
         if (respuesta.ok) {
-
+            imagenes_cargadas = []
             const resp_img = await respuesta.json();
             user.id_avatar = resp_img.id_avatar
             window.localStorage.setItem('loggedUser',JSON.stringify(user))
@@ -75,14 +76,41 @@ const uploadFile = async (event,pet,meth) => {
 
 
 document.querySelector('#archivo').addEventListener('change',event=>{
-    document.querySelector('#send_post').addEventListener('click',()=>{   
-        uploadFile(event,'uploadFile','POST')
-    })
+    file = event.target.files
+    if (file.length>0 && imagenes_cargadas.length<5) {
+
+        imagenes_cargadas.push(file[0])
+        
+        const filereader = new FileReader()
+        filereader.onload = (event)=>{
+          const element =   document.querySelector('.previews')
+          element.removeAttribute('hidden')
+            const img = document.createElement('IMG')
+            img.setAttribute('src',event.target.result)
+            img.setAttribute('id','preview')
+            element.appendChild(img)
+        }
+        filereader.readAsDataURL(file[0])
+    }
+    else{
+        alert('Limite excedido por subida')
+        return
+    }
+    console.log(imagenes_cargadas);
+    
+   
 })
+
+
+document.querySelector('#send_post').addEventListener('click',()=>{   
+    uploadFile('uploadFile','POST')
+})
+
 
 document.querySelector('#archivo_avatar').addEventListener('change',event=>{
     document.querySelector('#send_avatar').addEventListener('click',()=>{        
-        uploadFile(event,'changedAvatar','PATCH')
+        imagenes_cargadas.push(event.target.files[0])
+        uploadFile('changedAvatar','PATCH')
     })
 })
 
