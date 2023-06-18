@@ -19,6 +19,7 @@ const cargarPosts =async ()=>{
                 imagen.setAttribute('src',datos["imagenes_"][j])
                 imagen.setAttribute('alt',"")
                 imagen.setAttribute('srcset',"")
+                imagen.classList.add('img_publicacion')
                 column.appendChild(imagen)
                 j++;
              }

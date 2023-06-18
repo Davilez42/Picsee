@@ -33,7 +33,7 @@ const enviar_registro=async(datos_formularo)=>{
     if (respuesta.ok) {
         const us = await respuesta.json()
        if(us['succes']){
-        localStorage.setItem("loggedUser",JSON.stringify(us))
+        sessionStorage.setItem("loggedUser",JSON.stringify(us))
         window.location.href="/";
        }
        else{

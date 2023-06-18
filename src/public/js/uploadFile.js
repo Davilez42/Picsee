@@ -1,11 +1,6 @@
 
 
 
-document.querySelector("#btn_subirMomento").addEventListener('click',()=>{
-    document.getElementById("contenedor_galeria_perfil").style.display = "none";
-    document.getElementById("contenedor_etiquetas_hastags").style.display = "none";
-    document.getElementById("contenedor_subirmomento").style= "display:relative";
-})
 
 let imagenes_cargadas = []
 const uploadFile = async (pet,meth) => {

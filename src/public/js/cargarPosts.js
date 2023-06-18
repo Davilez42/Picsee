@@ -1,6 +1,6 @@
 const cargarPosts =async (query)=>{
-    const token = JSON.parse(window.localStorage.getItem('loggedUser')).token
-    const id_user = JSON.parse(window.localStorage.getItem('loggedUser')).id_user
+    const token = JSON.parse(sessionStorage.getItem('loggedUser')).token
+    const id_user = JSON.parse(sessionStorage.getItem('loggedUser')).id_user
     const respuesta = await fetch(`http://192.168.1.7:5000/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
     if (respuesta.ok) {
         const datos =  await respuesta.json()    

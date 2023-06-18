@@ -1,4 +1,4 @@
 setTimeout(()=>{
-    window.localStorage.removeItem('loggedUser');
+    window.sessionStorage.removeItem('loggedUser');
     window.location.href = "/"
  },4000)

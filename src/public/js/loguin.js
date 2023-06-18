@@ -34,8 +34,8 @@ const validar_Loguin = async (us, pas) => {
           if (us['username'][0]){
             
             if (us['password']) {
-              localStorage.setItem("loggedUser",JSON.stringify(us))
-              window.location.href="/";
+              sessionStorage.setItem("loggedUser",JSON.stringify(us))
+              window.location.href="/home.html";
             }
             else{
               document.getElementById('contenedor_error').innerHTML = '<h4 id="message_err">Contraseña incorrecta</h4>'     
