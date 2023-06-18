@@ -7,7 +7,7 @@ const verifyExistUser = async(req,resp,next)=>{
             return
           } 
 
-        if(id_user == undefined || id_user==''){
+        if(id_user == undefined || id_user.trim()===''){
             throw new Error("Error: Los parametros son incorrectos ")
         }
         if(isNaN(parseInt(id_user))){

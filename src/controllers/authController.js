@@ -10,12 +10,13 @@ const valdiateUser = async(req,resp)=>{
     try {
        //Verifico los datos recibidos
        const data_req = req.body;
-       if(data_req.username==="" || data_req.password.toString().length==0){
+       if(data_req.username.trim()==="" || data_req.password.toString().length==0){
           throw new Error("Error: Campos vacios , Porfavor suministre todo los campos")
        }
        if(data_req.password.toString().length<9){
           throw new Error("Error: El campo de la contraseña debe ser mayor o igual a 9")
        }
+       
        const user_bd = await RepositorioUser.get_user_Loguin(data_req.username)
        if (user_bd.length == 0) {
           return resp.status(200).json({"username":[false,data_req.username]})
@@ -48,9 +49,14 @@ const resgiterUser = async (req,resp)=>{
        if([data_req.username,data_req.first_names,data_req.last_names,data_req.email,data_req.password].includes(undefined)){
           throw new Error("Error: Entradas incorrectas")
        }
-       if([data_req.username,data_req.first_names,data_req.last_names,data_req.email,data_req.password].includes('')){
-          throw new Error("Error:Campos vacios , Por favor suministre todo los campos")
-       }
+
+      [data_req.username,data_req.first_names,data_req.last_names,data_req.email,data_req.password].map(d=>{
+         if(d.trim()===''){
+            throw new Error('Error: Porfavor suministre todos los campos ')
+         }
+      })
+       
+      
        if(data_req.password.toString().length<9){
           throw new Error("Error:El campo de la contraseña debe ser mayor o igual a 9")
        }

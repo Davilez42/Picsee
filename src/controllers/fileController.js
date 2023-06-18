@@ -76,7 +76,6 @@ class FileController{
                 this.deleteFiles([{"f_name":img_ant}],'PerfilPics')
               } 
             
-           
         } catch (rason) {
             if(rason.code === process.env.dataBaseConectionRefused) {
                 return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
@@ -96,7 +95,7 @@ class FileController{
         }
         for(const i in files){
             const file_name = files[i].f_name
-            console.log(ruta_almacenamiento+file_name)
+            //console.log(ruta_almacenamiento+file_name)
             unlink(ruta_almacenamiento+file_name,(err)=>{
                 if(err){
                     return err
