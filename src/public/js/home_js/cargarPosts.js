@@ -40,7 +40,8 @@ const cargarPosts =async (query)=>{
                             contenedor_info_autor.setAttribute('hidden','')
 
                             let avatar_autor = document.createElement('IMG')
-                            avatar_autor.setAttribute('src',datos["imagenes_"][index].avatar_autor)
+                            avatar_autor.classList.add('image_avatar_autor')
+                            avatar_autor.setAttribute('data-src',datos["imagenes_"][index].avatar_autor)
 
                             contenedor_info_autor.appendChild(avatar_autor)
                             const username_autor  = document.createTextNode(datos["imagenes_"][index].username_autor)
@@ -48,7 +49,7 @@ const cargarPosts =async (query)=>{
 
 
                             const imagen = document.createElement('IMG')
-                            imagen.setAttribute('src',datos["imagenes_"][index].f_name)
+                            imagen.setAttribute('data-src',datos["imagenes_"][index].f_name)
                             imagen.classList.add('imagen_galeria')
 
                             contenedor_imagen.appendChild(imagen)
@@ -104,13 +105,44 @@ const cargarPosts =async (query)=>{
         }
             
         contenedor_galeria_perfil.appendChild(fragmento)
+        
+        lazyloadin()//cargo el lazy loader para las imaganes cargadas
     }
 }
 
 
+
+const lazyloadin = ()=>{
+    const images_ = document.querySelectorAll('.imagen_galeria')//obtengo todas las imagenes cargadas
+    const callback = (entries,observer)=>{
+        entries.forEach(enty=>{
+            
+            if (enty.isIntersecting) {
+                enty.target.src = enty.target.dataset.src
+                observer.unobserve(enty.target)
+            }
+            
+        })
+    }
+    const options = {
+        root:null,
+        rootMargin:'0px',
+        threshold:0
+    }
+    const ob = new IntersectionObserver(callback,options)//observador
+
+    images_.forEach(i=>{//observo a cada una de las imagenes
+        ob.observe(i)
+  
+    })
+
+}
+
+//mostrar avatar y nombre del autor del post
 const mostrar_info = (event)=>{
     //console.log(event.target.childNodes);
     event.target.childNodes[1].removeAttribute('hidden')
+    event.target.childNodes[1].childNodes[0].src = event.target.childNodes[1].childNodes[0].dataset.src
 }
 
 const ocultar_info = (event)=>{
@@ -143,11 +175,9 @@ const iteraccion_like = async (event)=>{
         const id_user = JSON.parse(window.sessionStorage.getItem('loggedUser')).id_user
         const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
         const id_post = component.getAttribute("id_post")
-
-
+        console.log(component);
         const box_like = document.querySelector(`div[idhl_post="${component.getAttribute("id_post")}"]`)                            
       
-        const op = component.getAttribute('liked')==='0'? '+' : '-'
         if(component.getAttribute("liked")==="0") { 
             component.setAttribute("liked",1)
             box_like.textContent = parseInt(box_like.textContent)+1 
@@ -159,7 +189,7 @@ const iteraccion_like = async (event)=>{
             box_like.textContent = parseInt(box_like.textContent)-1 
             component.setAttribute("src","./icons/corazon_like_desactivado.png")
         }
-        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}/${op}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
+        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
         if(respuesta.ok){                        
             
                     
@@ -171,12 +201,11 @@ const iteraccion_like = async (event)=>{
  
 
 
-const cargar_eventos = ()=>{
+const cargar_eventto_like = ()=>{
     const btn_likes = document.querySelectorAll('.boton_like')
-    for (const btn of btn_likes) {
-        btn.addEventListener('click',iteraccion_like)
-    }  
-}
+    btn_likes.forEach(btn=>btn.addEventListener('click',iteraccion_like))
+}  
+
 
 cargarHastags().then(()=>{
 const hastags =  document.querySelectorAll('.hastag')
@@ -189,7 +218,7 @@ const hastags =  document.querySelectorAll('.hastag')
 
 })
 
-cargarPosts('currents').then(cargar_eventos)
+cargarPosts('currents').then(cargar_eventto_like)
 
 
 

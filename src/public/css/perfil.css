@@ -316,6 +316,9 @@ ul .opciones_imagenes {
 .contenedor_post{
     border-radius: 5px;
     background: #0000000a;
+    min-height: 400px;
+    width: 100%;
+
     backdrop-filter: blur(0.10rem);
     transition: 0.9s;
    
