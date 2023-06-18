@@ -64,7 +64,7 @@ const setLikePost = async (id_post, id_user) => {
  
   await dbconnection.query(`UPDATE posts set likes = likes + 1  where id_post = ${id_post};`)
   await dbconnection.query(`Insert into users_post_liked (id_post,id_user) VALUES(${id_post},${id_user})`)   
-return
+  return
 };
 
 const deleteLike=async(id_post,id_user)=>{

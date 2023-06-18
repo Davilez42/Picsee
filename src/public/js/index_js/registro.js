@@ -109,6 +109,9 @@ const obtenermasinfoUsuario= ()=>{
         alert('Debes registrate primero !')
         return
     }
+    
+
+
     document.querySelector('.form-registro').style.display = 'none'
     document.querySelector('.contenedor-imagenes').style.display = 'none'    
     document.querySelector('.form-infoUsuario').style.display = 'flex'

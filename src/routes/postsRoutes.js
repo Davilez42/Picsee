@@ -18,7 +18,7 @@ const apiLimiter = rateLimit({
 
 router.get('/Posts/:option',verifyUser,ServiceWebAccessToken.validateToken,getposts)
 router.get('/Hastags',getHastags)
-router.patch('/lkd/post/:id_post/liked/user/:id_user/:op',apiLimiter,ServiceWebAccessToken.validateToken ,setlike)
+router.patch('/lkd/post/:id_post/liked/user/:id_user',apiLimiter,ServiceWebAccessToken.validateToken ,setlike)
 router.post('/uploadFile/:id_user',ServiceWebAccessToken.validateToken,verifyUser,fileController.uploadFile)
 
 

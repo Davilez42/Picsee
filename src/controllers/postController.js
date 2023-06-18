@@ -53,9 +53,9 @@ const setlike = async(req,resp)=>{
         const resultado = await RepositorioPosts.existRelation(req.params.id_post,req.params.id_user)
         //console.log(resultado[0]);
         if (resultado[0].length==0){
-            await RepositorioPosts.setLikePost(req.params.id_post,req.params.id_user)
+            RepositorioPosts.setLikePost(req.params.id_post,req.params.id_user)
         }else{
-            await RepositorioPosts.deleteLike(req.params.id_post,req.params.id_user)
+            RepositorioPosts.deleteLike(req.params.id_post,req.params.id_user)
         }
     
 
