@@ -19,11 +19,6 @@ app.use(express.static('./src/storage/GaleryPics'))//mainmidler
 app.use(express.static('./src/public'))//mainmidler 
 app.use(express.static('./src/storage/PerfilPics'))/
 
-//RUTA PRINCIPAL
-
-app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{   
-    resp.status(200).sendFile('./public/homPage.html',{root:__dirname})
-})
 
 app.use(authRoutes)
 app.use(userRoutes)
