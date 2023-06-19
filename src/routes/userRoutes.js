@@ -12,7 +12,7 @@ router.use(fileupload())
 
 router.delete('/Delete_User',ServiceWebAccessToken.validateToken,verifyUser,delete_User)
 router.patch('/changedAvatar/:id_user',ServiceWebAccessToken.validateToken,verifyUser,fileController.saveAvatar)
-router.patch('/setpreinfoUser/:id_user/:pais/:cidudad',ServiceWebAccessToken.validateToken,verifyUser,setPreInfo)
+router.patch('/setpreinfoUser/:id_user',ServiceWebAccessToken.validateToken,verifyUser,setPreInfo)
 
 router.use(controllerPosts)
 module.exports = router

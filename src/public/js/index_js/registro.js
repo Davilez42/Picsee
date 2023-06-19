@@ -1,5 +1,4 @@
 
-
 const btn_registo = document.querySelector("#btn_registro");
 btn_registo.addEventListener('click',()=>{
     obtenerDatos()
@@ -91,11 +90,14 @@ const enviar_registro=async(datos_formularo)=>{
        if(us['succes']){
         sessionStorage.setItem("loggedUser",JSON.stringify(us))
             obtenermasinfoUsuario()
+            limpiarFormRegistro()
        }
        else{
+        console.log(us['valFail']);
         alert(`El ${ us['valFail'] } ya esta en uso`)
         }
     }else{
+        
         const us = await respuesta.json()
         alert(us['messageError'])
     }
@@ -104,46 +106,59 @@ const enviar_registro=async(datos_formularo)=>{
 const obtenermasinfoUsuario= ()=>{
     //document.querySelector('.contenedor_ingresar').style.display = 'none'
     const user = JSON.parse(sessionStorage.getItem('loggedUser'))
-
     if(user==null){    
         alert('Debes registrate primero !')
         return
     }
-    
-
-
     document.querySelector('.form-registro').style.display = 'none'
     document.querySelector('.contenedor-imagenes').style.display = 'none'    
     document.querySelector('.form-infoUsuario').style.display = 'flex'
-    document.querySelector('.contenedor-avatar').style.display= 'flex'
+    document.querySelector('.contenedor-avatar').style.display= 'flex'  
 
-    
     document.getElementById('btn_infouser').addEventListener('click',async()=>{
         const pais = document.getElementById('infoUsuario-pais-input').value
         const ciudad = document.getElementById('infoUsuario-ciudad-input').value
         const avatar = document.getElementById('avatar_archivo').files       
-            fetch(`http://192.168.1.7:5000/setpreinfoUser/${user.id_user}/${pais}/${ciudad}`,{
+         console.log(pais.trim() != '',ciudad.trim() != '');   
+
+        if (pais.trim() != '' || ciudad.trim() != '' ) {
+            fetch(`http://192.168.1.7:5000/setpreinfoUser/${user.id_user}`,{
                 method:'PATCH',
                 mode:'cors',
-                headers:{"auth":user.token}
+                headers:{"auth":user.token,"Content-Type": "application/json"},
+                body:JSON.stringify({ciudad,pais})
             })
-            if(avatar.length>0){
-                const form = new FormData()
-                console.log(avatar[0]);
-                form.append('archivo',avatar[0])
-                
-                await fetch(`http://192.168.1.7:5000/changedAvatar/${user.id_user}`,{
-                    method:'PATCH',
-                    mode: "cors",
-                    headers:{"auth":user.token,"id_avatar":user.id_avatar},
-                    body:form
-                })
-                user.id_avatar = user.id_user+'_'+avatar[0].name 
-                sessionStorage.setItem('loggedUser',JSON.stringify(user)) 
-                }
-
-                window.location.href = '/home.html'
-
-
+        }
+            
+        if(avatar.length>0){
+            const form = new FormData()
+            console.log(avatar[0]);
+            form.append('archivo',avatar[0])              
+            await fetch(`http://192.168.1.7:5000/changedAvatar/${user.id_user}`,{
+                method:'PATCH',
+                mode: "cors",
+                headers:{"auth":user.token,"id_avatar":user.id_avatar},
+                body:form
+            })
+            user.id_avatar = user.id_user+'_'+avatar[0].name 
+            sessionStorage.setItem('loggedUser',JSON.stringify(user)) 
+            }
+            limpiarFormInfouser()
+            window.location.href = '/home.html'
     })
+}
+
+const limpiarFormInfouser=()=>{
+    document.getElementById('infoUsuario-pais-input').value = '';
+    document.getElementById('infoUsuario-ciudad-input').value = '';
+
+}
+
+const limpiarFormRegistro=()=>{
+    document.getElementById('registro-nombres-input').value = '';
+    document.getElementById('registro-apellidos-input').value = '';
+    document.getElementById('registro-usuario-input').value = '';
+    document.getElementById('registro-correo-input').value = '';
+    document.getElementById('registro-contraseña-input').value = '';
+    document.getElementById('registro-contraseña-input-2').value = ''; 
 }

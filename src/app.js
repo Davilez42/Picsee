@@ -3,7 +3,6 @@ require("colors");
 const cors =require('cors')
 const userRoutes = require('./routes/userRoutes')
 const authRoutes = require('./routes/authRoutes')
-const ServiceWebAccessToken = require('./middleware/webAccessToken')
 const logger = require('./middleware/logger.js')
 const path = require('path');
 

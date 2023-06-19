@@ -1,11 +1,7 @@
 const RepositorioUser = require('../services/users.service')
 const ServiceWebAccessToken = require('../middleware/webAccessToken')
 const serviceEncrypted =require('../services/encrypted.service')
-console.log('SIPIS'.gray);
 require("dotenv").config();
-
-
-
 const valdiateUser = async(req,resp)=>{ 
     try {
        //Verifico los datos recibidos
@@ -74,7 +70,7 @@ const resgiterUser = async (req,resp)=>{
           
     } catch (rason) {
           if(rason.code === 'ER_DUP_ENTRY'){
-             const r = rason.sqlMessage.split(' ').pop().slice(1,-1)
+             const r = rason.sqlMessage.split(' ').pop().slice(1,-1).split('.')[1] 
              return resp.status(200).json({"succes":false,"valFail":r})
           }
           if(rason.code === process.env.dataBaseConectionRefused) {

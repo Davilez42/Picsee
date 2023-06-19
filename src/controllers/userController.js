@@ -35,7 +35,7 @@ const delete_User = async(req,resp)=>{
 const setPreInfo = async(req,resp)=>{
    try {
       //TODO
-      console.log(req.params);
+      console.log(req.body);
    } catch (error) {
       
    }

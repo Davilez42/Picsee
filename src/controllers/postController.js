@@ -30,7 +30,7 @@ const getposts= async(req,resp)=>{
      }
  }
 
- const getHastags = async (req,resp)=>{
+const getHastags = async (req,resp)=>{
     try {
       const hastags =  await RepositorioHastags.getHastags();
       return resp.status(200).json({"hastags":hastags})
