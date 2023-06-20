@@ -1,7 +1,7 @@
-const ServiceEncrypted = require('../models/ServiceEncrypted')
+const ServiceEncrypted = require('../src/services/encrypted.service')
 
 test('test function set hastag on bd',async ()=>{
-    const valor  =  ServiceEncrypted.encrypted('123456789')
-    const valor_d =  ServiceEncrypted.dencrypt(valor)
-    console.log(valor_d);
+    const valor  = await ServiceEncrypted.encrypted('123456789')
+    const result = await ServiceEncrypted.compare_(valor,'123456789')
+    console.log(result);
 });
