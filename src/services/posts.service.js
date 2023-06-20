@@ -1,8 +1,5 @@
 const dbconnection = require("./db.service");
 const getDateTimeNow = require("./dateTime.service");
-const RepositorioImages = require("./images.service")
-const RepositorioHastags = require("./hastags.service")
-
 
 const getPosts_Relevant = async () => {
   const posts = await dbconnection.query(`SELECT url_image 
@@ -35,9 +32,7 @@ const getPosts = async (id_user) => {
 };
 
 
-const existRelation = async(id_post,id_user)=>{
-  return  dbconnection.execute(`SELECT * from users_post_liked where id_post=${id_post} and id_user=${id_user}`)
-}
+
 
 const getPostsByhastag = async (id_user,id_hastag) => {
   let posts = await dbconnection.execute(`select id_post,likes,url_image,username as username_autor, url as avatar_autor
@@ -62,18 +57,10 @@ const getPostsByhastag = async (id_user,id_hastag) => {
     return posts[0];
 };
 
-const setLikePost = async (id_post, id_user) => {
- 
-  await dbconnection.query(`UPDATE posts set likes = likes + 1  where id_post = ${id_post};`)
-  await dbconnection.query(`Insert into users_post_liked (id_post,id_user) VALUES(${id_post},${id_user})`)   
-  return
+const setLikePost = async (id_post,operation) => {
+ return await dbconnection.query(`UPDATE posts set likes = likes ${operation} 1  where id_post = ${id_post};`)   
 };
 
-const deleteLike=async(id_post,id_user)=>{
-  await dbconnection.query(`UPDATE posts set likes = likes - 1  where id_post = ${id_post};`)
-  await  dbconnection.query(`DELETE from users_post_liked where id_post=${id_post} and id_user=${id_user}`)
-return
-}
 
 const setPosts = async(id_user,ids_images,visible)=>{
   
@@ -98,8 +85,5 @@ module.exports = {
   getPosts,
   setLikePost,
   getPostsByhastag,
-  setPosts,
-  existRelation,
-  deleteLike
-
+  setPosts
 };

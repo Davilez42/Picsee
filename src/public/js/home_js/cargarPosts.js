@@ -168,15 +168,12 @@ const cargarHastags=async()=>{
         contenedor_hastags.appendChild(frag)   
     }
 }
-
+//logica like
+let estados = []
 const iteraccion_like = async (event)=>{
         const component = event.target
-        const id_user = JSON.parse(window.sessionStorage.getItem('loggedUser')).id_user
-        const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
-        const id_post = component.getAttribute("id_post")
-        console.log(component);
         const box_like = document.querySelector(`div[idhl_post="${component.getAttribute("id_post")}"]`)                            
-      
+        estados.push(component.getAttribute("liked"))
         if(component.getAttribute("liked")==="0") { 
             component.setAttribute("liked",1)
             box_like.textContent = parseInt(box_like.textContent)+1 
@@ -187,20 +184,33 @@ const iteraccion_like = async (event)=>{
             component.setAttribute("liked",0)
             box_like.textContent = parseInt(box_like.textContent)-1 
             component.setAttribute("src","https://ik.imagekit.io/picmont/icons/corazon_like_activado.png?updatedAt=1687206842846")
-        }
-        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
-        if(respuesta.ok){                        
-            
-                    
-         }else{
-            console.log("Error en el servidor,No se pudo guardar el like")
-         }
-         
+        }       
         }
  
+const send_like = async(event)=>{
+    const id_user = JSON.parse(window.sessionStorage.getItem('loggedUser')).id_user
+    const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
+    const id_post = event.target.getAttribute("id_post")
+    console.log(id_user,id_post);
+    if(estados.length==1 || estados.shift()===estados.pop() ){
+        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
+        if(!respuesta.ok){
+            console.log("Error en el servidor,No se pudo guardar el like")
+         } 
+    }
+    estados = []
+    event.target.removeEventListener('mouseout',send_like)  
+ }       
+
 const cargar_evento_like = ()=>{
     const btn_likes = document.querySelectorAll('.boton_like')
-    btn_likes.forEach(btn=>btn.addEventListener('click',iteraccion_like))
+    btn_likes.forEach(btn=>btn.addEventListener('click',(event)=>{
+            iteraccion_like(event)      
+            event.target.addEventListener('mouseout',send_like)
+    }))
+    
+    
+    
 }  
 
 

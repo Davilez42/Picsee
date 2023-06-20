@@ -1,6 +1,7 @@
 const RepositorioPosts = require('../services/posts.service')
 const FileController = require('./fileController')
 const RepositorioHastags =  require("../services/hastags.service")
+const RepositorioRelationUsersPosts = require('../services/relationUsersPosts.service')
  
 require("dotenv").config()
 
@@ -21,7 +22,6 @@ const getposts= async(req,resp)=>{
              posts = posts_currents;
          }
          imagenes =  {"imagenes_":posts};
-         console.log(posts);
          return resp.status(200).json(imagenes)
      } catch (rason) {
          if(rason.code === process.env.dataBaseConectionRefused) {
@@ -50,15 +50,8 @@ const setlike = async(req,resp)=>{
         if( isNaN(id_post)){
             throw new Error('Error: Tipos de datos incorrectos')
         }
-        const resultado = await RepositorioPosts.existRelation(req.params.id_post,req.params.id_user)
-        //console.log(resultado[0]);
-        if (resultado[0].length==0){
-            RepositorioPosts.setLikePost(req.params.id_post,req.params.id_user)
-        }else{
-            RepositorioPosts.deleteLike(req.params.id_post,req.params.id_user)
-        }
-    
-
+        const resultado = await RepositorioRelationUsersPosts.insertRelation(req.params.id_post,req.params.id_user)
+        await RepositorioPosts.setLikePost(req.params.id_post,resultado ? '+':'-')
         return resp.sendStatus(200)
     } catch (rason) {
         
