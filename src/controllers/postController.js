@@ -20,8 +20,8 @@ const getposts= async(req,resp)=>{
              const posts_currents = await RepositorioPosts.getPostsByhastag(req.headers["id"],id_hastag)
              posts = posts_currents;
          }
- 
          imagenes =  {"imagenes_":posts}
+         console.log(imagenes);
          return resp.status(200).json(imagenes)
      } catch (rason) {
          if(rason.code === process.env.dataBaseConectionRefused) {

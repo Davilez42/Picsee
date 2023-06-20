@@ -1,8 +1,14 @@
 
 const RepositorioPost = require('../services/posts.service.js')
-const RepositorioUsers = require('../services/users.service.js')
 const RepositorioImages = require('../services/images.service.js')
 const RepositorioHastags = require('../services/hastags.service.js')
+const RepositorioAvatarsUsers = require('../services/avatarsUsers.service.js')
+const ImageKit = require('imagekit')
+const imagekit = new ImageKit({
+    publicKey : "public_tN+GbIXQt6n+37QgX8Du6L7FSm4=",
+    privateKey : "private_NPAxmrhLYKVEYAsfp5souoh/B5Y=",
+    urlEndpoint : "https://ik.imagekit.io/picmont/",                   
+})
 const {unlink} = require('fs')
 require('dotenv')
 class FileController{
@@ -21,24 +27,27 @@ class FileController{
                     throw new Error('Error: maximo de archivos excedido')
                 }
 
-                const name_files = archivos.map(ar=>ar.name)
-                const ids_image = await RepositorioImages.setImages(name_files);
+                let data_images =[]
+                for (let i = 0; i < archivos.length; i++){
+                    await
+                    imagekit.upload({
+                        file:archivos[i].data,
+                        fileName: archivos[i].name                  
+                    }).then(r=>{
+                        data_images.push({'url':r.url,'id_cnd':r.fileId})
+                    })
+                    .catch(er=>{
+                        console.log('Error:',er);
+                    })                  
+                }
+                console.log(data_images);
+                const ids_image = await RepositorioImages.setImages(data_images);
                 const id_posts = await RepositorioPost.setPosts(id_user,ids_image,1)
                 if(hastags!=null){
+                    console.log(hastags);
                     await RepositorioHastags.setHastags(hastags)
                     RepositorioHastags.setRelationHastags(id_posts,hastags)
-                }
-                
-                for (let i = 0; i < ids_image.length; i++) {
-                    const ruta_upload =  __dirname + "/../storage/GaleryPics/" + ids_image[i]+"_"+name_files[i]
-                    archivos[i].mv(ruta_upload,(error)=>{
-                        if (error){
-                            res.status(500).json({"messageError":error.message})
-                            return
-                        }
-                    }) 
-                
-            }
+                }                        
                 res.sendStatus(204)
         } catch (error) {
             res.status(400).json({"messageError":error.message})  
@@ -46,62 +55,63 @@ class FileController{
         
     }
 
-
+    //TODO
     saveAvatar = async (req,resp,next)=>{     
         try {
             const data = req.params
             const id_user = data.id_user
-            const img_ant = req.headers.id_avatar
             const archivo = req.files.archivo;
-
-
             if(id_user == undefined || archivo == undefined){
                 throw new Error("Error: entradas invalidas")
-            }
-            
+            }           
             if(isNaN(parseInt(id_user))){
                 throw new Error("Error: El id es incorrecto")
             } 
 
-            const name_file = id_user+"_"+archivo.name
-            await RepositorioUsers.changed_Avatar(id_user,name_file)
-            const ruta_upload =  __dirname + "/../storage/PerfilPics/" +name_file ;
-            archivo.mv(ruta_upload,(error)=>{
-                if(error){
-                    return  resp.status(500).json({"messageError":error.message})
-                }
-                resp.status(200).json({"id_avatar":name_file})
-            });
-              if(img_ant!='default_avatar.png'){
-                this.deleteFiles([{"f_name":img_ant}],'PerfilPics')
-              } 
-            
-        } catch (rason) {
+            const avatar = await RepositorioAvatarsUsers.getAvatar(id_user) 
+           // console.log(avatar);
+            if (avatar.id_avatar==1) {
+                const a =  await imagekit.upload({file:archivo.data, fileName:archivo.name})
+                                .then(r=>{             
+                                        return RepositorioAvatarsUsers.insertAvatar(id_user,{'url':r.url,'id_cnd':r.fileId})
+                                                .then(()=>{
+                                                    return {id_avatar:avatar.id_avatar,'url':r.url,'id_cnd':r.fileId}
+                                                })   
+                                    })                     
+                    return resp.status(200).json(a)
+                            }         
+                this.deleteFiles([{id_cnd:avatar.id_cnd}])    //elimino el avatar el en servidor de iamgenes 
+                const a = await imagekit.upload({file:archivo.data,fileName:archivo.name})
+                                .then(async r=>{             
+                                return RepositorioAvatarsUsers.updateAvatar(avatar.id_avatar,{'url':r.url,'id_cnd':r.fileId})
+                                        .then(()=>{
+                                            return {id_avatar:avatar.id_avatar,'url':r.url,'id_cnd':r.fileId}
+                                        })         
+                                })
+
+                return resp.status(200).json(a)        
+            } catch (rason) {
             if(rason.code === process.env.dataBaseConectionRefused) {
                 return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
              } 
-
+             console.log(rason.code);
             return resp.status(400).json({"messageError":rason.message})
-        }       
-         
+        }               
     }
 
 
-    deleteFiles = async(files,folder)=>{
-        const ruta_almacenamiento = __dirname + `/../storage/${folder}/`
-        
+    deleteFiles = async(files)=>{        
+        //console.log(files);
         if (files.length ==0) {
             return
         }
-        for(const i in files){
-            const file_name = files[i].f_name
-            //console.log(ruta_almacenamiento+file_name)
-            unlink(ruta_almacenamiento+file_name,(err)=>{
-                if(err){
-                    return err
-                }
-            })
-        }
+        files.forEach(i=>{
+            console.log(i);
+            imagekit.deleteFile(i.id_cnd).catch(error => {
+                return error
+            });
+            }
+        )
 
     }
 }

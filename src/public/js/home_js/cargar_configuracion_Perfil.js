@@ -6,8 +6,8 @@ const autentificacion=()=>{
         return
     }
     user = JSON.parse(sessionStorage.getItem('loggedUser'))//cargo el usuario que esta logeado
-    document.getElementById('avatar_').src = user['id_avatar']//cargo el avatar
-    document.getElementById('avatar').src = user['id_avatar']//cargo el avatar
+    document.getElementById('avatar_').src = user['avatar'].url//cargo el avatar
+    document.getElementById('avatar').src = user['avatar'].url//cargo el avatar
     document.getElementById('barra_busqueda').placeholder = `Busca algo ${user['username'][1]} !` 
 
     const btn_cerrarSesion = document.querySelector("#btn_cerrarSesion")
@@ -20,7 +20,7 @@ const autentificacion=()=>{
     btn_eliminarCuenta.addEventListener('click',async ()=>{
       const user =JSON.parse(sessionStorage.getItem('loggedUser'))
       if(user!=undefined){
-        const resp = await fetch(`http://192.168.1.7:5000/Delete_User?id_user=${user.id_user}&id_avatar=${user.id_avatar}`,{
+        const resp = await fetch(`http://192.168.1.7:5000/Delete_User?id_user=${user.id_user}&id_cnd=${user.avatar.id_cnd}`,{
         method:'DELETE',
         mode:'cors',
         headers:{"auth":user.token}

@@ -29,7 +29,7 @@ const uploadFile = async (pet,meth) => {
     const respuesta = await fetch(`http://192.168.1.7:5000/${pet}/${id_user}`,{
         method:meth,
         mode: "cors",
-        headers:{"auth":token,"hastags":hastags,"id_avatar":user.id_avatar},
+        headers:{"auth":token,"hastags":hastags},
         body:form
     })
 
@@ -48,8 +48,8 @@ const uploadFile = async (pet,meth) => {
     if(pet=='changedAvatar'){
         if (respuesta.ok) {
             imagenes_cargadas = []
-            const resp_img = await respuesta.json();
-            user.id_avatar = resp_img.id_avatar
+            const avatar_ = await respuesta.json();
+            user.avatar = avatar_
             window.sessionStorage.setItem('loggedUser',JSON.stringify(user))
             alert('avatar cargado exitosamente')
             window.location.href = "/"

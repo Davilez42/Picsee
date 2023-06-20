@@ -14,10 +14,11 @@ const getPosts_Relevant = async () => {
 };
 
 const getPosts = async (id_user) => {
-  const posts = await dbconnection.query(`SELECT id_post,likes, concat( id_image,"_",name,".", format_)  AS f_name ,username as username_autor,id_avatar as avatar_autor
+  const posts = await dbconnection.query(`SELECT id_post,likes, url_image ,username as username_autor, url as avatar_autor
                                                 FROM posts
                                                 join images using (id_image)
-                                                join users using (id_user)
+                                                join users  using (id_user)
+                                                join avatars_users using(id_avatar)
                                                 order by upload_date DESC`);
   
   let likes = await dbconnection.query(`Select id_post from users_post_liked where id_user=${id_user} `)                                               
@@ -39,10 +40,11 @@ const existRelation = async(id_post,id_user)=>{
 }
 
 const getPostsByhastag = async (id_user,id_hastag) => {
-  let posts = await dbconnection.execute(`select id_post,likes, concat( id_image,"_",name,".", format_)  AS f_name,username as username_autor,id_avatar as avatar_autor
+  let posts = await dbconnection.execute(`select id_post,likes,url_image,username as username_autor, url as avatar_autor
     from posts p 
     join images using (id_image)
     join users using (id_user)
+    join avatars_users using(id_avatar) 
     join relation_post_to_hastags rpth  using(id_post) 
     where id_hastag = ${id_hastag} `);
 

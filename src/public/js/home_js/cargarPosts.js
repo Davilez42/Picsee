@@ -6,13 +6,12 @@ const cargarPosts =async (query)=>{
         const datos =  await respuesta.json()    
         const tamaño = datos["imagenes_"].length
         const contenedor_galeria_perfil = document.querySelector("#contenedor_galeria_perfil")
-       contenedor_galeria_perfil.innerHTML = ""
+        contenedor_galeria_perfil.innerHTML = ""
       
         const fragmento = document.createDocumentFragment()
 
         let column_posts = document.createElement('DIV')
         column_posts.classList.add('column-posts')
-
 
         let top = 1
         console.log(tamaño)
@@ -49,7 +48,7 @@ const cargarPosts =async (query)=>{
 
 
                             const imagen = document.createElement('IMG')
-                            imagen.setAttribute('data-src',datos["imagenes_"][index].f_name)
+                            imagen.setAttribute('data-src',datos["imagenes_"][index].url_image)
                             imagen.classList.add('imagen_galeria')
 
                             contenedor_imagen.appendChild(imagen)
@@ -72,7 +71,7 @@ const cargarPosts =async (query)=>{
                             icon.setAttribute("id_post",datos["imagenes_"][index].id_post)
                             icon.setAttribute("liked",datos["imagenes_"][index].liked)
 
-                            const icon_png = (datos["imagenes_"][index].liked==0)? './icons/corazon_like_desactivado.png' :'./icons/corazon.png'  
+                            const icon_png = (datos["imagenes_"][index].liked==0)? 'https://ik.imagekit.io/picmont/icons/corazon_like_activado.png?updatedAt=1687206842846' :'https://ik.imagekit.io/picmont/icons/corazon.png?updatedAt=1687206842813'  
                             icon.setAttribute('src',icon_png)
                             icon.classList.add("boton_like")
                             
@@ -181,13 +180,13 @@ const iteraccion_like = async (event)=>{
         if(component.getAttribute("liked")==="0") { 
             component.setAttribute("liked",1)
             box_like.textContent = parseInt(box_like.textContent)+1 
-            component.setAttribute("src","./icons/corazon.png")
+            component.setAttribute("src","https://ik.imagekit.io/picmont/icons/corazon.png?updatedAt=1687206842813")
         }
         else
         {
             component.setAttribute("liked",0)
             box_like.textContent = parseInt(box_like.textContent)-1 
-            component.setAttribute("src","./icons/corazon_like_desactivado.png")
+            component.setAttribute("src","https://ik.imagekit.io/picmont/icons/corazon_like_activado.png?updatedAt=1687206842846")
         }
         const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
         if(respuesta.ok){                        
@@ -201,7 +200,7 @@ const iteraccion_like = async (event)=>{
  
 
 
-const cargar_eventto_like = ()=>{
+const cargar_evento_like = ()=>{
     const btn_likes = document.querySelectorAll('.boton_like')
     btn_likes.forEach(btn=>btn.addEventListener('click',iteraccion_like))
 }  
@@ -212,13 +211,13 @@ const hastags =  document.querySelectorAll('.hastag')
     for (const g of hastags) {
         g.addEventListener('click',(event)=>{
             const id_g = event.target.getAttribute('id_hastag')
-            cargarPosts(`filter?id_h=${id_g}`).then(cargar_eventos)
+            cargarPosts(`filter?id_h=${id_g}`).then(cargar_evento_like)
         })
     }
 
 })
 
-cargarPosts('currents').then(cargar_eventto_like)
+cargarPosts('currents').then(cargar_evento_like)
 
 
 

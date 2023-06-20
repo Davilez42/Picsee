@@ -4,7 +4,6 @@ const serviceEncrypted =require('../services/encrypted.service')
 require("dotenv").config();
 const valdiateUser = async(req,resp)=>{ 
     try {
-       //Verifico los datos recibidos
        const data_req = req.body;
        if(data_req.username.trim()==="" || data_req.password.toString().length==0){
           throw new Error("Error: Campos vacios , Porfavor suministre todo los campos")
@@ -20,7 +19,7 @@ const valdiateUser = async(req,resp)=>{
        if (await serviceEncrypted.compare_(user_bd[0].passwrd , data_req.password)){
              const data = {
                    "id_user":user_bd[0].id_user,
-                   "id_avatar":user_bd[0].id_avatar,
+                   "avatar":{id_avatar:user_bd[0].id_avatar,url:user_bd[0].url,id_cnd:user_bd[0].id_cnd},
                    "username":[true,user_bd[0].username],
                    "password":true};
              const access_token = ServiceWebAccessToken.generateAccessToken({"id_user":data.id_user,
@@ -63,7 +62,7 @@ const resgiterUser = async (req,resp)=>{
        return resp.status(200).json({
           "succes":true,
           "id_user": respuesta,
-          "id_avatar":'default_avatar.png',
+          "avatar":{url:'https://ik.imagekit.io/picmont/icons/default_avatar.png?updatedAt=1687206611943',id_cnd:0},
           "username":[true,data_req.username],
           "password":true,
           "token":access_token}) 
