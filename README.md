@@ -1,7 +1,7 @@
 # Aplicacion backend PicMont
 
 ## Description
-Aplicacion backend construida con  node js y express, para sitio web de Galeria de arte 
+Aplicacion backend construida con node js y express, para sitio web de Galeria de arte 
 
 
 ### Instalacion:

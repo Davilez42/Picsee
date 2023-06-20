@@ -28,6 +28,7 @@ bd_config = {
 server_config = {
     "PORT":5000,
     "HOST":"192.168.1.7",
+    'Logger':true
 }
 
 
