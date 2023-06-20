@@ -89,7 +89,7 @@ const enviar_registro=async(datos_formularo)=>{
         const us = await respuesta.json()
        if(us['succes']){
         sessionStorage.setItem("loggedUser",JSON.stringify(us))
-            obtenermasinfoUsuario()
+            obtenermasinfoUsuario(datos_formularo.first_names)
             limpiarFormRegistro()
        }
        else{
@@ -103,13 +103,14 @@ const enviar_registro=async(datos_formularo)=>{
     }
 }
 
-const obtenermasinfoUsuario= ()=>{
-    //document.querySelector('.contenedor_ingresar').style.display = 'none'
+const obtenermasinfoUsuario= (name_user)=>{
+    //document.querySelector('.coantenedor_ingresar').style.display = 'none'
     const user = JSON.parse(sessionStorage.getItem('loggedUser'))
     if(user==null){    
         alert('Debes registrate primero !')
         return
     }
+    document.querySelector('.titulo_info_user').innerHTML += ' ' + name_user 
     document.querySelector('.form-registro').style.display = 'none'
     document.querySelector('.contenedor-imagenes').style.display = 'none'    
     document.querySelector('.form-infoUsuario').style.display = 'flex'

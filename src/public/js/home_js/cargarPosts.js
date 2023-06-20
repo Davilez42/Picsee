@@ -198,8 +198,6 @@ const iteraccion_like = async (event)=>{
          
         }
  
-
-
 const cargar_evento_like = ()=>{
     const btn_likes = document.querySelectorAll('.boton_like')
     btn_likes.forEach(btn=>btn.addEventListener('click',iteraccion_like))
