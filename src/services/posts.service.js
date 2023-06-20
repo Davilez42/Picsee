@@ -5,12 +5,12 @@ const RepositorioHastags = require("./hastags.service")
 
 
 const getPosts_Relevant = async () => {
-  const posts = await dbconnection.query(`SELECT  concat( id_image,"_",name,".", format_)  AS f_name 
-                                                FROM posts
-                                                join images using (id_image)
-                                                order by likes,upload_date DESC
-                                                limit 10`);
-  return posts[0].map((img) => img.f_name);
+  const posts = await dbconnection.query(`SELECT url_image 
+                                                 FROM posts
+                                                 join images using (id_image)                                               
+                                                 order by likes,upload_date DESC
+                                                 limit 10`);
+  return posts[0].map((img) => img.url_image);
 };
 
 const getPosts = async (id_user) => {

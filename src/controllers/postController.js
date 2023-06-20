@@ -21,6 +21,7 @@ const getposts= async(req,resp)=>{
              posts = posts_currents;
          }
          imagenes =  {"imagenes_":posts};
+         console.log(posts);
          return resp.status(200).json(imagenes)
      } catch (rason) {
          if(rason.code === process.env.dataBaseConectionRefused) {
