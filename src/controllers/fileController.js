@@ -9,7 +9,6 @@ const imagekit = new ImageKit({
     privateKey : "private_NPAxmrhLYKVEYAsfp5souoh/B5Y=",
     urlEndpoint : "https://ik.imagekit.io/picmont/",                   
 })
-const {unlink} = require('fs')
 require('dotenv')
 class FileController{
     uploadFile = async (req,res,nexy)=>{
@@ -40,7 +39,7 @@ class FileController{
                         console.log('Error:',er);
                     })                  
                 }
-                console.log(data_images);
+               // console.log(data_images);
                 const ids_image = await RepositorioImages.setImages(data_images);
                 const id_posts = await RepositorioPost.setPosts(id_user,ids_image,1)
                 if(hastags!=null){
