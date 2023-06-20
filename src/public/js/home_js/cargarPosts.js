@@ -109,18 +109,14 @@ const cargarPosts =async (query)=>{
     }
 }
 
-
-
 const lazyloadin = ()=>{
     const images_ = document.querySelectorAll('.imagen_galeria')//obtengo todas las imagenes cargadas
     const callback = (entries,observer)=>{
-        entries.forEach(enty=>{
-            
+        entries.forEach(enty=>{          
             if (enty.isIntersecting) {
                 enty.target.src = enty.target.dataset.src
                 observer.unobserve(enty.target)
-            }
-            
+            }          
         })
     }
     const options = {
@@ -186,7 +182,6 @@ const iteraccion_like = async (event)=>{
             component.setAttribute("src","https://ik.imagekit.io/picmont/icons/corazon_like_activado.png?updatedAt=1687206842846")
         }       
         }
- 
 const send_like = async(event)=>{
     const id_user = JSON.parse(window.sessionStorage.getItem('loggedUser')).id_user
     const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
@@ -201,7 +196,6 @@ const send_like = async(event)=>{
     estados = []
     event.target.removeEventListener('mouseout',send_like)  
  }       
-
 const cargar_evento_like = ()=>{
     const btn_likes = document.querySelectorAll('.boton_like')
     btn_likes.forEach(btn=>btn.addEventListener('click',(event)=>{
@@ -212,7 +206,6 @@ const cargar_evento_like = ()=>{
     
     
 }  
-
 
 cargarHastags().then(()=>{
 const hastags =  document.querySelectorAll('.hastag')
