@@ -133,16 +133,21 @@ const obtenermasinfoUsuario= (name_user)=>{
             
         if(avatar.length>0){
             const form = new FormData()
-            console.log(avatar[0]);
             form.append('archivo',avatar[0])              
-            await fetch(`/changedAvatar/${user.id_user}`,{
+           const resp =  await fetch(`/changedAvatar/${user.id_user}`,{
                 method:'PATCH',
                 mode: "cors",
                 headers:{"auth":user.token,"id_avatar":user.id_avatar},
                 body:form
             })
-            user.id_avatar = user.id_user+'_'+avatar[0].name 
-            sessionStorage.setItem('loggedUser',JSON.stringify(user)) 
+            if (resp.ok) {
+                const new_avatar = await resp.json()
+                user.avatar = new_avatar
+                sessionStorage.setItem('loggedUser',JSON.stringify(user)) 
+            }else{
+                alert('El  avatar NO se cargo correctamente')
+            }
+            
             }
             limpiarFormInfouser()
             window.location.href = '/home.html'
