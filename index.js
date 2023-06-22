@@ -1,9 +1,10 @@
 
 const app = require('./src/app')
-const {server_config} = require('./src/configs/config')
+//const {server_config} = require('./src/configs/config')
+require('dotenv')
+const PORT = process.env.PORT || 5000 
 
-
-app.listen(server_config.PORT,server_config.HOST,()=>{
-    console.log("server on port :5000".green);
+app.listen(PORT,()=>{
+    console.log(`server on port :${PORT}`.green);
   });
   

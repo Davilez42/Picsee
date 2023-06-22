@@ -1,7 +1,8 @@
+
 const cargarPosts =async (query)=>{
     const token = JSON.parse(sessionStorage.getItem('loggedUser')).token
     const id_user = JSON.parse(sessionStorage.getItem('loggedUser')).id_user
-    const respuesta = await fetch(`http://192.168.1.7:5000/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
+    const respuesta = await fetch(`/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
     if (respuesta.ok) {
         const datos =  await respuesta.json()    
         const tamaño = datos["imagenes_"].length
@@ -188,7 +189,7 @@ const send_like = async(event)=>{
     const id_post = event.target.getAttribute("id_post")
     console.log(id_user,id_post);
     if(estados.length==1 || estados.shift()===estados.pop() ){
-        const respuesta = await fetch(`http://192.168.1.7:5000/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
+        const respuesta = await fetch(`/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
         if(!respuesta.ok){
             console.log("Error en el servidor,No se pudo guardar el like")
          } 

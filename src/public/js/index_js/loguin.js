@@ -13,9 +13,7 @@ btn_login.addEventListener("click", (e) => {
   }
   validar_Loguin(username.trim(), password.trim());
 });
-
 const validar_Loguin = async (us, pas) => {
-
   datos = {
     method: "POST",
     mode: "cors",
@@ -24,7 +22,7 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("http://192.168.1.7:5000/validateUser", datos)
+   fetch("/validateUser", datos)
     .then((respuesta) => {      
       if (respuesta.ok) {
         respuesta.json().then((us) => {

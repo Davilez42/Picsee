@@ -20,7 +20,7 @@ const autentificacion=()=>{
     btn_eliminarCuenta.addEventListener('click',async ()=>{
       const user =JSON.parse(sessionStorage.getItem('loggedUser'))
       if(user!=undefined){
-        const resp = await fetch(`http://192.168.1.7:5000/Delete_User?id_user=${user.id_user}&id_cnd=${user.avatar.id_cnd}`,{
+        const resp = await fetch(`/Delete_User?id_user=${user.id_user}&id_cnd=${user.avatar.id_cnd}`,{
         method:'DELETE',
         mode:'cors',
         headers:{"auth":user.token}
