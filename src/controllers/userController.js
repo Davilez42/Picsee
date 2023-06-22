@@ -9,18 +9,13 @@ const fileController =  new FileController()
 const delete_User = async(req,resp)=>{
     try {
        const data_req = req.query;
-       if(data_req.id_cnd.trim() === ''){
-          throw new Error("Error:Campos vacios , Por favor suministre todo los campos")
-       }
-       
-      const imagenes_eliminar = await  RepositorioImages.getImagesByIdcnd(data_req.id_user);       
-      await RepositorioUser.delet_user(data_req.id_user);
-          
-      await RepositorioImages.deleteImages(imagenes_eliminar);
+      const imagenes_eliminar = await  RepositorioImages.getImagesByIdcdn(data_req.id_user);       
+      const avatar_user = await RepositorioAvatarsUsers.getAvatar(data_req.id_user)
+   
+      await RepositorioUser.delet_user(data_req.id_user);       
+      await RepositorioImages.deleteImages(imagenes_eliminar);   
 
-      await RepositorioAvatarsUsers.deleteAvatarByidCnd(data_req.id_cnd);    
-
-      await fileController.deleteFiles([...imagenes_eliminar,{id_cnd:data_req.id_cnd}]);
+      await fileController.deleteFiles([...imagenes_eliminar,{id_cdn:avatar_user.id_cdn}]);
 
       resp.sendStatus(204)
  
@@ -28,6 +23,7 @@ const delete_User = async(req,resp)=>{
        if(rason.code === process.env.dataBaseConectionRefused) {
           return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
        }
+       console.log(rason);
       return resp.status(400).json({"messageError":rason.message})
     }
  
