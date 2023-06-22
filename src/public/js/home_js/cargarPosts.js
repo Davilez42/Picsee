@@ -1,7 +1,8 @@
+
 const cargarPosts =async (query)=>{
     const token = JSON.parse(sessionStorage.getItem('loggedUser')).token
     const id_user = JSON.parse(sessionStorage.getItem('loggedUser')).id_user
-    const respuesta = await fetch(`http://192.168.1.7:5000/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
+    const respuesta = await fetch(`http://localhost:5000/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
     if (respuesta.ok) {
         const datos =  await respuesta.json()    
         const tamaño = datos["imagenes_"].length
