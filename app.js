@@ -7,9 +7,8 @@ const path =  require('path');
 const { render } = require("ejs");
 const { hostname } = require("os");
 const app = express();
-
-
-
+require('dotenv')
+const port =  process.env.PORT || 5000
 app.use((req,res,next)=>{//LOGGER
    console.log(` IP: ${req.ip.green} :METHOD ${req.method}  url ${req.url}   Status: ${res.statusCode}`.blue)
    next()//Continua con la ruta
@@ -38,6 +37,6 @@ app.get('/HomPage',ServiceWebAccessToken.validateToken,async(req,resp)=>{
 app.use(controllerUser)
 app.use(cors())
 
-app.listen(5000,'192.168.1.7');
+app.listen(port,'192.168.1.7');
 
-console.log("server on port:5000".green);
+console.log("server on ".green);

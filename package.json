@@ -48,7 +48,7 @@
     "undefsafe": "^2.0.5"
   },
   "scripts": {
-    "dev": "nodemon app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
