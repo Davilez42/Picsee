@@ -18,7 +18,6 @@ app.use(express.static('./src/storage/GaleryPics'))//mainmidler
 app.use(express.static('./src/public'))//mainmidler 
 app.use(express.static('./src/storage/PerfilPics'))/
 
-
 app.use(authRoutes)
 app.use(userRoutes)
 
