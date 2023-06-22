@@ -17,7 +17,7 @@ const setHastags = async (hastags)=>{
     let values = [] 
     for(n of hastags){
         if(!hastags_bd.includes(n.toLowerCase())){
-            values.push( `("${n}",1)`)
+            values.push( `("${n}")`)
         }
     }
 
@@ -25,7 +25,7 @@ const setHastags = async (hastags)=>{
         return
     }
 
-    let consulta = `Insert Into hastags (name,used) values ${values.join(',')}`
+    let consulta = `Insert Into hastags (name) values ${values.join(',')}`
     return dbconnection.execute(consulta) 
  
 
