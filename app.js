@@ -7,8 +7,7 @@ const path =  require('path');
 const { render } = require("ejs");
 const { hostname } = require("os");
 const app = express();
-require('dotenv')
-const port =  process.env.PORT || 5000
+
 app.use((req,res,next)=>{//LOGGER
    console.log(` IP: ${req.ip.green} :METHOD ${req.method}  url ${req.url}   Status: ${res.statusCode}`.blue)
    next()//Continua con la ruta
