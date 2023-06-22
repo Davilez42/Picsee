@@ -1,6 +1,7 @@
 const RepositorioUser = require('../services/users.service')
 const ServiceWebAccessToken = require('../middleware/webAccessToken')
 const serviceEncrypted =require('../services/encrypted.service')
+const RepositoryAvatarsUser = require('../services/avatarsUsers.service')
 require("dotenv").config();
 const valdiateUser = async(req,resp)=>{ 
     try {
@@ -19,7 +20,7 @@ const valdiateUser = async(req,resp)=>{
        if (await serviceEncrypted.compare_(user_bd[0].passwrd , data_req.password)){
              const data = {
                    "id_user":user_bd[0].id_user,
-                   "avatar":{id_avatar:user_bd[0].id_avatar,url:user_bd[0].url,id_cnd:user_bd[0].id_cnd},
+                   "avatar":{url:user_bd[0].url},
                    "username":[true,user_bd[0].username],
                    "password":true};
              const access_token = ServiceWebAccessToken.generateAccessToken({"id_user":data.id_user,
@@ -57,6 +58,7 @@ const resgiterUser = async (req,resp)=>{
        }
 
        const respuesta = await RepositorioUser.insert_user(data_req)
+       RepositoryAvatarsUser.insertAvatar(respuesta)
        const access_token = ServiceWebAccessToken.generateAccessToken({"username":data_req.username,
                                                                             "password":data_req.password})
        return resp.status(200).json({

@@ -4,7 +4,7 @@ const dbconnection = require("./db.service");
 const setImages = async(data_images)=>{    
     let ids = []
     for (const i of data_images) {
-      await  dbconnection.execute(`Insert into artgalery.images (url_image,id_cnd) VALUES ("${i.url}","${i.id_cnd}") `)
+      await  dbconnection.execute(`Insert into artgalery.images (url_image,id_cdn) VALUES ("${i.url}","${i.id_cdn}") `)
           .then(async(data)=>{
           ids.push(data[0].insertId)
           })
@@ -22,7 +22,7 @@ return dbconnection.execute(`Select  concat( i.id_image,"_",i.name,".", i.format
                       join images i on p.id_image = i.id_image
                       where p.id_user = ${user}`).then(data=>data[0]);
 }  
-const getImagesByIdcnd= async(user)=>{
+const getImagesByIdcdn= async(user)=>{
   return dbconnection.execute(`Select *
                         from posts p
                         join images i on p.id_image = i.id_image
@@ -45,4 +45,4 @@ const deleteImages= async(images)=>{
   return dbconnection.execute(`DELETE from images where id_image in ${consulta}`)
 }
 
-module.exports = {setImages,getImagesById,deleteImages,getImagesByIdcnd};
+module.exports = {setImages,getImagesById,deleteImages,getImagesByIdcdn};
