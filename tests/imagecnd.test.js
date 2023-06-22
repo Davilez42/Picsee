@@ -13,5 +13,5 @@ const imagekit = new ImageKit({
 }).catch(error => {
     console.log(error);
 }); */
-assert.strictEqual(1, 1);
+    
 })
