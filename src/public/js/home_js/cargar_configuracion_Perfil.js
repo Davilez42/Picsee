@@ -8,7 +8,7 @@ const autentificacion=()=>{
     user = JSON.parse(sessionStorage.getItem('loggedUser'))//cargo el usuario que esta logeado
     document.getElementById('avatar_').src = user['avatar'].url//cargo el avatar
     document.getElementById('avatar').src = user['avatar'].url//cargo el avatar
-    document.getElementById('barra_busqueda').placeholder = `Busca algo ${user['username'][1]} !` 
+    document.getElementById('barra_busqueda').placeholder = `Busca algo ${user['username'][1]} ! - Proximamente` 
 
     const btn_cerrarSesion = document.querySelector("#btn_cerrarSesion")
     btn_cerrarSesion.addEventListener("click",()=>{
@@ -20,7 +20,7 @@ const autentificacion=()=>{
     btn_eliminarCuenta.addEventListener('click',async ()=>{
       const user =JSON.parse(sessionStorage.getItem('loggedUser'))
       if(user!=undefined){
-        const resp = await fetch(`/Delete_User?id_user=${user.id_user}&id_cnd=${user.avatar.id_cnd}`,{
+        const resp = await fetch(`/Delete_User?id_user=${user.id_user}`,{
         method:'DELETE',
         mode:'cors',
         headers:{"auth":user.token}

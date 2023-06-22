@@ -37,7 +37,6 @@ const uploadFile = async (pet,meth) => {
     if(pet=='uploadFile'){
         if (respuesta.ok) {
             imagenes_cargadas = []
-            alert('Momento cargado exitosamente')
             window.location.href = "/"
             return
         }
@@ -51,7 +50,6 @@ const uploadFile = async (pet,meth) => {
             const avatar_ = await respuesta.json();
             user.avatar = avatar_
             window.sessionStorage.setItem('loggedUser',JSON.stringify(user))
-            alert('avatar cargado exitosamente')
             window.location.href = "/"
             return
         }else{
@@ -64,10 +62,6 @@ const uploadFile = async (pet,meth) => {
     }
     imagenes_cargadas = []
 }
-
-
-
-
 
 document.querySelector('#archivo').addEventListener('change',event=>{
     file = event.target.files

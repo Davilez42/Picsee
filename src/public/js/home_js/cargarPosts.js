@@ -115,6 +115,7 @@ const lazyloadin = ()=>{
     const callback = (entries,observer)=>{
         entries.forEach(enty=>{          
             if (enty.isIntersecting) {
+                console.log('carga');
                 enty.target.src = enty.target.dataset.src
                 observer.unobserve(enty.target)
             }          

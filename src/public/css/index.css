@@ -128,6 +128,7 @@ nav ul li a::before {
 
 nav ul li a:hover::before {
     width: 100%;
+    color: rgb(100, 100, 100);
     background-color:  #f95273;
 
 }
@@ -185,7 +186,7 @@ nav a:hover{
 }
 
 nav a:link{
-   color: #dcdbdb;
+   color: #000000;
 }
 
 
