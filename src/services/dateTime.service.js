@@ -1,10 +1,15 @@
 const getDateTimeNow=()=>{
-    const date = new Date()
-    const año = date.getFullYear()
-    const dia = date.getDate().toString().length ==1 ? "0".concat(date.getDate()):date.getDate().toString()
-    const mes = date.toLocaleDateString().split('/')[1].length ==1 ? "0".concat(date.toLocaleDateString().split('/')[1]):date.toLocaleDateString().split('/')[1].toString()
-    const hora = date.toLocaleTimeString().split(' ')[0]
-    return `${año}-${mes}-${dia} ${hora}`
+     const date = new Date()
+    const fecha_hora_actual = date.toLocaleString().split(' ')
+    const hora = date.getHours()
+    const minutos = date.getMinutes()
+    const segundos = date.getSeconds()
+    const fecha = fecha_hora_actual[0].replace(',','').split('/')
+    const dia = fecha[0]
+    const mes = fecha[1]
+    const año = fecha[2]   
+    return `${año}-${mes}-${dia}  ${hora}:${minutos}:${segundos}`; 
+
 }
 
 module.exports = {
