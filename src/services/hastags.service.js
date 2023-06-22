@@ -1,7 +1,12 @@
 const dbconnection = require('./db.service')
 
 const getHastags= async()=>{
-    const resp = await  dbconnection.execute("SELECT id_hastag,name from hastags")
+    const resp = await  dbconnection.execute(`SELECT count(id_post) as used,id_hastag,name
+                                                from relation_post_to_hastags
+                                                join hastags using (id_hastag)
+                                                group by id_hastag 
+                                                order by used desc
+                                              `)
     return resp[0]
 }
 

@@ -3,10 +3,13 @@ const getDateTimeNow = require("./dateTime.service");
 
 const getPosts_Relevant = async () => {
   const posts = await dbconnection.query(`SELECT url_image 
-                                                 FROM posts
-                                                 join images using (id_image)                                               
-                                                 order by likes,upload_date DESC
-                                                 limit 10`);
+                                        FROM (SELECT *
+                                        FROM posts
+                                        join images using (id_image)                                               
+                                        order by likes DESC) as p
+                                        order by upload_date
+                                        limit 20
+   `);
   return posts[0].map((img) => img.url_image);
 };
 
@@ -15,8 +18,8 @@ const getPosts = async (id_user) => {
                                                 FROM posts
                                                 join images using (id_image)
                                                 join users  using (id_user)
-                                                join avatars_users using(id_avatar)
-                                                order by upload_date DESC`);
+                                                join avatars_users using(id_user)
+                                                order by upload_date DESC  `);
   
   let likes = await dbconnection.query(`Select id_post from users_post_liked where id_user=${id_user} `)                                               
 //mapeo los posts y agrego campo liked con 0 y 1 para que el fronted lo interprete
@@ -39,7 +42,7 @@ const getPostsByhastag = async (id_user,id_hastag) => {
     from posts p 
     join images using (id_image)
     join users using (id_user)
-    join avatars_users using(id_avatar) 
+    join avatars_users using(id_user) 
     join relation_post_to_hastags rpth  using(id_post) 
     where id_hastag = ${id_hastag} `);
 
