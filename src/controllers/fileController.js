@@ -16,6 +16,7 @@ class FileController{
                 const id_user = req.params.id_user
                 let archivos =  req.files.archivo;
                 let hastags = req.headers.hastags.split(',')
+
                 if(hastags.length ==1 && hastags[0].length ==0){
                     hastags =null;
                 }
@@ -33,7 +34,7 @@ class FileController{
                         file:archivos[i].data,
                         fileName: archivos[i].name                  
                     }).then(r=>{
-                        data_images.push({'url':r.url,'id_cnd':r.fileId})
+                        data_images.push({'url':r.url,'id_cdn':r.fileId})
                     })
                     .catch(er=>{
                         console.log('Error:',er);
@@ -45,8 +46,7 @@ class FileController{
                 if(hastags!=null){
                     console.log(hastags);
                     await RepositorioHastags.setHastags(hastags)
-                    RepositorioHastags.setRelationHastags(id_posts,hastags)
-                }                        
+                    RepositorioHastags.setRelationHastags(id_posts,hastags)}                        
                 res.sendStatus(204)
         } catch (error) {
             res.status(400).json({"messageError":error.message})  
@@ -67,24 +67,16 @@ class FileController{
                 throw new Error("Error: El id es incorrecto")
             } 
 
-            const avatar = await RepositorioAvatarsUsers.getAvatar(id_user) 
-           // console.log(avatar);
-            if (avatar.id_avatar==1) {
-                const a =  await imagekit.upload({file:archivo.data, fileName:archivo.name})
-                                .then(r=>{             
-                                        return RepositorioAvatarsUsers.insertAvatar(id_user,{'url':r.url,'id_cnd':r.fileId})
-                                                .then(()=>{
-                                                    return {id_avatar:avatar.id_avatar,'url':r.url,'id_cnd':r.fileId}
-                                                })   
-                                    })                     
-                    return resp.status(200).json(a)
-                            }         
-                this.deleteFiles([{id_cnd:avatar.id_cnd}])    //elimino el avatar el en servidor de iamgenes 
+                const avatar = await RepositorioAvatarsUsers.getAvatar(id_user) 
+                 console.log(avatar);
+                if(avatar.id_cdn!=0){
+                    this.deleteFiles([{id_cdn:avatar.id_cdn}])
+                }    //elimino el avatar el en servidor de iamgenes 
                 const a = await imagekit.upload({file:archivo.data,fileName:archivo.name})
                                 .then(async r=>{             
-                                return RepositorioAvatarsUsers.updateAvatar(avatar.id_avatar,{'url':r.url,'id_cnd':r.fileId})
+                                return RepositorioAvatarsUsers.updateAvatar(avatar.id_avatar,{'url':r.url,'id_cdn':r.fileId})
                                         .then(()=>{
-                                            return {id_avatar:avatar.id_avatar,'url':r.url,'id_cnd':r.fileId}
+                                            return {'url':r.url}
                                         })         
                                 })
 
@@ -100,13 +92,12 @@ class FileController{
 
 
     deleteFiles = async(files)=>{        
-        //console.log(files);
         if (files.length ==0) {
             return
         }
         files.forEach(i=>{
             console.log(i);
-            imagekit.deleteFile(i.id_cnd).catch(error => {
+            imagekit.deleteFile(i.id_cdn).catch(error => {
                 return error
             });
             }
