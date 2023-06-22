@@ -13,9 +13,7 @@ btn_login.addEventListener("click", (e) => {
   }
   validar_Loguin(username.trim(), password.trim());
 });
-require('dotenv')
 const validar_Loguin = async (us, pas) => {
-  console.log(process.env.KEY_SECRET);
   datos = {
     method: "POST",
     mode: "cors",
@@ -24,7 +22,7 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("http://localhost:5000/validateUser", datos)
+   fetch("/validateUser", datos)
     .then((respuesta) => {      
       if (respuesta.ok) {
         respuesta.json().then((us) => {
