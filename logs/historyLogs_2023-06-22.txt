@@ -1,0 +1,11 @@
+- 8:28:49 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /css/index.css
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /css/normalize.css
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /css/registrar.css
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /js/index_js/cargarSesion.js
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /js/index_js/cargarPostsRelevants.js
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /js/index_js/registro.js
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /js/index_js/interacion_forms.js
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /js/index_js/interacion_navbar.js
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /js/index_js/loguin.js
+- 8:28:50 -  IP: 192.168.1.7  METHOD:GET  ROUTE: /Posts/relevants
