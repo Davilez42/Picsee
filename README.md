@@ -18,5 +18,5 @@ Aplicacion backend construida con node js y express, para sitio web de Galeria d
 - cambiar la imagen de perfil
 - likes para publicaciones 
 - filtrar las imagenes por hastags
-- implementacion de servicio CND para almacenamiento de imagenes en servidor externo
+- implementacion de servicio CDN para almacenamiento de imagenes en servidor externo
  
