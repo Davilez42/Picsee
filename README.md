@@ -1,10 +1,11 @@
-# Aplicacion backend PicMont
+# API REST PicMont
 
 ## Description
 Aplicacion backend construida con node js y express, para sitio web de Galeria de arte 
 
 
 ### Instalacion:
+- git clone
 - npm install
 - npm run dev
 

@@ -2,9 +2,9 @@
 const {Router} =  require('express')
 const FileController = require('../controllers/fileController')
 const fileController =  new FileController()
-const ServiceWebAccessToken = require('../middleware/webAccessToken')
-const {getposts,getHastags,setlike} = require('../controllers/postController')
-const verifyUser = require('../middleware/verifyUser')
+const {validateToken} = require('../middleware/validateToken')
+const postController = require('../controllers/postController')
+const {validateIdUser} = require('../middleware/validateParams')
 const router = Router()
 require("dotenv").config()
 
@@ -16,8 +16,9 @@ const apiLimiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-router.get('/Posts/:option',verifyUser,ServiceWebAccessToken.validateToken,getposts)
-router.get('/Hastags',getHastags)
-router.patch('/lkd/post/:id_post/liked/user/:id_user',apiLimiter,ServiceWebAccessToken.validateToken ,setlike)
-router.post('/uploadFile/:id_user',ServiceWebAccessToken.validateToken,verifyUser,fileController.uploadFile)
+router.get('/Posts/:option',validateIdUser,validateToken,postController.getposts)
+router.get('/Hastags',postController.getHastags)
+router.patch('/lkd/post/:id_post/liked/user/:id_user',validateIdUser,apiLimiter,validateToken ,postController.setlike)
+router.post('/uploadFile/:id_user',validateIdUser,validateToken,fileController.uploadFile)
+
 module.exports = router

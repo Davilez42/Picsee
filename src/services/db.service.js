@@ -1,6 +1,8 @@
 const mysql2 = require("mysql2/promise");
 const {bd_config} =  require('../configs/config')
+
 const dbconnection = mysql2.createPool(bd_config) 
+
   dbconnection.on('connection', function (connection) {
     console.log('DB Connection established'); 
     connection.on('error', function (err) {
