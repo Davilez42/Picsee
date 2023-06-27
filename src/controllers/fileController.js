@@ -57,15 +57,15 @@ class FileController{
     //TODO
     saveAvatar = async (req,resp,next)=>{     
         try {
-            const data = req.params
-            const id_user = data.id_user
-            const archivo = req.files.archivo;
-            if(id_user == undefined || archivo == undefined){
-                throw new Error("Error: entradas invalidas")
-            }           
-            if(isNaN(parseInt(id_user))){
-                throw new Error("Error: El id es incorrecto")
-            } 
+                const data = req.params
+                const id_user = data.id_user
+                const archivo = req.files.archivo;
+                if(id_user == undefined || archivo == undefined){
+                    throw new Error("Error: entradas invalidas")
+                }           
+                if(isNaN(parseInt(id_user))){
+                    throw new Error("Error: El id es incorrecto")
+                } 
 
                 const avatar = await RepositorioAvatarsUsers.getAvatar(id_user) 
                  console.log(avatar);
@@ -82,11 +82,10 @@ class FileController{
 
                 return resp.status(200).json(a)        
             } catch (rason) {
-            if(rason.code === process.env.dataBaseConectionRefused) {
-                return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
-             } 
-             console.log(rason.code);
-            return resp.status(400).json({"messageError":rason.message})
+                if(rason.code === process.env.dataBaseConectionRefused) {
+                    return resp.status(500).json({"messageError":"error: No se pudo conectar a la base de datos"})
+                } 
+                return resp.status(400).json({"messageError":rason.message})
         }               
     }
 

@@ -59,7 +59,7 @@ const resgiterUser = async (req,resp)=>{
 
        const respuesta = await RepositorioUser.insert_user(data_req)
        RepositoryAvatarsUser.insertAvatar(respuesta)
-       const access_token = ServiceWebAccessToken.generateAccessToken({"username":data_req.username,
+       const access_token = ServiceWebAccessToken.generateAccessToken({"id_user":respuesta,"username":data_req.username,
                                                                             "password":data_req.password})
        return resp.status(200).json({
           "succes":true,
