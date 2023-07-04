@@ -5,7 +5,7 @@ Aplicacion backend construida con node js y express, para sitio web de Galeria d
 
 
 ### Instalacion:
-- git clone
+- git clone <b> https://github.com/Davilez42/Pagina-Web-Galeria-artistica.git </b>
 - npm install
 - npm run dev
 
