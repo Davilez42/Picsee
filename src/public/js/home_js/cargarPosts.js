@@ -15,11 +15,11 @@ const cargarPosts =async (query)=>{
         column_posts.classList.add('column-posts')
 
         let top = 1
-        console.log(tamaño)
+
         const limite_por_columna = parseInt(tamaño/3) 
-        console.log(limite_por_columna)
+
         let columna_actual = 0
-        console.log(datos)
+
         for (let index = 0; index <tamaño; index++) { 
                     if (columna_actual==3) {
                         break;
@@ -97,7 +97,7 @@ const cargarPosts =async (query)=>{
                         fragmento.appendChild(column_posts)
                         column_posts = document.createElement("DIV")
                         column_posts.classList.add('column-posts')
-                        console.log(index,"crea Columna")
+                      
                         columna_actual++;
                         continue
                     }
@@ -115,7 +115,7 @@ const lazyloadin = ()=>{
     const callback = (entries,observer)=>{
         entries.forEach(enty=>{          
             if (enty.isIntersecting) {
-                console.log('carga');
+
                 enty.target.src = enty.target.dataset.src
                 observer.unobserve(enty.target)
             }          
