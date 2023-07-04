@@ -77,7 +77,7 @@ const  obtenerDatos=async()=>{
 }
 
 const enviar_registro=async(datos_formularo)=>{
-    const respuesta = await fetch('/registerUser',{
+    const respuesta = await fetch('api/v1/registerUser',{
         method:'POST',
         mode: "cors",
         headers: {
@@ -123,7 +123,7 @@ const obtenermasinfoUsuario= (name_user)=>{
          console.log(pais.trim() != '',ciudad.trim() != '');   
 
         if (pais.trim() != '' || ciudad.trim() != '' ) {
-            fetch(`/setpreinfoUser/${user.id_user}`,{
+            fetch(`api/v1/setpreinfoUser/${user.id_user}`,{
                 method:'PATCH',
                 mode:'cors',
                 headers:{"auth":user.token,"Content-Type": "application/json"},
@@ -134,7 +134,7 @@ const obtenermasinfoUsuario= (name_user)=>{
         if(avatar.length>0){
             const form = new FormData()
             form.append('archivo',avatar[0])              
-           const resp =  await fetch(`/changedAvatar/${user.id_user}`,{
+           const resp =  await fetch(`api/v1/changedAvatar/${user.id_user}`,{
                 method:'PATCH',
                 mode: "cors",
                 headers:{"auth":user.token,"id_avatar":user.id_avatar},

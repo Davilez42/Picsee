@@ -54,7 +54,7 @@ class FileController{
         
     }
 
-    //TODO
+
     saveAvatar = async (req,resp,next)=>{     
         try {
                 const data = req.params

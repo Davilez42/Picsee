@@ -2,7 +2,7 @@
 const cargarPosts =async (query)=>{
     const token = JSON.parse(sessionStorage.getItem('loggedUser')).token
     const id_user = JSON.parse(sessionStorage.getItem('loggedUser')).id_user
-    const respuesta = await fetch(`/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
+    const respuesta = await fetch(`api/v1/Posts/${query}`,{method:"GET",headers:{"auth":token,"id":id_user}})
     if (respuesta.ok) {
         const datos =  await respuesta.json()    
         const tamaño = datos["imagenes_"].length
@@ -150,7 +150,7 @@ const ocultar_info = (event)=>{
 
 const cargarHastags=async()=>{
     const token = JSON.parse(window.sessionStorage.getItem('loggedUser')).token
-    const respuesta = await fetch("/Hastags",{method:"GET",headers:{"auth":token}});
+    const respuesta = await fetch("api/v1/Hastags",{method:"GET",headers:{"auth":token}});
     if(respuesta.ok){
         const hastags =  await respuesta.json()
         const contenedor_hastags = document.querySelector("#contenedor_hastags");
@@ -190,7 +190,7 @@ const send_like = async(event)=>{
     const id_post = event.target.getAttribute("id_post")
     console.log(id_user,id_post);
     if(estados.length==1 || estados.shift()===estados.pop() ){
-        const respuesta = await fetch(`/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
+        const respuesta = await fetch(`api/v1/lkd/post/${id_post}/liked/user/${id_user}`,{method:"PATCH", mode:'cors',headers:{"auth":token}})       
         if(!respuesta.ok){
             console.log("Error en el servidor,No se pudo guardar el like")
          } 

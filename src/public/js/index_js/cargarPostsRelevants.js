@@ -1,7 +1,7 @@
 const cargarPosts =async ()=>{
     const contenedor_imagenes = document.querySelector('.contenedor-imagenes')
 
-    const respuesta = await fetch("/Posts/relevants")
+    const respuesta = await fetch("api/v1/Posts/relevants")
     if (respuesta.ok) {
         const datos =  await respuesta.json()
         const tamaño = datos["imagenes_"].length

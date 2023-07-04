@@ -22,7 +22,7 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("/validateUser", datos)
+   fetch("api/v1/validateUser", datos)
     .then((respuesta) => {      
       if (respuesta.ok) {
         respuesta.json().then((us) => {
