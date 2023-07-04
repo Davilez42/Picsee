@@ -26,7 +26,7 @@ const uploadFile = async (pet,meth) => {
         hastags = hastags.split(' ').map(h => h.slice(1))
     }
 
-    const respuesta = await fetch(`api/v2/${pet}/${id_user}`,{
+    const respuesta = await fetch(`api/v1/${pet}/${id_user}`,{
         method:meth,
         mode: "cors",
         headers:{"auth":token,"hastags":hastags},
