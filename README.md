@@ -1,5 +1,5 @@
 # API REST PicMont
-
+### V1.0.0
 ## Description
 Aplicacion backend construida con node js y express, para sitio web de Galeria de arte 
 
@@ -13,7 +13,7 @@ Aplicacion backend construida con node js y express, para sitio web de Galeria d
 
 #
 
-# Features
+# Features 
 - subir maximo de 4 imagenes por carga
 - implementacion de menu desplegable y mejora de la interfaz de usuario  
 - cambiar la imagen de perfil
