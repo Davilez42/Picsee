@@ -1,10 +1,10 @@
 
 const {Router} =  require('express')
-const FileController = require('../controllers/fileController')
+const FileController = require('../../controllers/fileController')
 const fileController =  new FileController()
-const {validateToken} = require('../middleware/validateToken')
-const postController = require('../controllers/postController')
-const {validateIdUser} = require('../middleware/validateParams')
+const {validateToken} = require('../../middleware/validateToken')
+const postController = require('../../controllers/postController')
+const {validateIdUser} = require('../../middleware/validateParams')
 const router = Router()
 require("dotenv").config()
 

@@ -1,12 +1,12 @@
 const {Router} = require('express')
 const router = Router()
-const FileController = require('../controllers/fileController')
+const FileController = require('../../controllers/fileController')
 const controllerPosts = require('./postsRoutes')
-const {validateToken} = require('../middleware/validateToken')
+const {validateToken} = require('../../middleware/validateToken')
 const fileupload = require('express-fileupload');
 const fileController = new FileController();
-const userController = require('../controllers/userController')
-const {validateIdUser} = require('../middleware/validateParams')
+const userController = require('../../controllers/userController')
+const {validateIdUser} = require('../../middleware/validateParams')
 router.use(fileupload())
 
 router.delete('/Delete_User',validateIdUser,validateToken,userController.delete_User)
