@@ -6,19 +6,19 @@ const RepositoryAvatarsUser = require('../services/avatarsUsers.service')
 require("dotenv").config();
 const valdiateUser = async(req,resp)=>{ 
     try {
-       const data_req = req.body;
-       if(data_req.username.trim()==="" || data_req.password.toString().length==0){
+       const {username,password} = req.body;
+       if(username.trim()==="" || password.toString().length==0){
           throw new Error("Error: Campos vacios , Porfavor suministre todo los campos")
        }
-       if(data_req.password.toString().length<9){
+       if(password.toString().length<9){
           throw new Error("Error: El campo de la contraseña debe ser mayor o igual a 9")
        }
        
-       const user_bd = await RepositorioUser.get_user_Loguin(data_req.username)
+       const user_bd = await RepositorioUser.get_user_Loguin(username)
        if (user_bd.length == 0) {
-          return resp.status(200).json({"username":[false,data_req.username]})
+          return resp.status(200).json({"username":[false,username]})
        }
-       if (await serviceEncrypted.compare_(user_bd[0].passwrd , data_req.password)){
+       if (await serviceEncrypted.compare_(user_bd[0].passwrd , password)){
              const data = {
                    "id_user":user_bd[0].id_user,
                    "avatar":{url:user_bd[0].url},
@@ -28,7 +28,7 @@ const valdiateUser = async(req,resp)=>{
              data['token']=access_token
              return resp.header('auth',access_token).json(data)     
              }
-       return resp.status(200).json({"username":[true,data_req.username],"password":false})     
+       return resp.status(200).json({"username":[true,username],"password":false})     
              
     } catch (rason) {
        if(rason.code === process.env.dataBaseConectionRefused) {
@@ -41,31 +41,31 @@ const valdiateUser = async(req,resp)=>{
 
 const resgiterUser = async (req,resp)=>{
     try {
-       const data_req = req.body;
-       if([data_req.username,data_req.first_names,data_req.last_names,data_req.email,data_req.password].includes(undefined)){
+       const {username,password,email,first_names,last_names} = req.body;
+       if([username,first_names,last_names,email,password].includes(undefined)){
           throw new Error("Error: Entradas incorrectas")
        }
 
-      [data_req.username,data_req.first_names,data_req.last_names,data_req.email,data_req.password].map(d=>{
+      [username,first_names,last_names,email,password].map(d=>{
          if(d.trim()===''){
             throw new Error('Error: Porfavor suministre todos los campos ')
          }
       })
        
       
-       if(data_req.password.toString().length<9){
+       if(password.toString().length<9){
           throw new Error("Error:El campo de la contraseña debe ser mayor o igual a 9")
        }
 
        const respuesta = await RepositorioUser.insert_user(data_req)
        RepositoryAvatarsUser.insertAvatar(respuesta)
-       const access_token = generateToken({"id_user":respuesta,"username":data_req.username,
-                                                                            "password":data_req.password})
+       const access_token = generateToken({"id_user":respuesta,"username":username,
+                                                                            "password":password})
        return resp.status(200).json({
           "succes":true,
           "id_user": respuesta,
           "avatar":{url:'https://ik.imagekit.io/picmont/icons/default_avatar.png?updatedAt=1687206611943',id_cnd:0},
-          "username":[true,data_req.username],
+          "username":[true,username],
           "password":true,
           "token":access_token}) 
           
