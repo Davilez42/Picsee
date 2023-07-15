@@ -12,22 +12,20 @@ bd_config = {
     }
 
 
-
-/* bd_config = {
-    host: 'localhost',
+bd_config_dev = {
+    host: 'containers-us-west-85.railway.app',
+    password:'o1tIdLnOHAGgqfkLALMQ',
     user: 'root',
-    port:3306,
-    database: 'artgalery',
+    port:5846,
+    database: 'artgalery_dev',
     waitForConnections: true,
-    maxIdle: 10,
-    idleTimeout: 6000,
-    queueLimit: 100000,
+    queueLimit: 0,
     connectionLimit : 10
-}    */ 
+}     
 
 server_config = {
     "PORT":5000,
-    "HOST":"192.168.1.7",
+    "HOST":"localhost",
     'Logger':false
 }
 
@@ -35,5 +33,6 @@ server_config = {
 
 module.exports = {
     bd_config,
-    server_config
+    bd_config_dev,
+    server_config,
 }
