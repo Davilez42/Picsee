@@ -1,7 +1,7 @@
 const express = require("express");
 require("colors");
 const cors =require('cors')
-const routesv1 =  require('./v1/routes/index')
+const routesv1 =  require('./v1/routes/')
 const logger = require('./middleware/logger.js')
 const path = require('path');
 
