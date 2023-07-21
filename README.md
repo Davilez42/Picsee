@@ -1,4 +1,4 @@
-# API REST PicMont
+# Api-rest PicMont
 ### V1.0.0
 ## Description
 Aplicacion backend construida con node js y express, para sitio web de Galeria de arte 
