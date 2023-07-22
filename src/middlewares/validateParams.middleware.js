@@ -2,7 +2,7 @@ const validateIdUser = async (req, resp, next) => {
   const id_user =
     req.params.id_user || req.query.id_user || req.headers["id"] || req.id_user;
   try {
-    if (req.params.filter == "relevants") {
+    if (req.params.filter == "top") {
       next();
       return;
     }
@@ -69,14 +69,8 @@ const validateFiles = (req, res, next) => {
     if (!archivo) {
       throw new Error("Error: no se encuantra el archivo");
     }
-    if (!id_user || !archivo) {
-      throw new Error("Error: entradas invalidas");
-    }
     if (archivo.length > 4) {
       throw new Error("Error: maximo de archivos excedido");
-    }
-    if (isNaN(parseInt(id_user))) {
-      throw new Error("Error: El id es incorrecto");
     }
     next();
   } catch (e) {
@@ -84,7 +78,7 @@ const validateFiles = (req, res, next) => {
   }
 };
 
-const validateIdPost = (req, res,next) => {
+const validateIdPost = (req, res, next) => {
   const { id_post } = req.params;
   try {
     if (!id_post) {
@@ -93,7 +87,7 @@ const validateIdPost = (req, res,next) => {
     if (isNaN(parseInt(id_post))) {
       throw new Error("Error: Tipos de datos incorrectos");
     }
-    next()
+    next();
   } catch (e) {
     res.status(400).json({ messageError: e.message });
   }
@@ -104,5 +98,5 @@ module.exports = {
   validateSignUser,
   validateSignUpUser,
   validateFiles,
-  validateIdPost
+  validateIdPost,
 };

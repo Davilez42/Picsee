@@ -12,7 +12,7 @@ const apiLimiter = rateLimit({
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-router.get('/get_posts/:filter',validateToken,validateIdUser,controllers.getPosts)
+router.get('/get_posts/:filter',validateToken,controllers.getPosts)
 
 router.get('/get_hastags',controllers.getHastags)
 

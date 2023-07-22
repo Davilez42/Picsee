@@ -31,6 +31,7 @@ const sign = async (req, res) => {
       .status(200)
       .json({ username: [true, username], password: false });
   } catch (e) {
+    console.log(e);
     if (e.code === process.env.DB_CONNECTION_REFUSED) {
       return res.status(500).json({
         messageError: "Internal server error, please try again later",
