@@ -84,7 +84,7 @@ const validateFiles = (req, res, next) => {
   }
 };
 
-const validateIdPost = (req, res) => {
+const validateIdPost = (req, res,next) => {
   const { id_post } = req.params;
   try {
     if (!id_post) {
@@ -93,6 +93,7 @@ const validateIdPost = (req, res) => {
     if (isNaN(parseInt(id_post))) {
       throw new Error("Error: Tipos de datos incorrectos");
     }
+    next()
   } catch (e) {
     res.status(400).json({ messageError: e.message });
   }

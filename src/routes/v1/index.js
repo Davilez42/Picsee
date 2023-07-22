@@ -7,7 +7,7 @@ const router =  Router()
 const controllers  = require('../../controllers/v1/')
 
 router.use(fileupload())
-router.get('/',(req,res)=>{ res.render('info.ejs',{"message":"Welcome To routes v1 !"})})
+router.get('/',(req,res)=>{ res.render('info.ejs',{"message":"📸 Welcome To routes v1 🚦"})})
 
 router.use(authRoutes)
 router.use(userRoutes)
