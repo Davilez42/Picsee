@@ -1,15 +1,16 @@
 const mysql2 = require("mysql2/promise");
-const { DB_CONGIG } = require("../../configs/configDevops");
+const { DB_CONFIG } = require("../../configs/configDevops");
 
-const dbconnection = mysql2.createPool(DB_CONGIG);
+const dbconnection = mysql2.createPool(DB_CONFIG);
 
 dbconnection.on("connection", function (connection) {
-  console.log(new Date(),"DB Connection established");
+  console.log(new Date(), "📸 ✔️ Picmont: DB Connection established");
+
   connection.on("error", function (err) {
-    console.error(new Date(), "MySQL error", err.code);
+    console.error(new Date(), "📸 ❌ Picmont: DB Connection error:", err.code);
   });
   connection.on("close", function (err) {
-    console.error(new Date(), "MySQL close", err);
+    console.error(new Date(), "📸 ✖️ Picmont: DB Connection close", err);
   });
 });
 

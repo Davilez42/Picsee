@@ -4,12 +4,14 @@ const generateTokenTool = require("../../../tools/generateToken.tool");
 const RepositorioUser = require("../../../database/users.service");
 require("dotenv").config();
 
-const signUser = async (req, resp) => {
+const sign = async (req, res) => {
+  //* Controlador for login user
+
+  const { username, password } = req.body;
   try {
-    const { username, password } = req.body;
     const user_bd = await RepositorioUser.get_user_Loguin(username);
     if (user_bd.length == 0) {
-      return resp.status(200).json({ username: [false, username] });
+      return res.status(200).json({ username: [false, username] });
     }
     if (await encryptedTool.compare_(user_bd[0].passwrd, password)) {
       const data = {
@@ -23,19 +25,19 @@ const signUser = async (req, resp) => {
         username: user_bd.username,
       });
       data["token"] = access_token;
-      return resp.header("auth", access_token).json(data);
+      return res.header("auth", access_token).json(data);
     }
-    return resp
+    return res
       .status(200)
       .json({ username: [true, username], password: false });
   } catch (e) {
     if (e.code === process.env.DB_CONNECTION_REFUSED) {
-      return resp
-        .status(500)
-        .json({ messageError: "error:No se pudo conectar a la base de datos" });
+      return res.status(500).json({
+        messageError: "Internal server error, please try again later",
+      });
     }
-    return resp.status(400).json({ messageError: e.message });
+    return res.status(400).json({ messageError: e.message });
   }
 };
 
-module.exports = signUser;
+module.exports = sign;

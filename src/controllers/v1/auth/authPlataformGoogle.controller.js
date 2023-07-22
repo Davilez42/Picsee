@@ -5,12 +5,13 @@ const genareteToken = require("../../../tools/generateToken.tool");
 require("dotenv").config();
 
 const authPlatformGoogle = async (req, res) => {
+  // * controller for auth user with google
+
   try {
-    console.log(req.body);
     const { credential } = req.body;
 
     if (!credential) {
-      return res.status(400).json({ message: "params is incorrect!" });
+      return res.status(400).json({ message: "param incorrect!" });
     }
     const { name, email, picture } = jwt.decode(
       credential,
@@ -18,6 +19,7 @@ const authPlatformGoogle = async (req, res) => {
     );
 
     let user_ = await userServices.get_user_Loguin(name);
+
     const user = {
       username: name,
       email: email,
@@ -41,8 +43,8 @@ const authPlatformGoogle = async (req, res) => {
     const token = genareteToken(user);
 
     res.status(200).json({ token, ...user });
-  } catch (error) {
-    res.status(500).json({ messageError: error.message });
+  } catch (e) {
+    res.status(500).json({ messageError: e.message });
   }
 };
 

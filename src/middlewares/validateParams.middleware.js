@@ -6,7 +6,7 @@ const validateIdUser = async (req, resp, next) => {
       next();
       return;
     }
-    if (id_user == undefined || id_user.trim() === "") {
+    if (!id_user || id_user.trim() === "") {
       throw new Error("Error: Los parametros son incorrectos ");
     }
     if (isNaN(parseInt(id_user))) {
@@ -19,8 +19,8 @@ const validateIdUser = async (req, resp, next) => {
 };
 
 const validateSignUser = (req, res, next) => {
+  const { username, password } = req.body;
   try {
-    const { username, password } = req.body;
     if (username.trim() === "" || password.toString().length == 0) {
       throw new Error(
         "Error: Campos vacios , Porfavor suministre todo los campos"
@@ -38,8 +38,8 @@ const validateSignUser = (req, res, next) => {
 };
 
 const validateSignUpUser = (req, res, next) => {
+  const { username, password, email, first_names, last_names } = req.body;
   try {
-    const { username, password, email, first_names, last_names } = req.body;
     if (
       [username, first_names, last_names, email, password].includes(undefined)
     ) {
@@ -63,8 +63,45 @@ const validateSignUpUser = (req, res, next) => {
   }
 };
 
+const validateFiles = (req, res, next) => {
+  const { archivo } = req.files;
+  try {
+    if (!archivo) {
+      throw new Error("Error: no se encuantra el archivo");
+    }
+    if (!id_user || !archivo) {
+      throw new Error("Error: entradas invalidas");
+    }
+    if (archivo.length > 4) {
+      throw new Error("Error: maximo de archivos excedido");
+    }
+    if (isNaN(parseInt(id_user))) {
+      throw new Error("Error: El id es incorrecto");
+    }
+    next();
+  } catch (e) {
+    res.status(400).json({ messageError: e.message });
+  }
+};
+
+const validateIdPost = (req, res) => {
+  const { id_post } = req.params;
+  try {
+    if (!id_post) {
+      throw new Error("Error: entradas incorrectas");
+    }
+    if (isNaN(parseInt(id_post))) {
+      throw new Error("Error: Tipos de datos incorrectos");
+    }
+  } catch (e) {
+    res.status(400).json({ messageError: e.message });
+  }
+};
+
 module.exports = {
   validateIdUser,
   validateSignUser,
   validateSignUpUser,
+  validateFiles,
+  validateIdPost
 };

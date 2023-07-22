@@ -1,6 +1,6 @@
 const {Router} = require('express')
-const {validateToken} = require('../../middlewares/validateToken')
-const {validateIdUser} = require('../../middlewares/validateParams')
+const {validateToken} = require('../../middlewares/validateToken.middleware')
+const {validateIdUser} = require('../../middlewares/validateParams.middleware')
 const controllers = require('../../controllers/v1/')
 const router = Router()
 

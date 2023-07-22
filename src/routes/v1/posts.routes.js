@@ -1,7 +1,7 @@
 
 const {Router} =  require('express')
-const {validateToken} = require('../../middlewares/validateToken')
-const {validateIdUser} = require('../../middlewares/validateParams')
+const {validateToken} = require('../../middlewares/validateToken.middleware')
+const {validateIdUser,validateFiles,validateIdPost} = require('../../middlewares/validateParams.middleware')
 const controllers = require('../../controllers/v1/')
 const router = Router()
 const rateLimit   = require("express-rate-limit");
@@ -16,8 +16,8 @@ router.get('/get_posts/:filter',validateToken,validateIdUser,controllers.getPost
 
 router.get('/get_hastags',controllers.getHastags)
 
-router.patch('/setlike/:id_post/by/:id_user',apiLimiter,validateIdUser,validateToken ,controllers.setLike)
+router.patch('/setlike/:id_post/by/:id_user',apiLimiter,validateIdUser,validateIdPost,validateToken ,controllers.setLike)
 
-router.post('/uploadFile/:id_user',validateIdUser,validateToken,controllers.uploadImage)
+router.post('/uploadFile/:id_user',validateIdUser,validateFiles,validateToken,controllers.uploadImage)
 
 module.exports = router

@@ -1,4 +1,4 @@
-DB_CONGIG = {
+DB_CONFIG = {
   host: "localhost",
   password: "root",
   user: "root",
@@ -28,7 +28,7 @@ IMAGE_KIT_CONFIG = {
 };
 
 module.exports = {
-  DB_CONGIG,
+  DB_CONFIG,
   SERVER_CONFIG,
   IMAGE_KIT_CONFIG,
 };

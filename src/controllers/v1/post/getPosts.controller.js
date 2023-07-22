@@ -2,13 +2,15 @@ const RepositoryPosts = require("../../../database/posts.service");
 require("dotenv").config();
 
 const getposts = async (req, res) => {
+  //* controller for get posts 
+
+  const {filter} = req.params;
+
   try {
     let posts = null;
-
-    const filter = req.params.filter;
-    if (filter === "relevants") {
+    if (filter === "top") {
       const posts_relevants = await RepositoryPosts.getPosts_Relevant();
-      
+
       posts = posts_relevants;
     }
     if (filter === "currents") {
@@ -26,14 +28,13 @@ const getposts = async (req, res) => {
     const data = { posts };
 
     return res.status(200).json(data);
-  } catch (error) {
-    if (error.code === process.env.DB_CONNECTION_REFUSED) {
-
+  } catch (e) {
+    if (e.code === process.env.DB_CONNECTION_REFUSED) {
       return res.status(500).json({
-        messageError: "error: No se pudo conectar a la base de datos",
+        messageError: "Internal server error, please try again later",
       });
     }
-    res.status(400).json({messageError:error.message})
+    res.status(400).json({ messageError: e.message });
   }
 };
 

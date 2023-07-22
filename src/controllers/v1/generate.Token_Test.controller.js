@@ -1,6 +1,7 @@
 const generateTokenTool = require("../../tools/generateToken.tool");
 
 const generateToken = async (req, res) => {
+  //* controller for generate a token,TEST
   try {
     user_test = {
       id_user: 314,
