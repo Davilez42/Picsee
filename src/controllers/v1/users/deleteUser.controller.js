@@ -26,7 +26,7 @@ const delete_User = async (req, resp) => {
       ...images_to_delete,
       { id_cdn: avatar_user.id_cdn },
     ]);
-    
+
     resp.sendStatus(204);
   } catch (e) {
     if (e.code === process.env.DB_CONNECTION_REFUSED) {

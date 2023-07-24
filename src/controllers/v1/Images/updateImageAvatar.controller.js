@@ -1,7 +1,7 @@
 const RepositorioAvatarsUsers = require("../../../database/avatarsUsers.service.js");
 const delete_Images_Cdn = require("../../../microservices/imageKit/deleteImages.service.js");
 const upload_Images_Cdn = require("../../../microservices/imageKit/uploadImages.service.js");
-const { IMAGE_KIT_CONFIG } = require("../../../../configs/configDevops.js");
+const { IMAGE_KIT_CONFIG } = require("../../../../configs/config.js");
 
 
 const updateImageAvatar = async (req, resp, next) => {

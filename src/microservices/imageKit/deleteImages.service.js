@@ -1,5 +1,5 @@
 const ImageKit = require("imagekit");
-const { IMAGE_KIT_CONFIG } = require("../../../configs/configDevops");
+const { IMAGE_KIT_CONFIG } = require("../../../configs/config");
 const imagekit = new ImageKit(IMAGE_KIT_CONFIG);
 
 const delete_Images_Cdn = async (files) => {

@@ -2,8 +2,8 @@ const RepositorioPost = require("../../../database/posts.service.js");
 const RepositorioImages = require("../../../database/images.service.js");
 const RepositorioHastags = require("../../../database/hastags.service.js");
 const upload_Images_Cdn = require("../../../microservices/imageKit/uploadImages.service.js");
-const { IMAGE_KIT_CONFIG } = require("../../../../configs/configDevops.js");
-const uploadImage = async (req, res, next) => {
+const { IMAGE_KIT_CONFIG } = require("../../../../configs/config.js");
+const uploadImage = async (req, res) => {
   //* controller for upload image to cdn
   
   const { id_user } = req.params;

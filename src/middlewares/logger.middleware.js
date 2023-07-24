@@ -1,5 +1,5 @@
 const fs = require("fs/promises");
-const { SERVER_CONFIG } = require("../../configs/configDevops");
+const { SERVER_CONFIG } = require("../../configs/config");
 
 const logger = (req, res, next) => {
   const pet = ` IP: ${req.ip}  METHOD:${req.method}  ROUTE: ${req.url}`;

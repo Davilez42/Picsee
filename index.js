@@ -1,5 +1,5 @@
 const app = require("./src/app");
-const {SERVER_CONFIG}=require('./configs/configDevops')
+const {SERVER_CONFIG}=require('./configs/config')
 require("dotenv");
 const PORT = process.env.PORT || SERVER_CONFIG.PORT;
 

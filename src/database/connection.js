@@ -1,5 +1,5 @@
 const mysql2 = require("mysql2/promise");
-const { DB_CONFIG } = require("../../configs/configDevops");
+const { DB_CONFIG } = require("../../configs/config");
 
 const dbconnection = mysql2.createPool(DB_CONFIG);
 

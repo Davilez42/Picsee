@@ -9,7 +9,7 @@ const authPlatformGoogle = async (req, res) => {
 
   try {
     const { credential } = req.body;
-    console.log(credential);
+
     if (!credential) {
       return res.status(400).json({ message: "param incorrect!" });
     }
@@ -31,7 +31,7 @@ const authPlatformGoogle = async (req, res) => {
 
     if (!user_[0]) {
       const insert_id = await userServices.insert_user(user);
-      avatarUserServices.insertAvatar(insert_id, picture); //inserto avatar
+      await avatarUserServices.insertAvatar(insert_id, picture); //inserto avatar
       user.id_user = insert_id;
     }
 
@@ -41,10 +41,10 @@ const authPlatformGoogle = async (req, res) => {
     user.username = [true, name];
 
     const token = genareteToken(user);
-    console.log(user);
-    res.status(200).json({ token, ...user });
 
+    res.status(200).json({ token, ...user });
   } catch (e) {
+    console.log(e.message);
     res.status(500).json({ messageError: e.message });
   }
 };
