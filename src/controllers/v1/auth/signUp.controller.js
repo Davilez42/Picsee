@@ -25,6 +25,7 @@ const signUp = async (req, res) => {
       token,
     });
   } catch (e) {
+    console.log(e.code);
     if (e.code === process.env.DB_DUP_ENTRY) {
       const r = e.sqlMessage.split(" ").pop().slice(1, -1).split(".")[1];
       return res.status(200).json({ succes: false, valFail: r });

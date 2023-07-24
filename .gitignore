@@ -1,6 +1,6 @@
 /node_modules
 /target
-/.env
+.env
 /logs/*.txt
 /docs
 /configs/configProduction.js

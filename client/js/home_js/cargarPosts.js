@@ -8,7 +8,6 @@ const cargarPosts = async (query) => {
 
   if (respuesta.ok) {
     const datos = await respuesta.json();
-    console.log(datos);
     const tamaño = datos["posts"].length;
     const contenedor_galeria_perfil = document.querySelector(
       "#contenedor_galeria_perfil"
@@ -207,14 +206,13 @@ const send_like = async (event) => {
   ).id_user;
   const token = JSON.parse(window.sessionStorage.getItem("loggedUser")).token;
   const id_post = event.target.getAttribute("id_post");
-  console.log(id_user, id_post);
+
   if (estados.length == 1 || estados.shift() === estados.pop()) {
     const respuesta = await fetch(
       `http://localhost:5000/api/v1/setlike/${id_post}/by/${id_user}`,
       { method: "PATCH", mode: "cors", headers: { auth: token } }
     );
     if (!respuesta.ok) {
-      console.log(respuesta);
       console.log("Error en el servidor,No se pudo guardar el like");
     }
   }

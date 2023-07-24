@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const { SERVER_CONFIG } = require("../../configs/configDevops");
-require("dotenv");
+
 const logger = (req, res, next) => {
   const pet = ` IP: ${req.ip}  METHOD:${req.method}  ROUTE: ${req.url}`;
   const fecha = new Date().toISOString().split("T")[0];
