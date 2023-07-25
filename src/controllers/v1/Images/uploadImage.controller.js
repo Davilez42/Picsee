@@ -27,7 +27,6 @@ const uploadImage = async (req, res) => {
     const id_posts = await RepositorioPost.setPosts(id_user, ids_image, 1);
 
     if (hastags != null) {
-      console.log(hastags);
       await RepositorioHastags.setHastags(hastags);
       RepositorioHastags.setRelationHastags(id_posts, hastags);
     }
