@@ -12,9 +12,10 @@ const getHastags = async () => {
 };
 
 const setHastags = async (hastags) => {
-  let hastags_bd = await getHastags();
-  hastags_bd = hastags_bd.map((d) => d.name.toLowerCase());
-  console.log(hastags_bd);
+  let hastags_bd = await dbconnection.execute(
+    "select id_hastag, name from hastags"
+  );
+  hastags_bd = hastags_bd[0].map((d) => d.name.toLowerCase());
   let values = [];
   for (n of hastags) {
     if (!hastags_bd.includes(n.toLowerCase())) {
@@ -40,6 +41,7 @@ const getIdHastagsByName = async (hastags) => {
 const setRelationHastags = async (id_posts, hastags) => {
   let ids = await getIdHastagsByName(hastags);
   let values = [];
+  
   for (const id_post of id_posts) {
     for (const id_hastag of ids) {
       values.push(`(${id_post},${id_hastag})`);
