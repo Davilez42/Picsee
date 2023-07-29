@@ -25,17 +25,15 @@ const signUp = async (req, res) => {
       token,
     });
   } catch (e) {
-    console.log(e.code);
+  
     if (e.code === process.env.DB_DUP_ENTRY) {
       const r = e.sqlMessage.split(" ").pop().slice(1, -1).split(".")[1];
       return res.status(200).json({ succes: false, valFail: r });
     }
-    if (e.code === process.env.DB_CONNECTION_REFUSED) {
-      return res.status(500).json({
-        messageError: "Internal server error, please try again later",
-      });
-    }
-    return res.status(400).json({ messageError: e.message });
+    
+    return res.status(500).json({
+      messageError: "Internal server error, please try again later",
+    });
   }
 };
 module.exports = signUp;

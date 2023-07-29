@@ -43,9 +43,12 @@ const authPlatformGoogle = async (req, res) => {
     const token = genareteToken(user);
 
     res.status(200).json({ token, ...user });
+    
   } catch (e) {
-    console.log(e.message);
-    res.status(500).json({ messageError: e.message });
+    console.log(e);
+    res.status(500).json({
+      messageError: "Internal server error, please try again later",
+    });
   }
 };
 

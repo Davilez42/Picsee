@@ -28,13 +28,12 @@ const delete_User = async (req, resp) => {
     ]);
 
     resp.sendStatus(204);
+    
   } catch (e) {
-    if (e.code === process.env.DB_CONNECTION_REFUSED) {
-      return resp.status(500).json({
-        messageError: "Internal server error, please try again later",
-      });
-    }
-    return resp.status(400).json({ messageError: e.message });
+    console.log(e);
+    return resp.status(500).json({
+      messageError: "Internal server error, please try again later",
+    });
   }
 };
 

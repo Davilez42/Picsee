@@ -5,7 +5,7 @@ const upload_Images_Cdn = require("../../../microservices/imageKit/uploadImages.
 const { IMAGE_KIT_CONFIG } = require("../../../../configs/config.js");
 const uploadImage = async (req, res) => {
   //* controller for upload image to cdn
-  
+
   const { id_user } = req.params;
   let files = req.files.archivo;
   let hastags = req.headers.hastags.split(",");
@@ -32,8 +32,11 @@ const uploadImage = async (req, res) => {
     }
 
     res.sendStatus(204);
+    
   } catch (e) {
-    res.status(400).json({ messageError: e.message });
+    res.status(500).json({
+      messageError: "Internal server error, please try again later",
+    });
   }
 };
 

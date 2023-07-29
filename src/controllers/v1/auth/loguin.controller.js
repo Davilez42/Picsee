@@ -10,6 +10,7 @@ const sign = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user_bd = await RepositorioUser.get_user_Loguin(username);
+
     if (user_bd.length == 0) {
       return res.status(200).json({ username: [false, username] });
     }
@@ -30,14 +31,12 @@ const sign = async (req, res) => {
     return res
       .status(200)
       .json({ username: [true, username], password: false });
+
+      
   } catch (e) {
-    console.log(e);
-    if (e.code === process.env.DB_CONNECTION_REFUSED) {
-      return res.status(500).json({
-        messageError: "Internal server error, please try again later",
-      });
-    }
-    return res.status(400).json({ messageError: e.message });
+    return res.status(500).json({
+      messageError: "Internal server error, please try again later",
+    });
   }
 };
 

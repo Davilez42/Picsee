@@ -3,7 +3,6 @@ const delete_Images_Cdn = require("../../../microservices/imageKit/deleteImages.
 const upload_Images_Cdn = require("../../../microservices/imageKit/uploadImages.service.js");
 const { IMAGE_KIT_CONFIG } = require("../../../../configs/config.js");
 
-
 const updateImageAvatar = async (req, resp, next) => {
   //* controller for update avatar
 
@@ -17,7 +16,7 @@ const updateImageAvatar = async (req, resp, next) => {
       await delete_Images_Cdn([{ id_cdn: avatar.id_cdn }]);
     }
 
-    //? upload the new avatar 
+    //? upload the new avatar
     const data_res = await upload_Images_Cdn(
       [{ data: archivo.data, name: archivo.name }],
       IMAGE_KIT_CONFIG.avatars_folder_dest
@@ -30,13 +29,10 @@ const updateImageAvatar = async (req, resp, next) => {
 
     return resp.status(200).json({ url: data_res[0].url });
     
-  } catch (error) {
-    if (error.code === process.env.DB_CONNECTION_REFUSED) {
-      return resp.status(500).json({
-        messageError: "Internal server error, please try again later",
-      });
-    }
-    return resp.status(400).json({ messageError: error.message });
+  } catch (e) {
+    return resp.status(500).json({
+      messageError: "Internal server error, please try again later",
+    });
   }
 };
 
