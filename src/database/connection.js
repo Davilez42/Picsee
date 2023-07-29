@@ -1,6 +1,6 @@
-const {Pool} = require("pg");
+const { Pool } = require("pg");
 const { DB_CONFIG } = require("../../configs/config");
-
+require("dotenv").config();
 const pool = new Pool(DB_CONFIG); // creo pool de conexiones
 
 // EVENTOS DEL POOL
