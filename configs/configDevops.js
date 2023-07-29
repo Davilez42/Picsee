@@ -1,12 +1,12 @@
 DB_CONFIG = {
   host: "localhost",
   password: "root",
-  user: "root",
-  port: 3306,
-  database: "artgalery_dev",
-  waitForConnections: true,
-  queueLimit: 0,
-  connectionLimit: 10,
+  user: "postgres",
+  port: 5432,
+  database: "picmont_dev_local",
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
 };
 
 SERVER_CONFIG = {

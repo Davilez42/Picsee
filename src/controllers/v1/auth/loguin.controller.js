@@ -34,6 +34,7 @@ const sign = async (req, res) => {
 
       
   } catch (e) {
+    console.log(e);
     return res.status(500).json({
       messageError: "Internal server error, please try again later",
     });

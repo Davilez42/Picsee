@@ -2,24 +2,23 @@ const pool = require("./connection");
 const serviceEncrypted = require("../tools/encrypted.tool");
 
 const get_user_Loguin = async (username) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const dbconnection = await pool.connect(); // obtengo una conexion
 
-  const result = await dbconnection.query(`SELECT id_user,url,username,passwrd 
+  const data = await dbconnection.query(`SELECT id_user,url,username,passwrd 
                                               from users 
                                               join avatars_users using(id_user)
                                               WHERE username = '${username}'`);
   dbconnection.release(); //termino de utilizar la conexion
-
-  return result[0];
+  return data.rows;
 };
 
 const insert_user = async (user) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const dbconnection = await pool.connect(); // obtengo una conexion
 
   const password_encrypt = await serviceEncrypted.encrypted(user.password);
 
-  const data = await dbconnection.execute(
-    `Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion) VALUES (?,?,?,?,?,?)`,
+  const data = await dbconnection.query(
+    `Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
     [
       user.username,
       user.first_names,
@@ -32,13 +31,13 @@ const insert_user = async (user) => {
 
   dbconnection.release();
 
-  return data[0].insertId;
+  return data.rows[0].id_user;
 };
 
 const delet_user = async (id_user) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const dbconnection = await pool.connect(); // obtengo una conexion
 
-  await dbconnection.execute(`DELETE from users where id_user = ${id_user}`);
+  await dbconnection.query(`DELETE from users where id_user = ${id_user}`);
 
   dbconnection.release();
 
@@ -46,13 +45,14 @@ const delet_user = async (id_user) => {
 };
 
 const existUser = async (id_user) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const dbconnection = await pool.connect(); // obtengo una conexion
 
-  const data = await dbconnection.execute(
+  const data = await dbconnection.query(
     `SELECT * from users where id_user = ${id_user}`
   );
+
   dbconnection.release();
-  return data[0].length != 0;
+  return data.rows.length != 0;
 };
 
 module.exports = {

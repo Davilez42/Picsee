@@ -34,6 +34,7 @@ const uploadImage = async (req, res) => {
     res.sendStatus(204);
     
   } catch (e) {
+    console.log(e);
     res.status(500).json({
       messageError: "Internal server error, please try again later",
     });

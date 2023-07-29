@@ -1,11 +1,12 @@
 # Api-rest PicMont
-### V1.0.0
+
+### V1.1.1
 ## Description
-Aplicacion backend construida con node js y express, para sitio web de Galeria de arte 
 
+Api construida con node js y express, para sitio web de Galeria de arte 
 
-### Instalacion:
-- git clone <b> https://github.com/Davilez42/Pagina-Web-Galeria-artistica.git </b>
+### Installation:
+- git clone <b>https://github.com/Davilez42/Picmont.git/b>
 - npm install
 - npm run dev
 

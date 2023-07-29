@@ -1,67 +1,42 @@
 const pool = require("./connection");
 
 const setImages = async (data_images) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const dbconnection = await pool.connect(); // obtengo una conexion
 
-  let ids = [];
+  let values = [];
   for (const i of data_images) {
-    await dbconnection
-      .execute(
-        `Insert into images (url_image,id_cdn) VALUES ("${i.url}","${i.id_cdn}") `
-      )
-      .then(async (data) => {
-        ids.push(data[0].insertId);
-      });
+    values.push(`('${i.url}','${i.id_cdn}')`);
   }
-  dbconnection.release();
-  return ids;
-};
 
-const getImagesById = async (user) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
-
-  const data = await dbconnection.execute(
-    `Select  concat( i.id_image,"_",i.name,".", i.format_)  AS f_name 
-                      from posts p
-                      join images i on p.id_image = i.id_image
-                      where p.id_user = ${user}`
+  const data = await dbconnection.query(
+    `Insert into images (url_image,id_cdn) VALUES ${values.join(
+      ","
+    )} RETURNING id_image`
   );
 
   dbconnection.release();
-  return data[0];
+  return data.rows.map((i) => i.id_image);
 };
-const getImagesByIdUser = async (user) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
 
-  const data = await dbconnection.execute(
-    `Select id_cdn
-                        from posts p
-                        join images i on p.id_image = i.id_image
-                        where p.id_user = ${user}`
+
+const deleteImages = async (id_user) => {
+  const dbconnection = await pool.connect(); // obtengo una conexion
+
+  const data = await dbconnection.query(
+    `Select  i.id_cdn
+    from posts p
+    join images i on p.id_image = i.id_image
+    where p.id_user = ${id_user}`
+  );
+  const ids_cdn = data.rows.map((d) => d.id_cdn);
+
+  await dbconnection.query(
+    `DELETE from images where id_cdn in ('${ids_cdn.join("','")}')`
   );
 
   dbconnection.release();
 
-  return data[0];
+  return data.rows;
 };
 
-const deleteImages = async (images) => {
-  const dbconnection = await pool.getConnection(); // obtengo una conexion
-
-  if (images.length == 0) {
-    return;
-  }
-
-  let consulta = [];
-  for (const nma of images) {
-    consulta.push(nma.id_cdn);
-  }
-  const data = await dbconnection.execute(
-    `DELETE from images where id_cdn in ("${consulta.join('","')}")`
-  );
-
-  dbconnection.release();
-  return data;
-};
-
-module.exports = { setImages, getImagesById, deleteImages, getImagesByIdUser };
+module.exports = { setImages, deleteImages };

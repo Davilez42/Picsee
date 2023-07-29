@@ -25,12 +25,13 @@ const signUp = async (req, res) => {
       token,
     });
   } catch (e) {
-  
+    console.log(e);
+
     if (e.code === process.env.DB_DUP_ENTRY) {
-      const r = e.sqlMessage.split(" ").pop().slice(1, -1).split(".")[1];
+      const r = e.constraint.split("_")[1];
       return res.status(200).json({ succes: false, valFail: r });
     }
-    
+
     return res.status(500).json({
       messageError: "Internal server error, please try again later",
     });

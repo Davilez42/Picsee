@@ -2,8 +2,8 @@ const pool = require("./connection");
 const getDateTimeNow = require("../tools/dateTime.tool");
 
 const getPosts_Relevant = async () => {
-  const dbconnection = await pool.getConnection();
-  const posts = await dbconnection.query(`SELECT url_image 
+  const dbconnection = await pool.connect();
+  const data = await dbconnection.query(`SELECT url_image 
                                         FROM (SELECT *
                                         FROM posts
                                         join images using (id_image)                                               
@@ -12,11 +12,11 @@ const getPosts_Relevant = async () => {
                                         limit 20
    `);
   dbconnection.release();
-  return posts[0].map((img) => img.url_image);
+  return data.rows.map((img) => img.url_image);
 };
 
 const getPosts = async (id_user) => {
-  const dbconnection = await pool.getConnection();
+  const dbconnection = await pool.connect();
   const posts =
     await dbconnection.query(`SELECT id_post,likes, url_image ,username as username_autor, url as avatar_autor
                                                 FROM posts
@@ -30,8 +30,8 @@ const getPosts = async (id_user) => {
   );
   dbconnection.release();
   //mapeo los posts y agrego campo liked con 0 y 1 para que el fronted lo interprete
-  likes = likes[0].map((d) => d.id_post);
-  posts[0].map((d) => {
+  likes = likes.rows.map((d) => d.id_post);
+  posts.rows.map((d) => {
     if (likes.includes(d.id_post)) {
       d["liked"] = 1;
     } else {
@@ -39,13 +39,13 @@ const getPosts = async (id_user) => {
     }
   });
 
-  return posts[0];
+  return posts.rows;
 };
 
 const getPostsByhastag = async (id_user, id_hastag) => {
-  const dbconnection = await pool.getConnection();
+  const dbconnection = await pool.connect();
   let posts =
-    await dbconnection.execute(`select id_post,likes,url_image,username as username_autor, url as avatar_autor
+    await dbconnection.query(`select id_post,likes,url_image,username as username_autor, url as avatar_autor
     from posts p 
     join images using (id_image)
     join users using (id_user)
@@ -53,27 +53,26 @@ const getPostsByhastag = async (id_user, id_hastag) => {
     join relation_post_to_hastags rpth  using(id_post) 
     where id_hastag = ${id_hastag} `);
 
-  let likes = await dbconnection.execute(
+  let likes = await dbconnection.query(
     `Select id_post from users_post_liked where id_user=${id_user} `
   );
-  
+
   dbconnection.release();
   //mapeo los posts y agrego campo liked con 0 y 1 para que el fronted lo interprete
-  likes = likes[0].map((d) => d.id_post);
-  posts[0].map((d) => {
+  likes = likes.rows.map((d) => d.id_post);
+  posts.rows.map((d) => {
     if (likes.includes(d.id_post)) {
       d["liked"] = 1;
     } else {
       d["liked"] = 0;
     }
   });
-  
- 
-  return posts[0];
+
+  return posts.rows;
 };
 
 const setLikePost = async (id_post, operation) => {
-  const dbconnection = await pool.getConnection();
+  const dbconnection = await pool.connect();
   const data = await dbconnection.query(
     `UPDATE posts set likes = likes ${operation} 1  where id_post = ${id_post};`
   );
@@ -82,26 +81,23 @@ const setLikePost = async (id_post, operation) => {
 };
 
 const setPosts = async (id_user, ids_images, visible) => {
-  const dbconnection = await pool.getConnection();
-  
-  let ids_posts = [];
+  const dbconnection = await pool.connect();
+
+  let values = [];
 
   const current_time = getDateTimeNow();
 
   for (const id of ids_images) {
-    await dbconnection
-      .query(
-        `Insert into posts (id_image,id_user,likes,upload_date,visibe)
-    VALUES (${id},${id_user},${0},"${current_time}",${visible})
-    `
-      )
-      .then((data) => {
-        ids_posts.push(data[0].insertId);
-      });
+    values.push(`(${id},${id_user},${0},'${current_time}',${visible})`);
   }
 
+  const data = await dbconnection.query(
+    `Insert into posts (id_image,id_user,likes,upload_date,visibe)
+      VALUES ${values.join(",")} RETURNING id_post`
+  );
+
   dbconnection.release();
-  return ids_posts;
+  return data.rows.map((p) => p.id_post);
 };
 
 module.exports = {

@@ -16,11 +16,11 @@ const delete_User = async (req, resp) => {
       return resp.status(400).json({ messageError: "The user not exist" });
     }
 
-    const images_to_delete = await RepositorioImages.getImagesByIdUser(id_user);
+    const images_to_delete = await RepositorioImages.deleteImages(id_user);
+
     const avatar_user = await RepositorioAvatarsUsers.getAvatar(id_user);
 
     await RepositorioUser.delet_user(id_user);
-    await RepositorioImages.deleteImages(images_to_delete);
 
     await delete_Images_Cdn([
       ...images_to_delete,
@@ -28,7 +28,6 @@ const delete_User = async (req, resp) => {
     ]);
 
     resp.sendStatus(204);
-    
   } catch (e) {
     console.log(e);
     return resp.status(500).json({

@@ -1,20 +1,20 @@
-const mysql2 = require("mysql2/promise");
+const {Pool} = require("pg");
 const { DB_CONFIG } = require("../../configs/config");
 
-const pool = mysql2.createPool(DB_CONFIG); // creo pool de conexiones
+const pool = new Pool(DB_CONFIG); // creo pool de conexiones
 
 // EVENTOS DEL POOL
-pool.on("connection", function (connection) {
+pool.on("connect", function (connection) {
   // evento cuando se crea una nueva conexion
   console.log(new Date(), "📸 ✔️ Picmont: Created new Connection ");
 });
 
 pool.on("acquire", function (connection) {
   // evento cuando se obtiene una conexion existente
-  console.log("📸 Connection  %d has been acquired", connection.threadId);
+  console.log("📸 Connection has been acquired");
 });
 
 pool.on("release", function (connection) {
-  console.log("📸 Connection %d has been released", connection.threadId);
+  console.log("📸 Connection has been released");
 });
 module.exports = pool;
