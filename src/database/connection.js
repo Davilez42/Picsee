@@ -1,17 +1,20 @@
 const mysql2 = require("mysql2/promise");
 const { DB_CONFIG } = require("../../configs/config");
 
-const dbconnection = mysql2.createPool(DB_CONFIG);
+const pool = mysql2.createPool(DB_CONFIG); // creo pool de conexiones
 
-dbconnection.on("connection", function (connection) {
-  console.log(new Date(), "📸 ✔️ Picmont: DB Connection established");
-
-  connection.on("error", function (err) {
-    console.error(new Date(), "📸 ❌ Picmont: DB Connection error:", err.code);
-  });
-  connection.on("close", function (err) {
-    console.error(new Date(), "📸 ✖️ Picmont: DB Connection close", err);
-  });
+// EVENTOS DEL POOL
+pool.on("connection", function (connection) {
+  // evento cuando se crea una nueva conexion
+  console.log(new Date(), "📸 ✔️ Picmont: Created new Connection ");
 });
 
-module.exports = dbconnection;
+pool.on("acquire", function (connection) {
+  // evento cuando se obtiene una conexion existente
+  console.log("📸 Connection  %d has been acquired", connection.threadId);
+});
+
+pool.on("release", function (connection) {
+  console.log("📸 Connection %d has been released", connection.threadId);
+});
+module.exports = pool;

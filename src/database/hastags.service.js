@@ -1,17 +1,22 @@
-const dbconnection = require("./connection");
+const pool = require("./connection");
 
 const getHastags = async () => {
-  const resp =
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+
+  const data =
     await dbconnection.execute(`SELECT count(id_post) as used,id_hastag,name
                                                 from relation_post_to_hastags
                                                 join hastags using (id_hastag)
                                                 group by id_hastag 
                                                 order by used desc
                                               `);
-  return resp[0];
+  dbconnection.release();
+  return data[0];
 };
 
 const setHastags = async (hastags) => {
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+
   let hastags_bd = await dbconnection.execute(
     "select id_hastag, name from hastags"
   );
@@ -27,33 +32,42 @@ const setHastags = async (hastags) => {
     return;
   }
 
-  let consulta = `Insert Into hastags (name) values ${values.join(",")}`;
-  return dbconnection.execute(consulta);
+  const data = await dbconnection.execute(
+    `Insert Into hastags (name) values ${values.join(",")}`
+  );
+  dbconnection.release();
+  return data;
 };
 
 const getIdHastagsByName = async (hastags) => {
-  const respuesta = await dbconnection.execute(
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+
+  const data = await dbconnection.execute(
     `Select id_hastag from hastags where name in ("${hastags.join('","')}") `
   );
-  return respuesta[0].map((d) => d.id_hastag);
+  dbconnection.release();
+  return data[0].map((d) => d.id_hastag);
 };
 
 const setRelationHastags = async (id_posts, hastags) => {
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
   let ids = await getIdHastagsByName(hastags);
   let values = [];
-  
+
   for (const id_post of id_posts) {
     for (const id_hastag of ids) {
       values.push(`(${id_post},${id_hastag})`);
     }
   }
 
-  console.log(ids);
-  return dbconnection.execute(
+  const data = await dbconnection.execute(
     `INSERT into relation_post_to_hastags (id_post,id_hastag) VALUES ${values.join(
       ","
     )}`
   );
+
+  dbconnection.release();
+  return data;
 };
 
 module.exports = {

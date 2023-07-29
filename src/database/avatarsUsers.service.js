@@ -1,29 +1,40 @@
-const dbconnection = require("./connection");
+const pool = require("./connection");
 require("dotenv").config();
 
 const insertAvatar = async (id_user, url = process.env.DEFAULT_AVATAR_URL) => {
-  return await dbconnection.execute(
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const data = await dbconnection.execute(
     `INSERT INTO avatars_users (id_user,url)  VALUES(${id_user},"${url}")`
   );
+  dbconnection.release();
+  return data;
 };
 
 const getAvatar = async (id_user) => {
-  const resp =
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const data =
     await dbconnection.execute(`SELECT id_avatar,url,id_cdn from avatars_users
     where id_user = ${id_user}`);
-  return resp[0][0];
+  dbconnection.release();
+  return data[0][0];
 };
 
 const deleteAvatarByidAvatar = async (id_Avatar) => {
-  return dbconnection.execute(
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const data = await dbconnection.execute(
     `DELETE FROM avatars_users WHERE id_avatar = ${id_Avatar}`
   );
+  dbconnection.release();
+  return data;
 };
 
 const updateAvatar = async (id_avatar, avatar) => {
-  return await dbconnection.execute(
+  const dbconnection = await pool.getConnection(); // obtengo una conexion
+  const data = await dbconnection.execute(
     `UPDATE avatars_users SET url='${avatar.url}', id_cdn='${avatar.id_cdn}' WHERE id_avatar=${id_avatar};`
   );
+  dbconnection.release();
+  return data;
 };
 
 module.exports = {
