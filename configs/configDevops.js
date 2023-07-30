@@ -1,14 +1,3 @@
-DB_CONFIG = {
-  host: "localhost",
-  password: "root",
-  user: "postgres",
-  port: 5432,
-  database: "picmont_dev_local",
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-};
-
 SERVER_CONFIG = {
   PORT: 5000,
   HOST: "localhost",
@@ -28,7 +17,6 @@ IMAGE_KIT_CONFIG = {
 };
 
 module.exports = {
-  DB_CONFIG,
   SERVER_CONFIG,
   IMAGE_KIT_CONFIG,
 };

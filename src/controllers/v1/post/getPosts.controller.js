@@ -29,6 +29,7 @@ const getposts = async (req, res) => {
 
     return res.status(200).json(data);
   } catch (e) {
+    console.log(e);
     return res.status(500).json({
       messageError: "Internal server error, please try again later",
     });
