@@ -27,12 +27,10 @@ const uploadImage = async (req, res) => {
     const id_posts = await RepositorioPost.setPosts(id_user, ids_image, 1);
 
     if (hastags != null) {
-      await RepositorioHastags.setHastags(hastags);
-      RepositorioHastags.setRelationHastags(id_posts, hastags);
+      await RepositorioHastags.setHastags(id_posts,hastags);
     }
 
     res.sendStatus(204);
-    
   } catch (e) {
     console.log(e);
     res.status(500).json({

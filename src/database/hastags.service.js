@@ -2,7 +2,6 @@ const pool = require("./connection");
 
 const getHastags = async () => {
   const dbconnection = await pool.connect(); // obtengo una conexion
-
   const data =
     await dbconnection.query(`SELECT count(r.id_post) as used , h.id_hastag , h.name
                                                 from relation_post_to_hastags r
@@ -15,52 +14,49 @@ const getHastags = async () => {
   return data.rows;
 };
 
-const setHastags = async (hastags) => {
+const setHastags = async (id_posts, hastags) => {
   const dbconnection = await pool.connect(); // obtengo una conexion
 
-  let hastags_bd = await dbconnection.query(
+  const hastags_bd = await dbconnection.query(
     "select id_hastag, name from hastags"
   );
-  hastags_bd = hastags_bd.rows.map((d) => d.name.toLowerCase());
-  let values = [];
-  for (n of hastags) {
-    if (!hastags_bd.includes(n.toLowerCase())) {
-      values.push(`('${n}')`);
+  const map_db = hastags_bd.rows.map((h) => h.name);
+  const to_insert = hastags
+    .filter((d) => !map_db.includes(d.toLowerCase()))
+    .map((h) => `('${h}')`);
+
+  let ids = [];
+  if (to_insert.length != 0) {
+    const data = await dbconnection.query(
+      `Insert Into hastags (name) values ${to_insert.join(
+        ","
+      )} RETURNING id_hastag`
+    );
+    ids = data.rows.map((h) => h.id_hastag);
+  }
+
+  let ids_relations = [...ids];
+
+  hastags_bd.rows.forEach((e) => {
+    if (hastags.includes(e.name)) {
+      ids_relations.push(e.id_hastag);
     }
-  }
+  });
 
-  if (values.length == 0) {
-    return;
-  }
-
-  const data = await dbconnection.query(
-    `Insert Into hastags (name) values ${values.join(",")}`
-  );
+  await setRelationHastags(ids_relations, id_posts);
   dbconnection.release();
-  return data;
+  return;
 };
 
-const getIdHastagsByName = async (hastags) => {
+const setRelationHastags = async (hastags, posts) => {
   const dbconnection = await pool.connect(); // obtengo una conexion
-
-  const data = await dbconnection.query(
-    `Select id_hastag from hastags where name in ('${hastags.join('","')}') `
-  );
-  dbconnection.release();
-  return data.rows.map((d) => d.id_hastag);
-};
-
-const setRelationHastags = async (id_posts, hastags) => {
-  const dbconnection = await pool.connect(); // obtengo una conexion
-  let ids = await getIdHastagsByName(hastags);
   let values = [];
 
-  for (const id_post of id_posts) {
-    for (const id_hastag of ids) {
-      values.push(`(${id_post},${id_hastag})`);
+  for (const id_p of posts) {
+    for (const id_h of hastags) {
+      values.push(`(${id_p},${id_h})`);
     }
   }
-
   const data = await dbconnection.query(
     `INSERT into relation_post_to_hastags (id_post,id_hastag) VALUES ${values.join(
       ","
@@ -74,6 +70,4 @@ const setRelationHastags = async (id_posts, hastags) => {
 module.exports = {
   getHastags,
   setHastags,
-  getIdHastagsByName,
-  setRelationHastags,
 };
