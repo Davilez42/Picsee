@@ -2,7 +2,6 @@ const pool = require("./connection");
 require("dotenv").config();
 
 const insertAvatar = async (id_user, url = process.env.DEFAULT_AVATAR_URL) => {
-  console.log(id_user);
   const dbconnection = await pool.connect(); // obtengo una conexion
   const data = await dbconnection.query(
     `INSERT INTO avatars_users (id_user,url)  VALUES(${id_user},'${url}')`

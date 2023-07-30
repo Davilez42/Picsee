@@ -1,18 +1,19 @@
-const Router =  require('express')
-const fileupload = require('express-fileupload');
-const authRoutes = require('./auth.routes')
-const userRoutes =  require('./user.routes')
-const postRoutes =  require('./posts.routes')
-const router =  Router()
-const controllers  = require('../../controllers/v1/')
+const Router = require("express");
+const fileupload = require("express-fileupload");
+const authRoutes = require("./auth.routes");
+const userRoutes = require("./user.routes");
+const postRoutes = require("./posts.routes");
+const router = Router();
 
-router.use(fileupload())
-router.get('/',(req,res)=>{ res.render('info.ejs',{"message":"📸 Welcome To routes v1 🚦"})})
+router.use(fileupload());
+router.get("/", (req, res) => {
+  res.render("info.ejs", { message: "📸 Welcome To routes v1 🚦" });
+});
 
-router.use(authRoutes)
-router.use(userRoutes)
-router.use(postRoutes)
+router.use(authRoutes);
+router.use(userRoutes);
+router.use(postRoutes);
 
-router.get('/get-token-test',controllers.test)
+//router.get('/get-token-test',controllers.test)
 
-module.exports =  router
+module.exports = router;

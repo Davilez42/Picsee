@@ -12,10 +12,6 @@ app.use(cors(CORS_CONFIG));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("view engine", "ejs"); //especifico el motor de vistas
-
-//Index
-app.use('/',(req,res)=>res.render('info.ejs',{"message":"📸 Welcome To Api Picmont 📸"}))
-
 // Apis Versions
 app.use("/api/v1", routesv1);
 app.use(handlerError)

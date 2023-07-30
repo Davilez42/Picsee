@@ -3,5 +3,5 @@
 .env
 /logs/*.txt
 /docs
-/configs/configProduction.js
+/configs/configDevops.js
 generate.Token_Test.controller.js

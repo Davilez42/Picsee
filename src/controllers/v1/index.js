@@ -16,8 +16,8 @@ const getHastags = require("./hastags/getHastags.controller.");
 const deleteUser = require("./users/deleteUser.controller");
 const setMoreInfo = require("./users/setMoreInfo.controller");// TODO
 
-//! dev
-const test = require("./generate.Token_Test.controller");
+/* //! dev
+const test = require("./generate.Token_Test.controller"); */
 
 module.exports = {
   sign,
@@ -30,5 +30,5 @@ module.exports = {
   deleteUser,
   setMoreInfo,
   getHastags,
-  test,
+//  test,
 };
