@@ -1,24 +1,25 @@
 # Api-rest PicMont
-
 ### V1.1.1
-## Description
+![GitHub Streak](https://img.shields.io/badge/javascript-yellow?style=for-the-badge&logo=javascript&logoColor=yellow&labelColor=5f6368)
+![GitHub Streak](https://img.shields.io/badge/nodejs-green?style=for-the-badge&logo=nodedotjs&logoColor=green&labelColor=5f6368)
+![GitHub Streak](https://img.shields.io/badge/postgres-blue?style=for-the-badge&logo=postgresql&logoColor=white&labelColor=5f6368)
+![GitHub Streak](https://img.shields.io/badge/express-white?style=for-the-badge&logo=express&logoColor=white&labelColor=5f6368)
 
-Api construida con node js y express, para sitio web de Galeria de arte 
+## Description
+api rest picmont, made in node js and express
 
 ### Installation:
-- git clone <b>https://github.com/Davilez42/Picmont.git/b>
+- git clone <b> https://github.com/Davilez42/Picmont.git </b>
 - npm install
 - npm run dev
 
-### Nota: Para visualizar el contenido de la pagina web tipea en tu navegador <b> http://localhost:5000/</b>
+### Note: the service will operate on the following route -> http://localhost:5000/api/v1</b>
 
-#
-
-# Features 
-- subir maximo de 4 imagenes por carga
-- implementacion de menu desplegable y mejora de la interfaz de usuario  
-- cambiar la imagen de perfil
-- likes para publicaciones 
-- filtrar las imagenes por hastags
-- implementacion de servicio CDN para almacenamiento de imagenes en servidor externo
- 
+# Features
+- uploading of a maximum of 4 images per upload
+- implementation of the drop-down menu and improvement of the user interface
+- change profile picture
+- Like for posts
+- filter images by hastags
+- implementation of CDN service to store images on an external server
+- now you can login with google
