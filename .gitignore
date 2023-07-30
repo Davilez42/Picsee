@@ -4,4 +4,4 @@
 /logs/*.txt
 /docs
 /configs/configDevops.js
-generate.Token_Test.controller.js
+generateTokenTestcontroller.js
