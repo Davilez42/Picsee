@@ -26,8 +26,6 @@ const obtenerDatos = async () => {
     "registro-contraseña-input-2"
   ).value;
 
-  console.log(apellidos);
-
   if (nombres.trim() === "") {
     alert("Porfavor digite el nombre");
     return;
@@ -89,7 +87,6 @@ const enviar_registro = async (datos_formularo) => {
       obtenermasinfoUsuario(datos_formularo.first_names);
       limpiarFormRegistro();
     } else {
-      console.log(us["valFail"]);
       alert(`El ${us["valFail"]} ya esta en uso`);
     }
   } else {

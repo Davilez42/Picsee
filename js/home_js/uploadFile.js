@@ -81,10 +81,7 @@ document.querySelector('#archivo').addEventListener('change',event=>{
     else{
         alert('Limite excedido por subida')
         return
-    }
-    console.log(imagenes_cargadas);
-    
-   
+    }   
 })
 
 document.querySelector('#send_post').addEventListener('click',()=>{   

@@ -1,5 +1,4 @@
 async function handleCredentialResponse(response) {
-  console.log(response);
   const resp = await fetch(
     "https://picmont-inc.onrender.com/api/v1/auth_plataform",
     {

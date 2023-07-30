@@ -34,7 +34,7 @@ const autentificacion = () => {
         window.location.href = "/";
       } else {
         const mensaje = await resp.json();
-        console.log(mensaje.messageError);
+        alert(mensaje.messageError);
       }
     } else {
       alert("NO SEAS MAMON BORRANDO CUENTAAS AJENAS :D");

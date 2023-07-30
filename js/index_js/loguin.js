@@ -52,7 +52,7 @@ const validar_Loguin = async (us, pas) => {
       }
     })
     .catch((err) => {
-      console.log("Error al solicitar el recurso", err);
+      alert("Error al solicitar el recurso", err);
     });
 };
 

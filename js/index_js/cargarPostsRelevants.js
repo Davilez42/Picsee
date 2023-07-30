@@ -17,7 +17,6 @@ const cargarPosts = async () => {
       for (let k = 0; k < 5; k++) {
         if (j < tamaño) {
           const imagen = document.createElement("IMG");
-          console.log(datos["posts"][j]);
           imagen.setAttribute("data-src", datos["posts"][j]);
           imagen.setAttribute("alt", "");
           imagen.setAttribute("srcset", "");

@@ -216,7 +216,7 @@ const send_like = async (event) => {
       { method: "PATCH", mode: "cors", headers: { auth: token } }
     );
     if (!respuesta.ok) {
-      console.log("Error en el servidor,No se pudo guardar el like");
+      alert("Oh hemos tenindo un problema, No se ha podido guardar el like");
     }
   }
   estados = [];
