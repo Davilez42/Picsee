@@ -11,7 +11,7 @@ btn_login.addEventListener("click", (e) => {
     alert("Porfavor digite una contraseña");
     return;
   }
- 
+
   validar_Loguin(username.trim(), password.trim());
 });
 const validar_Loguin = async (us, pas) => {
@@ -23,45 +23,40 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
-   fetch("http://localhost:5000/api/v1/sign_user", datos)
-    .then((respuesta) => {  
-       
+  fetch("https://picmont-inc.onrender.com/api/v1/sign_user", datos)
+    .then((respuesta) => {
       if (respuesta.ok) {
         respuesta.json().then((us) => {
-
-          if (us['username'][0]){          
-            if (us['password']) {
-              sessionStorage.setItem("loggedUser",JSON.stringify(us))
-              limpiarCamposLoguin()
-              window.location.href='./home.html';
+          if (us["username"][0]) {
+            if (us["password"]) {
+              sessionStorage.setItem("loggedUser", JSON.stringify(us));
+              limpiarCamposLoguin();
+              window.location.href = "./home.html";
+            } else {
+              document.getElementById("contenedor_error").innerHTML =
+                '<h4 id="message_err">Contraseña incorrecta</h4>';
+              document.getElementById("login-password-input").style =
+                " border: 3px solid #ff0033;";
             }
-            else{
-              
-              document.getElementById('contenedor_error').innerHTML = '<h4 id="message_err">Contraseña incorrecta</h4>'     
-              document.getElementById('login-password-input').style = ' border: 3px solid #ff0033;'
-            }
-          }
-          else{
-            
-            document.getElementById('contenedor_error').innerHTML = '<h4 id="message_err">El usuario no existe</h4>'
-            document.getElementById('login-username-input').style = ' border: 1px solid #ff0033;'
+          } else {
+            document.getElementById("contenedor_error").innerHTML =
+              '<h4 id="message_err">El usuario no existe</h4>';
+            document.getElementById("login-username-input").style =
+              " border: 1px solid #ff0033;";
           }
         });
-      }else{
-       respuesta.json().then(data=>{
-        alert(data['messageError'])
-       });
-        
-      } 
+      } else {
+        respuesta.json().then((data) => {
+          alert(data["messageError"]);
+        });
+      }
     })
     .catch((err) => {
       console.log("Error al solicitar el recurso", err);
     });
 };
 
-const limpiarCamposLoguin =()=>{
-  document.getElementById("login-username-input").value='';
-  document.getElementById("login-password-input").value='';
-}
-
-
+const limpiarCamposLoguin = () => {
+  document.getElementById("login-username-input").value = "";
+  document.getElementById("login-password-input").value = "";
+};

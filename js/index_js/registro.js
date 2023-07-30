@@ -71,14 +71,17 @@ const obtenerDatos = async () => {
 };
 
 const enviar_registro = async (datos_formularo) => {
-  const respuesta = await fetch("http://localhost:5000/api/v1/signUp_user", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(datos_formularo),
-  });
+  const respuesta = await fetch(
+    "https://picmont-inc.onrender.com/api/v1/signUp_user",
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datos_formularo),
+    }
+  );
   if (respuesta.ok) {
     const us = await respuesta.json();
     if (us["succes"]) {
@@ -117,23 +120,29 @@ const obtenermasinfoUsuario = (name_user) => {
       console.log(pais.trim() != "", ciudad.trim() != "");
 
       if (pais.trim() != "" || ciudad.trim() != "") {
-        fetch(`api/v1/setpreinfoUser/${user.id_user}`, {
-          method: "PATCH",
-          mode: "cors",
-          headers: { auth: user.token, "Content-Type": "application/json" },
-          body: JSON.stringify({ ciudad, pais }),
-        });
+        fetch(
+          `https://picmont-inc.onrender.com/api/v1/setpreinfoUser/${user.id_user}`,
+          {
+            method: "PATCH",
+            mode: "cors",
+            headers: { auth: user.token, "Content-Type": "application/json" },
+            body: JSON.stringify({ ciudad, pais }),
+          }
+        );
       }
 
       if (avatar.length > 0) {
         const form = new FormData();
         form.append("archivo", avatar[0]);
-        const resp = await fetch(`http://localhost:5000/api/v1/changedAvatar/${user.id_user}`, {
-          method: "PATCH",
-          mode: "cors",
-          headers: { auth: user.token, id_avatar: user.id_avatar },
-          body: form,
-        });
+        const resp = await fetch(
+          `https://picmont-inc.onrender.com/api/v1/changedAvatar/${user.id_user}`,
+          {
+            method: "PATCH",
+            mode: "cors",
+            headers: { auth: user.token, id_avatar: user.id_avatar },
+            body: form,
+          }
+        );
         if (resp.ok) {
           const new_avatar = await resp.json();
           user.avatar = new_avatar;

@@ -1,50 +1,50 @@
 header {
     box-sizing: border-box;
-  
+
     clear: both;
     width: 100%;
     height: 80px;
-    
-   
-    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
     /* background-color: #1c1c1c; */
 }
 
-.auth_google{
+.auth_google {
     width: 100%;
 }
 
 
 
-.contenedor-nosotros{
-   
+.contenedor-nosotros {
+
     text-justify: auto;
     color: rgb(0, 0, 0);
     height: max-content;
-    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
     width: 90%;
     margin: 0 auto;
 }
-.contenedor-nosotros img{
+
+.contenedor-nosotros img {
     width: 100%;
     object-fit: cover;
     height: 400px;
 }
 
-#message_err{
+#message_err {
     display: inline-block;
-    text-align: center; 
+    text-align: center;
     color: #ff0033;
     border-radius: 10px;
     height: 25px;
     width: 47%;
 
 }
-#contenedor_error{
+
+#contenedor_error {
     width: 100%;
 }
 
-.info-{
+.info- {
     margin-top: 10px;
     padding-top: 10px;
     width: 100%;
@@ -53,7 +53,7 @@ header {
 }
 
 body {
-    background-color:white ;
+    background-color: white;
 }
 
 
@@ -68,7 +68,7 @@ body {
 
 nav {
     float: left;
-    
+
     margin-left: 10px;
 }
 
@@ -100,18 +100,19 @@ input {
     width: 80px;
     height: 35px;
 } */
-.icono_logo_2{
+.icono_logo_2 {
     width: 40px;
     float: left;
     margin-top: 10px;
     margin-left: 10px;
 }
+
 nav ul li a {
     text-decoration: none;
     color: rgb(0, 0, 0);
-  
+
     font-size: 14px;
-    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Helvetica Neue,Helvetica,Ubuntu,Roboto,Noto,Segoe UI,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
     cursor: pointer;
     transition: 0.1s;
 }
@@ -130,12 +131,12 @@ nav ul li a::before {
 nav ul li a:hover::before {
     width: 100%;
     color: rgb(100, 100, 100);
-    background-color:  #f95273;
+    background-color: #f95273;
 
 }
 
 
-.nombreApp{
+.nombreApp {
     font-size: 30px;
     text-decoration: none;
     margin-left: 10px;
@@ -145,31 +146,31 @@ nav ul li a:hover::before {
     float: left;
 }
 
-.nombreApp div{
+.nombreApp div {
     display: inline-block;
     position: relative;
     padding: 10px;
     width: 0px;
     padding-left: 6px;
-    border-radius: 5px;  
+    border-radius: 5px;
     transition: width 0.5s;
 }
 
-.nombreApp div:hover{
+.nombreApp div:hover {
     width: 100%;
 
 
 }
 
-.nombreApp div p{
-    color: #929292; 
+.nombreApp div p {
+    color: #929292;
     margin: 0;
     padding: 0;
     transition: 0.3s;
 }
 
 
-.nombreApp div p:hover{
+.nombreApp div p:hover {
     background: linear-gradient(-270deg, #3f5efb, #fc466b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -180,14 +181,14 @@ nav ul li a:hover::before {
 
 
 
-nav a:hover{
+nav a:hover {
     background: linear-gradient(-270deg, #3f5efb, #fc466b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-nav a:link{
-   color: #000000;
+nav a:link {
+    color: #000000;
 }
 
 
@@ -205,9 +206,10 @@ input::placeholder {
 input:focus {
     border: 0.1px solid rgb(0, 0, 0);
     outline: none;
-    
+
 }
-footer p{
+
+footer p {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -216,13 +218,11 @@ footer p{
     color: rgb(93, 93, 93);
     text-align: center;
     font-size: 100%;
-    
+
 }
 
-div p b a{
+div p b a {
     cursor: pointer;
     text-decoration: none;
     color: #323232;
 }
-
-

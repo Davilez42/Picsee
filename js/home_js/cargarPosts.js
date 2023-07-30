@@ -2,7 +2,7 @@ const cargarPosts = async (query) => {
   const token = JSON.parse(sessionStorage.getItem("loggedUser")).token;
   const id_user = JSON.parse(sessionStorage.getItem("loggedUser")).id_user;
   const respuesta = await fetch(
-    `http://localhost:5000/api/v1/get_posts/${query}`,
+    `https://picmont-inc.onrender.com/api/v1/get_posts/${query}`,
     { method: "GET", headers: { auth: token, id: id_user } }
   );
 
@@ -157,10 +157,13 @@ const ocultar_info = (event) => {
 
 const cargarHastags = async () => {
   const token = JSON.parse(window.sessionStorage.getItem("loggedUser")).token;
-  const respuesta = await fetch("http://localhost:5000/api/v1/get_hastags", {
-    method: "GET",
-    headers: { auth: token },
-  });
+  const respuesta = await fetch(
+    "https://picmont-inc.onrender.com/api/v1/get_hastags",
+    {
+      method: "GET",
+      headers: { auth: token },
+    }
+  );
   if (respuesta.ok) {
     const hastags = await respuesta.json();
     const contenedor_hastags = document.querySelector("#contenedor_hastags");
@@ -209,7 +212,7 @@ const send_like = async (event) => {
 
   if (estados.length == 1 || estados.shift() === estados.pop()) {
     const respuesta = await fetch(
-      `http://localhost:5000/api/v1/setlike/${id_post}/by/${id_user}`,
+      `https://picmont-inc.onrender.com/api/v1/setlike/${id_post}/by/${id_user}`,
       { method: "PATCH", mode: "cors", headers: { auth: token } }
     );
     if (!respuesta.ok) {
