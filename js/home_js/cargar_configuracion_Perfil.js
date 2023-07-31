@@ -1,4 +1,3 @@
-//TODO carharConfiguraciones
 const autentificacion = () => {
   if (sessionStorage.getItem("loggedUser") == undefined) {
     window.location.href = "/infoError.html";
