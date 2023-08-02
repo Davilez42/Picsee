@@ -1,6 +1,35 @@
 const pool = require("./connection");
 const getDateTimeNow = require("../tools/dateTime.tool");
 
+//Currying
+const queryPostDefault = `SELECT id_post,likes, url_image ,username as username_autor, url as avatar_autor 
+FROM posts p 
+join images using (id_image)
+join users using (id_user)
+join avatars_users using(id_user) `
+
+const queryPost = (queryDefault) => {
+  return (props) => queryDefault + props
+}
+
+//Mape los posts que el usuario le haya dado like
+const mapLikes = async (posts, id_user) => {
+  const dbconnection = await pool.connect();
+  let likes = await dbconnection.query(
+    `Select id_post from users_post_liked where id_user=${id_user} `
+  );
+  likes = likes.rows.map((d) => d.id_post);
+  posts = posts.map((d) => {
+    if (likes.includes(d.id_post)) {
+      d["liked"] = 1;
+    } else {
+      d["liked"] = 0;
+    }
+  });
+
+  dbconnection.release();
+}
+
 const getPosts_Relevant = async () => {
   const dbconnection = await pool.connect();
   const data = await dbconnection.query(`SELECT url_image 
@@ -15,60 +44,17 @@ const getPosts_Relevant = async () => {
   return data.rows.map((img) => img.url_image);
 };
 
-const getPosts = async (id_user) => {
+const getPosts = async (id_user, id_hastag) => {
   const dbconnection = await pool.connect();
-  const posts =
-    await dbconnection.query(`SELECT id_post,likes, url_image ,username as username_autor, url as avatar_autor
-                                                FROM posts
-                                                join images using (id_image)
-                                                join users  using (id_user)
-                                                join avatars_users using(id_user)
-                                                order by upload_date DESC  `);
+  let props = `order by upload_date DESC`
+  if (id_hastag) {
+    props = `join relation_post_to_hastags rpth  using(id_post) where id_hastag = ${id_hastag}`
+  }
+  let data = await dbconnection.query(queryPost(queryPostDefault)(props));
 
-  let likes = await dbconnection.query(
-    `Select id_post from users_post_liked where id_user=${id_user} `
-  );
-  dbconnection.release();
-  //mapeo los posts y agrego campo liked con 0 y 1 para que el fronted lo interprete
-  likes = likes.rows.map((d) => d.id_post);
-  posts.rows.map((d) => {
-    if (likes.includes(d.id_post)) {
-      d["liked"] = 1;
-    } else {
-      d["liked"] = 0;
-    }
-  });
+  await mapLikes(data.rows, id_user)
 
-  return posts.rows;
-};
-
-const getPostsByhastag = async (id_user, id_hastag) => {
-  const dbconnection = await pool.connect();
-  let posts =
-    await dbconnection.query(`select id_post,likes,url_image,username as username_autor, url as avatar_autor
-    from posts p 
-    join images using (id_image)
-    join users using (id_user)
-    join avatars_users using(id_user) 
-    join relation_post_to_hastags rpth  using(id_post) 
-    where id_hastag = ${id_hastag} `);
-
-  let likes = await dbconnection.query(
-    `Select id_post from users_post_liked where id_user=${id_user} `
-  );
-
-  dbconnection.release();
-  //mapeo los posts y agrego campo liked con 0 y 1 para que el fronted lo interprete
-  likes = likes.rows.map((d) => d.id_post);
-  posts.rows.map((d) => {
-    if (likes.includes(d.id_post)) {
-      d["liked"] = 1;
-    } else {
-      d["liked"] = 0;
-    }
-  });
-
-  return posts.rows;
+  return data;
 };
 
 const setLikePost = async (id_post, operation) => {
@@ -82,11 +68,9 @@ const setLikePost = async (id_post, operation) => {
 
 const setPosts = async (id_user, ids_images, visible) => {
   const dbconnection = await pool.connect();
-
-  let values = [];
-
   const current_time = getDateTimeNow();
 
+  let values = [];
   for (const id of ids_images) {
     values.push(`(${id},${id_user},${0},'${current_time}',${visible})`);
   }
@@ -104,6 +88,5 @@ module.exports = {
   getPosts_Relevant,
   getPosts,
   setLikePost,
-  getPostsByhastag,
   setPosts,
 };

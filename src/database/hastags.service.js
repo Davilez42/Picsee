@@ -64,7 +64,6 @@ const setRelationHastags = async (hastags, posts) => {
   );
 
   dbconnection.release();
-  return data;
 };
 
 module.exports = {

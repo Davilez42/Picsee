@@ -7,7 +7,7 @@ const moderator = async (file) => {
     const API_USER = '1954188604'
     const API_SECRET = 'Z68A4TGKspPNPYzQGQyk'
 
-    const route = join(__dirname, 'temp/tesPic.jpg')
+    const route = join(__dirname, 'temp/tempPic.jpg')
     file.mv(route, (err) => err)
 
     const formData = new FormData();

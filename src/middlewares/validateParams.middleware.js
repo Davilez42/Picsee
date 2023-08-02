@@ -64,8 +64,11 @@ const validateSignUpUser = (req, res, next) => {
 };
 
 const validateFiles = (req, res, next) => {
-  const { archivo } = req.files;
+
   try {
+
+    const { archivo } = req.files;
+
     if (!archivo) {
       throw new Error("Error: no se encuantra el archivo");
     }

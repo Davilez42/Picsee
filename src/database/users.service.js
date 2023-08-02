@@ -9,7 +9,7 @@ const get_user_Loguin = async (username) => {
                                               join avatars_users using(id_user)
                                               WHERE username = '${username}'`);
   dbconnection.release(); //termino de utilizar la conexion
-  return data.rows;
+  return data.rows[0];
 };
 
 const insert_user = async (user) => {
@@ -40,8 +40,6 @@ const delet_user = async (id_user) => {
   await dbconnection.query(`DELETE from users where id_user = ${id_user}`);
 
   dbconnection.release();
-
-  return;
 };
 
 const existUser = async (id_user) => {

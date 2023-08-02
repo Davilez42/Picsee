@@ -5,7 +5,7 @@ const getposts = async (req, res) => {
   //* controller for get posts
 
   const { filter } = req.params;
-
+  const { id } = req.headers
   try {
     let posts = null;
     if (filter === "top") {
@@ -14,15 +14,12 @@ const getposts = async (req, res) => {
       posts = posts_relevants;
     }
     if (filter === "currents") {
-      const posts_currents = await RepositoryPosts.getPosts(req.headers["id"]);
+      const posts_currents = await RepositoryPosts.getPosts(id);
       posts = posts_currents;
     }
     if (filter === "byhastag") {
       const id_hastag = req.query.hst;
-      const posts_currents = await RepositoryPosts.getPostsByhastag(
-        req.headers["id"],
-        id_hastag
-      );
+      const posts_currents = await RepositoryPosts.getPosts(id, id_hastag);
       posts = posts_currents;
     }
     const data = { posts };

@@ -14,11 +14,11 @@ const sign = async (req, res) => {
     if (user_bd.length == 0) {
       return res.status(200).json({ username: [false, username] });
     }
-    if (await encryptedTool.compare_(user_bd[0].passwrd, password)) {
+    if (await encryptedTool.compare_(user_bd.passwrd, password)) {
       const data = {
-        id_user: user_bd[0].id_user,
-        avatar: { url: user_bd[0].url },
-        username: [true, user_bd[0].username],
+        id_user: user_bd.id_user,
+        avatar: { url: user_bd.url },
+        username: [true, user_bd.username],
         password: true,
       };
       const access_token = generateTokenTool({
@@ -31,8 +31,6 @@ const sign = async (req, res) => {
     return res
       .status(200)
       .json({ username: [true, username], password: false });
-
-      
   } catch (e) {
     console.log(e);
     return res.status(500).json({
