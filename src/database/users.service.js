@@ -30,16 +30,13 @@ const insert_user = async (user) => {
         "2023-01-02",
       ]
     );
+    return data.rows[0].id_user;
   } catch (e) {
     throw e
   }
   finally {
     dbconnection.release(); //termino de utilizar la conexion
   }
-
-
-
-  return data.rows[0].id_user;
 };
 
 const delet_user = async (id_user) => {
