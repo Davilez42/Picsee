@@ -2,7 +2,7 @@ const encryptedTool = require("../../../tools/encrypted.tool");
 const generateTokenTool = require("../../../tools/generateToken.tool");
 
 const RepositorioUser = require("../../../database/users.service");
-require("dotenv").config();
+
 
 const sign = async (req, res) => {
   //* Controlador for login user
@@ -10,7 +10,6 @@ const sign = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user_bd = await RepositorioUser.get_user_Loguin(username);
-    console.log(user_bd);
     if (!user_bd) {
       return res.status(200).json({ username: [false, username] });
     }
