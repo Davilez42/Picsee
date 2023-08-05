@@ -1,5 +1,5 @@
 SERVER_CONFIG = {
-  Logger: true,
+  Logger: false,
   HOST: "localhost",
   PORT: 5000,
 };
