@@ -26,7 +26,7 @@ const uploadImage = async (req, res) => {
         return res
           .status(400)
           .json({
-            errorMessage:
+            messageError:
               "Las imagenes no se han subido debido a que son contenido explicito",
           });
       }

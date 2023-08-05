@@ -10,7 +10,7 @@ const signUp = async (req, res) => {
   try {
     const insertId_user = await RepositorioUser.insert_user(req.body);
 
-    RepositoryAvatarsUsers.insertAvatar(insertId_user);
+    await RepositoryAvatarsUsers.insertAvatar(insertId_user);
 
     const token = generateToken({ id_user: insertId_user, ...req.body });
 
@@ -25,7 +25,6 @@ const signUp = async (req, res) => {
       token,
     });
   } catch (e) {
-    console.log(e);
 
     if (e.code === process.env.DB_DUP_ENTRY) {
       const r = e.constraint.split("_")[1];

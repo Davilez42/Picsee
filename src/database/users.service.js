@@ -16,20 +16,28 @@ const insert_user = async (user) => {
   const dbconnection = await pool.connect(); // obtengo una conexion
 
   const password_encrypt = await serviceEncrypted.encrypted(user.password);
+  try {
 
-  const data = await dbconnection.query(
-    `Insert Into users (username,first_name,last_name,email,passwrd,recent_sesion) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
-    [
-      user.username,
-      user.first_names,
-      user.last_names,
-      user.email,
-      password_encrypt,
-      "2023-01-02",
-    ]
-  );
 
-  dbconnection.release();
+    const data = await dbconnection.query(
+      `INSERT INTO users (username,first_name,last_name,email,passwrd,recent_sesion) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id_user`,
+      [
+        user.username,
+        user.first_names,
+        user.last_names,
+        user.email,
+        password_encrypt,
+        "2023-01-02",
+      ]
+    );
+  } catch (e) {
+    throw e
+  }
+  finally {
+    dbconnection.release(); //termino de utilizar la conexion
+  }
+
+
 
   return data.rows[0].id_user;
 };
