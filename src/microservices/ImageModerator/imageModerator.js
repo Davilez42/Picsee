@@ -3,18 +3,14 @@ const { createReadStream } = require('fs')
 const FormData = require('form-data');
 const { join } = require('path')
 const moderator = async (file) => {
-
-    const API_USER = '1954188604'
-    const API_SECRET = 'Z68A4TGKspPNPYzQGQyk'
-
     const route = join(__dirname, 'temp/tempPic.jpg')
     file.mv(route, (err) => err)
 
     const formData = new FormData();
     formData.append('models', 'nudity-2.0,wad,offensive,face-attributes,gore');
     formData.append('media', createReadStream(route));
-    formData.append('api_user', API_USER);
-    formData.append('api_secret', API_SECRET);
+    formData.append('api_user', process.env.API_USER_MODERATOR);
+    formData.append('api_secret', process.env.API_SECRET_MODERATOR);
 
 
     const data = {
