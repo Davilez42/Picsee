@@ -29,14 +29,14 @@ const authPlatformGoogle = async (req, res) => {
       avatar: { url: picture },
     };
 
-    if (!user_[0]) {
+    if (!user_) {
       const insert_id = await userServices.insert_user(user);
       await avatarUserServices.insertAvatar(insert_id, picture); //inserto avatar
       user.id_user = insert_id;
     }
 
     if (!user.id_user) {
-      user.id_user = user_[0].id_user;
+      user.id_user = user_.id_user;
     }
     user.username = [true, name];
 
