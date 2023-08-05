@@ -16,8 +16,8 @@ router.get('/get_posts/:filter', validateToken, controllers.getPosts)
 
 router.get('/get_hastags', controllers.getHastags)
 
-router.patch('/setlike/:id_post/by/:id_user', apiLimiter, validateIdUser, validateIdPost, validateToken, controllers.setLike)
+router.patch('/setlike/:id_post/by/:id_user', apiLimiter, validateToken, validateIdUser, validateIdPost, controllers.setLike)
 
-router.post('/uploadFile/:id_user', validateIdUser, validateFiles, validateToken, controllers.uploadImage)
+router.post('/uploadFile/:id_user', validateToken, validateIdUser, validateFiles, controllers.uploadImage)
 
 module.exports = router

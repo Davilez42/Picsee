@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-const routesv1 = require("./routes/v1/");
+require('dotenv').config()
 const logger = require("./middlewares/logger.middleware");
 const { CORS_CONFIG } = require("../configs/config");
+
 const handlerError = require('./middlewares/handlerError.middleware')
+
+const routesv1 = require("./routes/v1/");
+
 const app = express();
 //LOADERS
 app.use(logger);
