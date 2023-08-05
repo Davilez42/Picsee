@@ -3,7 +3,7 @@ const { DB_CONFIG } = require("../../configs/config");
 require("dotenv").config();
 const connectionString = process.env.URL_DB_POSTGRES;
 const pool = new Pool({
-  connectionString, ssl: false,
+  connectionString, ssl: true,
 }); // creo pool de conexiones
 
 // EVENTOS DEL POOL
