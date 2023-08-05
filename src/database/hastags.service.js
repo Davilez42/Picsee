@@ -2,8 +2,7 @@ const pool = require("./connection");
 
 const getHastags = async () => {
   const dbconnection = await pool.connect(); // obtengo una conexion
-  const data =
-    await dbconnection.query(`SELECT count(r.id_post) as used , h.id_hastag , h.name
+  const data = await dbconnection.query(`SELECT count(r.id_post) as used , h.id_hastag , h.name
                                                 from relation_post_to_hastags r
                                                 join hastags  h using (id_hastag)
                                                 group by h.id_hastag 

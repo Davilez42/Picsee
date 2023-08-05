@@ -53,7 +53,7 @@ const getPosts = async (id_user, id_hastag) => {
   let data = await dbconnection.query(queryPost(queryPostDefault)(props));
 
   await mapLikes(data.rows, id_user)
-
+  dbconnection.release()
   return data;
 };
 
