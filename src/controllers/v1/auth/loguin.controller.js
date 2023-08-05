@@ -10,8 +10,8 @@ const sign = async (req, res) => {
   const { username, password } = req.body;
   try {
     const user_bd = await RepositorioUser.get_user_Loguin(username);
-
-    if (user_bd.length == 0) {
+    console.log(user_bd);
+    if (!user_bd) {
       return res.status(200).json({ username: [false, username] });
     }
     if (await encryptedTool.compare_(user_bd.passwrd, password)) {
