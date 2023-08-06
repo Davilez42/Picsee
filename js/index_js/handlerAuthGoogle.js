@@ -14,5 +14,8 @@ async function handleCredentialResponse(response) {
     const data = await resp.json();
     window.sessionStorage.setItem("loggedUser", JSON.stringify(data));
     window.location.href = "./index.html";
+  } else {
+    const data = await resp.json();
+    alert(data.messageError)
   }
 }
