@@ -54,7 +54,7 @@ const getPosts = async (id_user, id_hastag) => {
 
   await mapLikes(data.rows, id_user)
   dbconnection.release()
-  return data;
+  return data.rows;
 };
 
 const setLikePost = async (id_post, operation) => {

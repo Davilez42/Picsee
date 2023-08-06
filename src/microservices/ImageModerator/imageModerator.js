@@ -4,7 +4,8 @@ const FormData = require('form-data');
 const { join } = require('path')
 const moderator = async (file) => {
     const route = join(__dirname, 'temp/tempPic.jpg')
-    file.mv(route, (err) => err)
+
+    await file.mv(route)
 
     const formData = new FormData();
     formData.append('models', 'nudity-2.0,wad,offensive,face-attributes,gore');
@@ -28,7 +29,8 @@ const moderator = async (file) => {
             const { status, nudity, gore, weapon, drugs, medical_drugs, skull } = JSON.parse(body)
 
             if (status == "failure") {
-                return reject('Error')
+                console.log(body);
+                return reject('Error in moderator')
             }
             const porcentages = [nudity.sexual_activity, nudity.sexual_display, nudity.erotica, gore.prob, weapon, drugs, medical_drugs, skull.prob]
             const pors = porcentages.filter(d => d > 0.20);
