@@ -44,13 +44,20 @@ const getPosts_Relevant = async () => {
   return data.rows.map((img) => img.url_image);
 };
 
-const getPosts = async (id_user, id_hastag) => {
+const getPosts = async (id_user, id_hastag, expression) => {
   const dbconnection = await pool.connect();
+  let data;
   let props = `order by upload_date DESC`
   if (id_hastag) {
-    props = `join relation_post_to_hastags rpth  using(id_post) where id_hastag = ${id_hastag}`
+    props = `join relation_post_to_hastags rpth using(id_post) where id_hastag = $1`
+    data = await dbconnection.query(queryPost(queryPostDefault)(props), [id_hastag]);
+  } else if (expression) {
+    props = `join relation_post_to_hastags rpth  using(id_post) 
+            join hastags h using(id_hastag)  where name ~* $1::text`
+    data = await dbconnection.query(queryPost(queryPostDefault)(props), [expression]);
+  } else {
+    data = await dbconnection.query(queryPost(queryPostDefault)(props));
   }
-  let data = await dbconnection.query(queryPost(queryPostDefault)(props));
 
   await mapLikes(data.rows, id_user)
   dbconnection.release()
