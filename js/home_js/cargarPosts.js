@@ -2,8 +2,8 @@ const cargarPosts = async (query) => {
   const token = JSON.parse(sessionStorage.getItem("loggedUser")).token;
   const id_user = JSON.parse(sessionStorage.getItem("loggedUser")).id_user;
   const respuesta = await fetch(
-    `https://picmont-inc.onrender.com/api/v1/get_posts/${query}`,
-    { method: "GET", headers: { auth: token, id: id_user } }
+    `http://localhost:5000/api/v1/get_posts/${query}`,
+    { method: "GET", headers: { auth: token, id: id_user }, mode: "cors" }
   );
 
   if (respuesta.ok) {
@@ -241,5 +241,10 @@ cargarHastags().then(() => {
     });
   }
 });
+
+document.querySelector('.contenedor_icon_search').addEventListener('click', () => {
+  const value = document.querySelector('#barra_busqueda').value
+  cargarPosts(`bysearch?text=${value}`)
+})
 
 cargarPosts("currents").then(cargar_evento_like);
