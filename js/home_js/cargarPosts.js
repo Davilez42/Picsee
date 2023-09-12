@@ -2,7 +2,7 @@ const cargarPosts = async (query) => {
   const token = JSON.parse(sessionStorage.getItem("loggedUser")).token;
   const id_user = JSON.parse(sessionStorage.getItem("loggedUser")).id_user;
   const respuesta = await fetch(
-    `http://localhost:5000/api/v1/get_posts/${query}`,
+    `https://picmont-inc.onrender.com/api/v1/get_posts/${query}`,
     { method: "GET", headers: { auth: token, id: id_user }, mode: "cors" }
   );
 
