@@ -1,6 +1,7 @@
 const cargarPosts = async (query) => {
   const token = JSON.parse(sessionStorage.getItem("loggedUser")).token;
   const id_user = JSON.parse(sessionStorage.getItem("loggedUser")).id_user;
+  activateLoader()
   const respuesta = await fetch(
     `https://picmont-inc.onrender.com/api/v1/get_posts/${query}`,
     { method: "GET", headers: { auth: token, id: id_user }, mode: "cors" }
@@ -9,6 +10,7 @@ const cargarPosts = async (query) => {
   if (respuesta.ok) {
     const datos = await respuesta.json();
     const tamaño = datos["posts"].length;
+
     const contenedor_galeria_perfil = document.querySelector(
       "#contenedor_galeria_perfil"
     );
@@ -16,19 +18,19 @@ const cargarPosts = async (query) => {
 
     const fragmento = document.createDocumentFragment();
 
-    let column_posts = document.createElement("DIV");
-    column_posts.classList.add("column-posts");
+    let column_posts_1 = document.createElement("DIV");
+    column_posts_1.classList.add("column-posts");
 
-    let top = 1;
+    let column_posts_2 = document.createElement("DIV");
+    column_posts_2.classList.add("column-posts");
 
-    const limite_por_columna = parseInt(tamaño / 3);
+    let column_posts_3 = document.createElement("DIV");
+    column_posts_3.classList.add("column-posts");
 
-    let columna_actual = 0;
+    const states_colum = [column_posts_1, column_posts_2, column_posts_3]
+    let top = 0
 
     for (let index = 0; index < tamaño; index++) {
-      if (columna_actual == 3) {
-        break;
-      }
 
       let contenedor_post = document.createElement("DIV");
       contenedor_post.classList.add("contenedor_post");
@@ -99,48 +101,25 @@ const cargarPosts = async (query) => {
       ul.appendChild(li);
       div.appendChild(ul);
       contenedor_post.appendChild(div);
-      column_posts.appendChild(contenedor_post);
 
-      if (top == limite_por_columna) {
-        top = 1;
-        fragmento.appendChild(column_posts);
-        column_posts = document.createElement("DIV");
-        column_posts.classList.add("column-posts");
-
-        columna_actual++;
-        continue;
+      states_colum[top].appendChild(contenedor_post)
+      top++
+      if (top >= 3) {
+        top = 0
       }
-      top++;
-    }
 
+    }
+    fragmento.appendChild(states_colum[0])
+    fragmento.appendChild(states_colum[1])
+    fragmento.appendChild(states_colum[2])
     contenedor_galeria_perfil.appendChild(fragmento);
 
-    lazyloadin(); //cargo el lazy loader para las imaganes cargadas
+    lazyloadin(".imagen_galeria", null); //cargo el lazy loader para las imaganes cargadas
   }
+  desactivateLoader()
 };
 
-const lazyloadin = () => {
-  const images_ = document.querySelectorAll(".imagen_galeria"); //obtengo todas las imagenes cargadas
-  const callback = (entries, observer) => {
-    entries.forEach((enty) => {
-      if (enty.isIntersecting) {
-        enty.target.src = enty.target.dataset.src;
-        observer.unobserve(enty.target);
-      }
-    });
-  };
-  const options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0,
-  };
-  const ob = new IntersectionObserver(callback, options); //observador
 
-  images_.forEach((i) => {
-    //observo a cada una de las imagenes
-    ob.observe(i);
-  });
-};
 
 //mostrar avatar y nombre del autor del post
 const mostrar_info = (event) => {

@@ -1,4 +1,5 @@
 async function handleCredentialResponse(response) {
+  activateLoader()
   const resp = await fetch(
     "https://picmont-inc.onrender.com/api/v1/auth_plataform",
     {
@@ -18,4 +19,5 @@ async function handleCredentialResponse(response) {
     const data = await resp.json();
     alert(data.messageError)
   }
+  desactivateLoader()
 }

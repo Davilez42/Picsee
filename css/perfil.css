@@ -91,7 +91,7 @@ nav {
 }
 
 .input_hastags-label {
-    text-align: center;
+    text-align: start;
     display: block;
     width: 100%;
 }
@@ -129,10 +129,6 @@ header input::placeholder {
 
 
 
-/* TODO separar en otro CSS */
-
-
-
 #contenedor_galeria_perfil {
     border: 2px solid #fafafa10;
     width: 90%;
@@ -161,8 +157,11 @@ header input::placeholder {
 
 .contenedor_opciones_inputs {
     height: min-content;
-    position: relative;
+    display: flex;
     width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     border-radius: 6px;
     background-color: #ffffffd9;
 }
@@ -202,8 +201,11 @@ header input::placeholder {
 }
 
 .checks {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     margin: 0 auto;
-    width: max-content;
+    width: 100%;
 }
 
 .btn-success {
@@ -213,7 +215,7 @@ header input::placeholder {
 
 .contenedor_btn {
 
-    background-color: #4ab051;
+    background-color: #505050;
     border-radius: 5px;
     width: 80%;
     margin: 20px auto;
@@ -225,7 +227,7 @@ header input::placeholder {
 }
 
 .contenedor_btn:hover {
-    background-color: #59b55f;
+    background-color: #2d2e2d;
     color: white;
 }
 
@@ -285,6 +287,7 @@ ul .opciones_imagenes {
     margin-bottom: 10px;
     top: 0;
 
+
 }
 
 .contenedor_imagen img {
@@ -292,7 +295,9 @@ ul .opciones_imagenes {
     border-radius: 2px;
     width: 100%;
     max-height: 510px;
-    transition: 0.5s;
+    transition: 0.10s;
+    backdrop-filter: blur(0.10rem);
+    transition: 0.4s;
 }
 
 
@@ -301,6 +306,15 @@ ul .opciones_imagenes {
     filter: opacity(.8);
 }
 
+.contenedor_imagen img:active {
+    z-index: 4;
+    background: #36363632;
+    border-radius: 5px;
+    backdrop-filter: blur(0.4rem);
+    box-shadow: 2px 2px 10px rgba(135, 135, 135, 0.566);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
 
 
 .contenedor_info_autor {
@@ -332,35 +346,12 @@ ul .opciones_imagenes {
 .contenedor_post {
     border-radius: 5px;
     background: #0000000a;
-    min-height: 400px;
+    min-height: 200px;
     width: 100%;
-    backdrop-filter: blur(0.10rem);
-    transition: 0.9s;
-
 }
 
-.contenedor_post:active {
-    z-index: 2;
-    background: #1a1a1a32;
-    border-radius: 5px;
-    backdrop-filter: blur(0.4rem);
-    box-shadow: 2px 2px 10px rgba(135, 135, 135, 0.566);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
 
-}
 
-.boton_like:active #contenedor_galeria_perfil {
-    filter: blur(0);
-}
-
-#contenedor_galeria_perfil:active .contenedor_post {
-    filter: blur(4px);
-}
-
-#contenedor_galeria_perfil .contenedor_post:active {
-    filter: blur(0);
-}
 
 main {
     overflow: visible;
@@ -436,16 +427,19 @@ main {
     z-index: 2;
     right: 0;
     top: 60px;
-    width: 30%;
-    height: min-content;
-    background-color: #242424;
+    width: 39%;
+    height: 500px;
+    background-color: #fcfcfc;
     border-radius: 5px;
+    border: 1px solid rgb(180, 180, 180);
+    box-shadow: 2px 2px 2px 2px rgba(126, 126, 126, 0.5);
+    transition: .10s all;
 }
 
 .barra_navegacion_desplegable ul li a {
     text-decoration: none;
-    color: rgb(199, 194, 194);
-    font-size: 23px;
+    color: rgb(99, 99, 99);
+    font-size: 18px;
 }
 
 .barra_navegacion_desplegable ul li {
@@ -470,16 +464,7 @@ main {
         flex-wrap: wrap;
     }
 
-    .contenedor_post:active {
-        z-index: 2;
-        background: #1a1a1a32;
-        border-radius: 5px;
-        backdrop-filter: blur(0.4rem);
-        box-shadow: 2px 2px 10px rgba(135, 135, 135, 0.566);
-        -webkit-transform: scale(1);
-        transform: scale(1);
 
-    }
 
 
 }
@@ -575,20 +560,5 @@ main {
 
     #barra_busqueda {
         width: 50%;
-    }
-}
-
-@media only screen and (max-width :450px) {
-
-    .contenedor_post:active {
-        z-index: 2;
-        background: #00000017;
-        border-radius: 5px;
-        transition: 0.1s;
-        backdrop-filter: blur(0.4rem);
-        box-shadow: 1px 1px 20px rgba(135, 135, 135, 0.025);
-        -webkit-transform: scale(1);
-        transform: scale(1);
-
     }
 }

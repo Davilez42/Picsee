@@ -4,17 +4,18 @@ btn_login.addEventListener("click", (e) => {
   const password = document.getElementById("login-password-input").value;
   e.preventDefault();
   if (username.trim() === "") {
-    alert("Porfavor digite un nombre de usuario");
+    show_error("Porfavor digite un nombre de usuario", 'username');
     return;
   }
   if (password.trim() === "") {
-    alert("Porfavor digite una contraseña");
+    show_error('Porfavor Digite una contraseña', 'password')
     return;
   }
-
-  validar_Loguin(username.trim(), password.trim());
+  validate_login(username.trim(), password.trim());
 });
-const validar_Loguin = async (us, pas) => {
+
+
+const validate_login = async (us, pas) => {
   datos = {
     method: "POST",
     mode: "cors",
@@ -23,6 +24,8 @@ const validar_Loguin = async (us, pas) => {
     },
     body: JSON.stringify({ username: us, password: pas }),
   };
+  activateLoader()
+
   fetch("https://picmont-inc.onrender.com/api/v1/sign_user", datos)
     .then((respuesta) => {
       if (respuesta.ok) {
@@ -33,21 +36,19 @@ const validar_Loguin = async (us, pas) => {
               limpiarCamposLoguin();
               window.location.href = "./home.html";
             } else {
-              document.getElementById("contenedor_error").innerHTML =
-                '<h4 id="message_err">Contraseña incorrecta</h4>';
-              document.getElementById("login-password-input").style =
-                " border: 3px solid #ff0033;";
+              desactivateLoader()
+              show_error('Contraseña Incorrecta', 'password')
             }
           } else {
-            document.getElementById("contenedor_error").innerHTML =
-              '<h4 id="message_err">El usuario no existe</h4>';
-            document.getElementById("login-username-input").style =
-              " border: 1px solid #ff0033;";
+            desactivateLoader()
+            show_error('El usuario no existe', 'username')
           }
         });
       } else {
+        desactivateLoader()
         respuesta.json().then((data) => {
-          alert(data["messageError"]);
+          console.log(data)
+          show_error(data.messageError.split(':')[1])
         });
       }
     })
@@ -56,7 +57,3 @@ const validar_Loguin = async (us, pas) => {
     });
 };
 
-const limpiarCamposLoguin = () => {
-  document.getElementById("login-username-input").value = "";
-  document.getElementById("login-password-input").value = "";
-};

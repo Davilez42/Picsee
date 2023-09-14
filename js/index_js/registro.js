@@ -62,6 +62,7 @@ const obtenerDatos = async () => {
   };
 
   if (contraseña_confirmar === contraseña) {
+    activateLoader()
     await enviar_registro(datos_formularo);
   } else {
     alert("Las contraseñas no coindicen");
@@ -69,6 +70,7 @@ const obtenerDatos = async () => {
 };
 
 const enviar_registro = async (datos_formularo) => {
+
   const respuesta = await fetch(
     "https://picmont-inc.onrender.com/api/v1/signUp_user",
     {
@@ -90,12 +92,14 @@ const enviar_registro = async (datos_formularo) => {
       alert(`El ${us["valFail"]} ya esta en uso`);
     }
   } else {
+    desactivateLoader()
     const us = await respuesta.json();
     alert(us["messageError"]);
   }
 };
 
 const obtenermasinfoUsuario = (name_user) => {
+  desactivateLoader()
   //document.querySelector('.coantenedor_ingresar').style.display = 'none'
   const user = JSON.parse(sessionStorage.getItem("loggedUser"));
   if (user == null) {
@@ -153,16 +157,3 @@ const obtenermasinfoUsuario = (name_user) => {
     });
 };
 
-const limpiarFormInfouser = () => {
-  document.getElementById("infoUsuario-pais-input").value = "";
-  document.getElementById("infoUsuario-ciudad-input").value = "";
-};
-
-const limpiarFormRegistro = () => {
-  document.getElementById("registro-nombres-input").value = "";
-  document.getElementById("registro-apellidos-input").value = "";
-  document.getElementById("registro-usuario-input").value = "";
-  document.getElementById("registro-correo-input").value = "";
-  document.getElementById("registro-contraseña-input").value = "";
-  document.getElementById("registro-contraseña-input-2").value = "";
-};

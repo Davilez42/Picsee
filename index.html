@@ -35,11 +35,13 @@
       </div>
     </header>
     
-    <main class="contenedor">
-      <div class="contenedor_ingresar" >
+    <main  class="contenedor">
+      <div  class="contenedor_ingresar" >
         <div class="container_logo">
           <img src="" hidden class="icono_logo_1" alt="">
         </div>
+        
+
         <div id="formulario_ingreso"  class="form-ingresar-active">
            <div class="contenedor-titulo" ><h2>Inicia sesion</h2></div>
           
@@ -56,9 +58,13 @@
             type="password"
             placeholder="contraseña"
           />
+          
           <div id="contenedor_error"></div>
-    
+
           <a class="form_Input-boton_registrar"  id="btn"/>iniciar Sesion</a>
+
+
+
           <div class="auth_google">
             <div id="g_id_onload"
                 data-client_id="585334348569-v71lcr074qq80nffjup054lmhmck8ol6.apps.googleusercontent.com"
@@ -76,7 +82,7 @@
                 data-size="large"
                 data-logo_alignment="left">
             </div>
-
+            
           </div>
 
           <div class="info-">
@@ -92,7 +98,7 @@
 
         <div id="formulario_registro" style="display: none;" class="form-registro">
           <div class="contenedor-titulo"><h2>Registro</h2></div>
-     
+         
           <input
             id="registro-nombres-input"
             class="form_registro_Input-nombres"
@@ -174,6 +180,17 @@
 
       <div class="contenedor-imagenes" >
       </div>
+      <div style="display:none;" class="container-loader">
+
+        <svg
+        class="ring"
+        viewBox="25 25 50 50"
+        stroke-width="5"
+      >
+        <circle cx="50" cy="50" r="20" />
+      </svg>
+    
+      </div>
 
     </main>
 
@@ -190,17 +207,19 @@
     
     </div>
 
-
+   
 
 
     <footer>
       <p>Develop by David Suarez®</p>
     </footer>
+    <script src="./js/lazyloading.js"></script>
+    <script src="./js/loader.js"></script>
+    <script src="./js/index_js/logicInteractiveHtml.js"></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="./js/index_js/cargarSesion.js"></script>
     <script src="./js/index_js/cargarPostsRelevants.js"></script>
     <script src="./js/index_js/registro.js"></script>
-    <script src="./js/index_js/interacion_forms.js"></script>
     <script src="./js/index_js/interacion_navbar.js"></script>
     <script src="./js/index_js/loguin.js"></script>
     <script src="./js/index_js/handlerAuthGoogle.js"></script>
