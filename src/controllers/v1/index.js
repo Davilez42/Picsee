@@ -1,34 +1,28 @@
 //* auth
-const sign = require("./auth/loguin.controller");
-const signUp = require("./auth/signUp.controller");
-const authPlatformGoogle = require("./auth/authPlataformGoogle.controller");
-
-//* Image
-const uploadImage = require("./Images/uploadImage.controller");
-const updateImageAvatar = require("./Images/updateImageAvatar.controller");
+const signController = require("./auth/sign.controller");
+const authPlatformGoogleController = require("./auth/authPlataformGoogle.controller");
 
 //* Post
-const getPosts = require("./post/getPosts.controller");
-const setLike = require("./post/setLike.controller");
-const getHastags = require("./hastags/getHastags.controller.");
+const getPostsController = require("./post/getPosts.controller");
+const likeController = require("./post/setLike.controller");
+const getTagsController = require("./tags/getTags.controller");
+const uploadPostController = require("./post/uploadPost.controller");
 
 //* users
-const deleteUser = require("./users/deleteUser.controller");
-const setMoreInfo = require("./users/setMoreInfo.controller");// TODO
-
-/* //! dev
-const test = require("./generate.Token_Test.controller"); */
+const createUserController = require("./users/createUser.controller");
+const deleteUserController = require("./users/deleteUser.controller");
+const updateUserController = require("./users/updateUser.controller");// TODO
+const updateAvatarController = require("./users/updateAvatar.controller");
 
 module.exports = {
-  sign,
-  signUp,
-  authPlatformGoogle,
-  uploadImage,
-  updateImageAvatar,
-  getPosts,
-  setLike,
-  deleteUser,
-  setMoreInfo,
-  getHastags,
-//  test,
+  signController,
+  authPlatformGoogleController,
+  createUserController,
+  deleteUserController,
+  updateUserController,
+  updateAvatarController,
+  uploadPostController,
+  getTagsController,
+  getPostsController,
+  likeController,
 };

@@ -1,11 +1,12 @@
 SERVER_CONFIG = {
-  Logger: false,
+  logger: true,
   HOST: "localhost",
   PORT: 5000,
 };
 
 CONFIG_CORS = {
-  origin: ["*"],
+  origin: ["http://localhost:5500", "http://localhost:8080", 'https://nt4mmhp7-8080.use2.devtunnels.ms'],
+  credentials: true
 };
 
 

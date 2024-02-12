@@ -2,7 +2,7 @@ const request = require('postman-request')
 const { createReadStream } = require('fs')
 const FormData = require('form-data');
 const { join } = require('path')
-const moderator = async (file) => {
+const verify = async (file) => {
     const route = join(__dirname, 'temp/tempPic.jpg')
 
     await file.mv(route)
@@ -13,30 +13,34 @@ const moderator = async (file) => {
     formData.append('api_user', process.env.API_USER_MODERATOR);
     formData.append('api_secret', process.env.API_SECRET_MODERATOR);
 
-
     const data = {
         url: 'https://api.sightengine.com/1.0/check.json',
         body: formData,
         headers: formData.getHeaders(),
     }
 
-
     return new Promise((resolve, reject) => {
         request.post(data, (err, httpres, body) => {
             if (err) {
                 return reject(err)
             }
-            const { status, nudity, gore, weapon, drugs, medical_drugs, skull } = JSON.parse(body)
+            const { error, status, nudity, gore, weapon, drugs, medical_drugs, skull } = JSON.parse(body)
 
-            if (status == "failure") {
-                console.log(body);
-                return reject('Error in moderator')
+            if (error) {
+                console.log('moderation service ❌');
+                if (error.code === 32) {
+                    return resolve()
+                }
+
+                return reject(`Failed to verify images`)
             }
             const porcentages = [nudity.sexual_activity, nudity.sexual_display, nudity.erotica, gore.prob, weapon, drugs, medical_drugs, skull.prob]
-            const pors = porcentages.filter(d => d > 0.20);
-            (pors.length == 0) ? resolve(true) : resolve(false)
+            console.log('moderation service ✅');
+            porcentages.some(d => d > 0.20) ? reject() : resolve()
         })
 
     })
 }
-module.exports = moderator
+module.exports = {
+    verify
+}

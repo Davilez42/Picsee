@@ -1,44 +1,27 @@
-const jwt = require("jsonwebtoken");
+const { verify, decode, JsonWebTokenError } = require("jsonwebtoken");
+const errorHandler = require("../tools/errorHandler");
 require("dotenv").config();
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
   try {
-    if (req.params.filter === "top") {
-      next();
-      return;
-    }
-    const token = req.query.t_ken || req.headers["auth"];
+    if (req.query.query === "top") return next();
+
+
+    const token = req.headers["auth"];
 
     if (!token) {
-      res.render("info.ejs", {
-        message:
-          "Acceso Denegado, No se meta donde no debe...deje de joder mka🤣",
-      });
-      return;
+      throw new JsonWebTokenError()
+
     }
 
-    jwt.verify(token, process.env.JWT_KEY_SECRET, (err, user) => {
-      if (err) {
-        res.render("info.ejs", {
-          message: "Tu sesion ha caducado.. inicia sesion nuevamente",
-        });
-        return;
-      }
-      //verifico el id_user del token entregado
-      user = jwt.decode(token);
-      const id_user =
-        req.params.id_user || req.query.id_user || req.headers["id"];
-      if (user.id_user !== parseInt(id_user)) {
-        res.status(404).render("info.ejs", {
-          message: "Acceso Denegado, Informacion trocada ",
-        });
-        return;
-      }
+    verify(token, process.env.JWT_KEY_SECRET);
 
-      next();
-    });
+    const userData = decode(token);
+
+    req.id_user = userData.id_user
+    next();
   } catch (e) {
-    return res.status(500).json({ messageError: `Error: ${e.message}` });
+    errorHandler(e, req, res)
   }
 };
 

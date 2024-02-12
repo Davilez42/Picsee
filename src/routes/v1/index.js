@@ -3,17 +3,17 @@ const fileupload = require("express-fileupload");
 const authRoutes = require("./auth.routes");
 const userRoutes = require("./user.routes");
 const postRoutes = require("./posts.routes");
-const router = Router();
 
-router.use(fileupload());
-router.get("/", (req, res) => {
-  res.render("info.ejs", { message: "📸 Welcome To routes v1 🚦" });
+const routesV1 = Router();
+
+routesV1.use(fileupload());
+routesV1.get("/", (req, res) => {
+  res.json({ message: "Welcome to version v1!" });
 });
 
-router.use(authRoutes);
-router.use(userRoutes);
-router.use(postRoutes);
+routesV1.use('/auth', authRoutes);
+routesV1.use('/user', userRoutes);
+routesV1.use('/post', postRoutes);
+routesV1.disable('x-powered-by')
 
-//router.get('/get-token-test',controllers.test)
-
-module.exports = router;
+module.exports = routesV1

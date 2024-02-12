@@ -1,39 +1,23 @@
-const RepositoryPosts = require("../../../database/posts.service");
+const { postRepository } = require("../../../database/dependencies");
+const errorHandler = require('../../../tools/errorHandler')
 require("dotenv").config();
 
-const getposts = async (req, res) => {
+const getPostsController = async (req, res) => {
   //* controller for get posts
-
-  const { filter } = req.params;
-  const { id } = req.headers
+  const { query, tag, cursor } = req.query;
   try {
-    let posts = null;
-
-    if (filter === "top") {
-      posts = await RepositoryPosts.getPosts_Relevant();
-    }
-    if (filter === "currents") {
-      posts = await RepositoryPosts.getPosts(id);
-
-    }
-    if (filter === "byhastag") {
-      const id_hastag = req.query.hst;
-      posts = await RepositoryPosts.getPosts(id, id_hastag);
-
+    let posts
+    if (query === 'top') {
+      posts = await postRepository.getRelevants()
+    } else {
+      posts = await postRepository.get({ expression: query, tag: parseInt(tag), cursor });
     }
 
-    if (filter === 'bysearch') {
-      const { text } = req.query
-      posts = await RepositoryPosts.getPosts(id, undefined, text)
-    }
-    return res.status(200).json({ posts });
+    return res.status(200).json({ posts, cursor: posts[posts.length - 1]?.id_post });
 
   } catch (e) {
-    console.log(e);
-    return res.status(500).json({
-      messageError: "Internal server error, please try again later",
-    });
+    errorHandler(e, req, res)
   }
 };
 
-module.exports = getposts;
+module.exports = getPostsController;

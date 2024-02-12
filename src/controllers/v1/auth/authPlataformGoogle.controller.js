@@ -1,53 +1,57 @@
-const jwt = require("jsonwebtoken");
-const userServices = require("../../../database/users.service");
-const avatarUserServices = require("../../../database/avatarsUsers.service");
+const { userRepository } = require("../../../database/dependencies");
 const genareteToken = require("../../../tools/generateToken.tool");
+const { validateCredentialsGoogle } = require("../../../microservices/googleTokenValidation/validationTokenGoogle");
+const errorHandler = require("../../../tools/errorHandler");
+const InvalidBody = require("../../../exceptions/InvalidBody");
 require("dotenv").config();
 
-const authPlatformGoogle = async (req, res) => {
+const authPlatformGoogleController = async (req, res) => {
   // * controller for auth user with google
 
   try {
+
     const { credential } = req.body;
 
     if (!credential) {
-      return res.status(400).json({ message: "param incorrect!" });
+      throw new InvalidBody('missing -> credentials')
     }
-    const { name, email, picture } = jwt.decode(
-      credential,
-      process.env.SECRET_KEY_GOOGLE
-    );
 
-    let user_ = await userServices.get_user_Loguin(name);
+    const { picture, name, given_name, email } = await validateCredentialsGoogle(credential)
 
     const user = {
       username: name,
-      email: email,
+      email,
       first_names: " ",
       last_names: " ",
       password: "true",
-      avatar: { url: picture },
     };
 
-    if (!user_) {
-      const insert_id = await userServices.insert_user(user);
-      await avatarUserServices.insertAvatar(insert_id, picture); //inserto avatar
-      user.id_user = insert_id;
-    }
+    let user_ = await userRepository.exist(email);
 
-    if (!user.id_user) {
-      user.id_user = user_.id_user;
+    if (!user_) {
+      const insertId = await userRepository.create(user);
+      await userRepository.updateAvatar(insertId, { url: picture, id_kitio: null })
+      user.id_user = insertId;
+      user.url_avatar = picture
+    } else {
+      user.id_user = user_.id_user
+      user.url_avatar = user_.url
     }
-    user.username = [true, name];
 
     const token = genareteToken(user);
 
-    res.status(200).json({ token, ...user });
-  } catch (e) {
-    res.status(500).json({
-      messageError: "Internal server error, please try again later",
+    res.status(200).json({
+      state: 'ok', token,
+      id_user: user.id_user,
+      username: user.username,
+      email,
+      url_avatar: user.url_avatar,
+      password: true,
+      token
     });
+  } catch (e) {
+    errorHandler(e, req, res)
   }
 };
 
-module.exports = authPlatformGoogle;
+module.exports = authPlatformGoogleController;

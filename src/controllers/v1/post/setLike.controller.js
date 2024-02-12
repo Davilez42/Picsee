@@ -1,24 +1,19 @@
-const RepositorioPosts = require("../../../database/posts.service");
-const RepositorioRelationUsersPosts = require("../../../database/relationUsersPosts.service");
+const { postRepository } = require("../../../database/dependencies");
+const errorHandler = require("../../../tools/errorHandler");
 
-const setlike = async (req, resp) => {
+
+const likeController = async (req, res) => {
+
   //* controller for set like posts
-  
-  const { id_post, id_user } = req.params;
+  const { id_post } = req.params;
+  const id_user = req.id_user
+
   try {
-    const resultado = await RepositorioRelationUsersPosts.insertRelation(
-      id_post,
-      id_user
-    );
-    await RepositorioPosts.setLikePost(id_post, resultado ? "+" : "-");
-
-    return resp.sendStatus(200);
-
+    await postRepository.setlike(id_post, id_user);
+    return res.sendStatus(200);
   } catch (e) {
-    return resp.status(500).json({
-      messageError: "Internal server error, please try again later",
-    });
+    errorHandler(e, req, res)
   }
 };
 
-module.exports = setlike;
+module.exports = likeController;

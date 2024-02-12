@@ -1,105 +1,125 @@
-const validateIdUser = async (req, resp, next) => {
-  const id_user =
-    req.params.id_user || req.query.id_user || req.headers["id"] || req.id_user;
-  try {
-    if (req.params.filter == "top") {
-      next();
-      return;
-    }
-    if (!id_user || id_user.trim() === "") {
-      throw new Error("Error: Los parametros son incorrectos ");
-    }
-    if (isNaN(parseInt(id_user))) {
-      throw new Error("Error: Tipo de datos incorrectos");
-    }
-    next();
-  } catch (e) {
-    return resp.status(400).json({ messageError: e.message });
-  }
-};
+const InvalidBody = require("../exceptions/InvalidBody");
+const errorHandler = require("../tools/errorHandler");
 
-const validateSignUser = (req, res, next) => {
+const validateSign = (req, res, next) => {
   const { username, password } = req.body;
   try {
     if (username.trim() === "" || password.toString().length == 0) {
-      throw new Error(
-        "Error: Campos vacios , Porfavor suministre todo los campos"
+      throw new InvalidBody(
+        "Los campos no pueden estar vacios"
       );
     }
     if (password.toString().length < 9) {
-      throw new Error(
-        "Error: El campo de la contraseña debe ser mayor o igual a 9"
+      throw new InvalidBody(
+        "la contraseña debe ser mayor o igual a 9"
       );
     }
     next();
   } catch (e) {
-    res.status(400).json({ messageError: e.message });
+    errorHandler(e, req, res)
   }
 };
 
-const validateSignUpUser = (req, res, next) => {
+const validateCreateUser = (req, res, next) => {
   const { username, password, email, first_names, last_names } = req.body;
   try {
     if (
       [username, first_names, last_names, email, password].includes(undefined)
     ) {
-      throw new Error("Error: Entradas incorrectas");
+      throw new InvalidBody('Faltan keys');
     }
 
     [username, first_names, last_names, email, password].forEach((d) => {
       if (d.trim() === "") {
-        throw new Error("Error: Porfavor suministre todos los campos ");
+        throw new InvalidBody(
+          "Los campos no pueden estar vacios"
+        );
       }
     });
 
+    const regex_ = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regex_.test(email)) {
+      throw new InvalidBody('El correo electronico no es correcto')
+    }
+
     if (password.toString().length < 9) {
-      throw new Error(
-        "Error:El campo de la contraseña debe ser mayor o igual a 9"
+      throw new InvalidBody(
+        "la contraseña debe ser mayor o igual a 9"
       );
     }
     next();
   } catch (e) {
-    res.status(400).json({ messageError: e.message });
+    errorHandler(e, req, res)
   }
 };
 
 const validateFiles = (req, res, next) => {
-
   try {
-
-    const { archivo } = req.files;
-
-    if (!archivo) {
-      throw new Error("Error: no se encuantra el archivo");
+    let photos = req.files?.photos
+    if (!photos) {
+      throw new InvalidBody("No se encuentran fotos para subir");
     }
-    if (archivo.length > 4) {
-      throw new Error("Error: maximo de archivos excedido");
+
+    if (!photos.length) {
+      photos = [photos]
     }
-    next();
+    if (photos.length > 5) {
+      throw new InvalidBody('Solo se puede un maximo de 5 fotos')
+    }
+
+    let sizeTotal = 0
+    for (let f of photos) {
+      sizeTotal += f.size
+      if (!['image/jpg', 'image/png', 'image/jpeg'].includes(f.mimetype)) {
+        throw new InvalidBody('Solo debe de subir archivos de tipo jpg, png, jpeg')
+      }
+      if (sizeTotal > 10000000) {
+        throw new Error('Error: El tamaño supera 10mb')
+      }
+    }
+    next()
   } catch (e) {
-    res.status(400).json({ messageError: e.message });
+    errorHandler(e, req, res)
   }
 };
 
 const validateIdPost = (req, res, next) => {
   const { id_post } = req.params;
   try {
-    if (!id_post) {
-      throw new Error("Error: entradas incorrectas");
-    }
-    if (isNaN(parseInt(id_post))) {
-      throw new Error("Error: Tipos de datos incorrectos");
+    if (!Number.isInteger(parseInt(id_post))) {
+      throw new InvalidBody("Formato de Id incorrecto");
     }
     next();
   } catch (e) {
-    res.status(400).json({ messageError: e.message });
+    errorHandler(e, req, res)
   }
 };
 
+
+const validateUpdateUser = (req, res, next) => {
+  try {
+    const keys_valids = ['city', 'country', 'first_name', 'last_name']
+
+    for (const k in req.body) {
+      if (!keys_valids.includes(k)) {
+        throw new InvalidBody('propiedades incorrectas por favor suministre las propiedades correctas')
+      }
+      if (req.body[k].trim() === '') {
+        throw new InvalidBody('No deben de haber propiedades con datos vacios')
+      }
+    }
+
+
+    next()
+  } catch (e) {
+    errorHandler(e, req, res)
+  }
+}
+
 module.exports = {
-  validateIdUser,
-  validateSignUser,
-  validateSignUpUser,
+  validateSign,
+  validateCreateUser,
   validateFiles,
   validateIdPost,
+  validateUpdateUser
 };
