@@ -19,7 +19,6 @@ const _upload = async (files, path, tags = {}) => {
       throw new FailedUploadImageKit
     }
   }
-  console.log('uplaod imagekit ✅');
   return infoImages;
 }
 

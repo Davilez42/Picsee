@@ -106,7 +106,6 @@ class PostRepository {
     for (const i in tags) {
       _tags[i] = `{${tags[i].join(',')}}`
     }
-    console.log(_tags);
     const dbconnection = await this.pool.connect();
     const time = new Date()
     const resp = await dbconnection.query(`select insertPost($1, $2, $3, $4)`, [id_user, time, infoFiles, _tags])
