@@ -1,0 +1,127 @@
+.block-upload {
+    position: absolute;
+    backdrop-filter: brightness(40%);
+    display: flex;
+    width: 60%;
+    z-index: 20;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.block-upload__container-upload {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 95%;
+    border-radius: 20px;
+    height: 650px;
+}
+
+.block-upload__drop-zone {
+    width: 97%;
+}
+
+.block-upload__container-previews {
+    border-radius: 20px;
+    border: 2px dashed rgb(175, 175, 175);
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-y: auto;
+
+    cursor: pointer;
+    scrollbar-width: thin;
+}
+
+.block-upload_container-photo {
+    width: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+    border: 2px solid rgb(201, 201, 201);
+    z-index: 100;
+}
+
+.block-upload__icon-delete {
+    background: rgba(128, 128, 128, 0.123);
+    backdrop-filter: blur(20px);
+    border-radius: 5px;
+}
+
+.block-upload__container-tags {
+    background-color: rgb(255, 255, 255);
+    border-top: 2px solid rgb(179, 179, 179);
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-content: center;
+    flex-wrap: wrap;
+    min-height: 50px;
+}
+
+.block-upload__input-tag {
+    align-self: flex-end;
+    height: 30px;
+    order: 100;
+    /*   border: 2px solid rgb(175, 175, 175); */
+    border: none;
+    width: 50%;
+}
+
+.block-upload__tag-closed {
+    border: 2px solid rgb(175, 175, 175);
+    color: rgb(167, 167, 167);
+    width: min-content;
+    height: 30px;
+    padding: 0 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+}
+
+.block-upload__input-tag:focus {
+    outline: none;
+    border: none;
+}
+
+.block-upload_photo-uploaded {
+    object-fit: contain;
+    height: min-content;
+    background-color: rgb(211, 211, 211);
+    width: 400px;
+}
+
+.block-upload__input-file {
+    display: none;
+}
+
+
+.block-upload__container-options {
+    display: flex;
+    width: 90%;
+    flex-direction: row-reverse;
+}
+
+.block-upload__btn-upload-files {
+    width: 100px;
+    height: 30px;
+    background-color: rgb(190, 190, 190);
+}
+
+.block-upload__btn-upload-files:hover {
+    background-color: rgb(224, 223, 223);
+}

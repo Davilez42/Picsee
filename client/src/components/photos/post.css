@@ -1,0 +1,78 @@
+.block-photos__container-post {
+    display: flex;
+    position: relative;
+    width: 420px;
+}
+
+.block-photos__photo {
+    object-fit: contain;
+    width: 100%;
+    height: min-content;
+}
+
+.block-photos__data-photo {
+    display: flex;
+    position: absolute;
+    justify-content: space-evenly;
+    padding-bottom: 15px;
+    width: 420px;
+    top: 0;
+    bottom: 0px;
+}
+
+.block-photos__info-author {
+    cursor: pointer;
+    color: rgb(233, 233, 233);
+    display: flex;
+    align-self: flex-end;
+    width: 45%;
+    gap: 20px;
+    height: min-content;
+    align-items: center;
+}
+
+.block-photos__container-text {
+    white-space: nowrap;
+}
+
+.block-photos__author_name {
+    margin: 0;
+    font-size: 15px;
+}
+
+.block-photos__date_upload {
+    margin: 0;
+    font-size: 13px;
+}
+
+.bloc-photos__avatar-author {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+}
+
+.block-photos__options {
+    display: flex;
+    height: 50px;
+    align-self: flex-end;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+    width: 45%;
+}
+
+.block-photos__icon-heart {
+    color: #dddddd;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.block-photos__icon-download {
+    color: #535353;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 45px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #dddddd;
+}

@@ -1,0 +1,18 @@
+.block-photos {
+    padding-top: 20px;
+}
+
+.block-photos__container-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 420px;
+}

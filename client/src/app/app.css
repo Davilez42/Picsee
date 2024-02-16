@@ -1,0 +1,81 @@
+* {
+    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    scrollbar-color: rgb(218, 218, 218) white;
+}
+
+input:focus {
+    border: 0.1px solid rgb(0, 0, 0);
+    outline: none;
+
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+.effect-loader {
+    width: max-content;
+    margin: auto;
+}
+
+
+.ring {
+    --uib-size: 40px;
+    --uib-speed: 2s;
+    --uib-color: black;
+
+    height: var(--uib-size);
+    width: var(--uib-size);
+    margin: 0px auto;
+    vertical-align: middle;
+    transform-origin: center;
+    animation: rotate var(--uib-speed) linear infinite;
+}
+
+.ring circle {
+    fill: none;
+    stroke: var(--uib-color);
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: stretch calc(var(--uib-speed) * 0.75) ease-in-out infinite;
+}
+
+.icon-x {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    left: 10px;
+    top: 10px;
+    z-index: 13;
+    cursor: pointer;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes stretch {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dashoffset: -124px;
+    }
+}
