@@ -3,9 +3,10 @@ import "./uploadphotosview.css";
 import sortPhotosInColumns from "../../utils/sortPhotosColumn";
 import { IoMdClose } from "react-icons/io";
 import usePosts from "../../hooks/usePosts";
+import PostUploadPreview from "./PostUploadPreview";
 
 // eslint-disable-next-line react/prop-types
-function UploadPhotos({ setVisible }) {
+function UploadPhotosModal({ visibleModel }) {
   const [files, setFiles] = useState([]);
   const { upload } = usePosts();
 
@@ -19,7 +20,6 @@ function UploadPhotos({ setVisible }) {
     setFiles([...files, f]);
   };
   const uploadFilesHandler = () => {
-    console.log(files);
     if (files.length <= 0) {
       return alert("Debes cargar una foto para subir");
     }
@@ -27,66 +27,33 @@ function UploadPhotos({ setVisible }) {
       if (error) {
         return alert(error);
       }
-      setVisible(false);
+      visibleModel(false);
     }, files);
   };
 
+  const deleteFileHandler = (file) => {
+    const index = files.indexOf(file);
+    setFiles([...files.slice(0, index), ...files.slice(index + 1)]);
+  };
+
   const p = (f) => {
-    const url = URL.createObjectURL(f);
-    if (!f.tags) {
-      f.tags = [];
-    }
-    return (
-      <div className="block-upload_container-photo">
-        <IoMdClose
-          onClick={(e) => {
-            e.preventDefault();
-            const i = files.indexOf(f);
-            setFiles([...files.slice(0, i), ...files.slice(i + 1)]);
-          }}
-          size={30}
-          className="block-upload__icon-delete icon-x"
-        />
-        <img className="block-upload_photo-uploaded" src={url} alt="" />
-        <div className="block-upload__container-tags">
-          <input
-            type="text"
-            onKeyDown={(e) => {
-              if (e.key === "," || e.key === "Enter") {
-                if (e.target.value.trim() === "") {
-                  return alert("No deben de haber tags vacios");
-                }
-
-                const parent = e.target.parentNode;
-                const boxTag = document.createElement("DIV");
-                boxTag.classList.add("block-upload__tag-closed");
-
-                f.tags.push(e.target.value);
-                boxTag.appendChild(document.createTextNode(e.target.value));
-
-                parent.appendChild(boxTag);
-                e.target.value = "";
-              }
-            }}
-            className="block-upload__input-tag"
-            placeholder="tags.."
-          />
-        </div>
-      </div>
-    );
+    return <PostUploadPreview f={f} deleteFile={deleteFileHandler} />;
   };
   return (
     <div className="block-upload">
       <IoMdClose
         onClick={() => {
-          setVisible(false);
+          visibleModel(false);
         }}
         size={30}
         className="block-upload__icon-closed icon-x"
       />
       <div className="block-upload__container-upload">
         <div className="block-upload__drop-zone">
-          Subir fotos
+          <label>Subir fotos</label>
+          <p className="block-upload__title-drop">
+            Da click o arrastra una imagen en esta zona
+          </p>
           <label
             onDragOver={(e) => {
               e.preventDefault();
@@ -138,4 +105,4 @@ function UploadPhotos({ setVisible }) {
   );
 }
 
-export default UploadPhotos;
+export default UploadPhotosModal;

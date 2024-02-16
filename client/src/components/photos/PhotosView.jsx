@@ -8,9 +8,11 @@ function PhotosView({ query, tag }) {
   const [colum1, setColum1] = useState([]);
   const [colum2, setColum2] = useState([]);
   const [colum3, setColum3] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const { get } = usePosts();
   useEffect(() => {
+    setLoader(true);
     get(
       (photos, err) => {
         if (err) {
@@ -20,6 +22,7 @@ function PhotosView({ query, tag }) {
         setColum1(sort[0]);
         setColum2(sort[1]);
         setColum3(sort[2]);
+        setLoader(false);
       },
       { query, tag }
     );
@@ -32,20 +35,20 @@ function PhotosView({ query, tag }) {
   return (
     <>
       <div className="container-main__block-photos block-photos">
-        {[...colum1, ...colum2, ...colum3].length <= 0 ? (
+        <div className="block-photos__container-columns">
+          <div className={`block-photos__column-1 column`}>{colum1.map(f)}</div>
+          <div className={`block-photos__column-2 column`}>{colum2.map(f)}</div>
+          <div className={`block-photos__column-3 column`}>{colum3.map(f)}</div>
+        </div>
+        {loader ? (
           <div className="effect-loader">
-            <svg className="ring" viewBox="25 25 50 50" stroke-width="5">
+            <svg className="ring" viewBox="25 25 50 50" strokeWidth="5">
               <circle cx="50" cy="50" r="20" />
             </svg>
           </div>
         ) : (
           <></>
         )}
-        <div className="block-photos__container-columns">
-          <div className={`block-photos__column-1 column`}>{colum1.map(f)}</div>
-          <div className={`block-photos__column-2 column`}>{colum2.map(f)}</div>
-          <div className={`block-photos__column-3 column`}>{colum3.map(f)}</div>
-        </div>
       </div>
     </>
   );

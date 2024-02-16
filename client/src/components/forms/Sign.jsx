@@ -93,7 +93,7 @@ function Sign() {
           iniciar Sesion
         </div>
 
-        <GoogleLogin width={1000} />
+        <GoogleLogin />
 
         <div className="info">
           <p>

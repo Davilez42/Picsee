@@ -7,7 +7,7 @@
 .block-photos__photo {
     object-fit: contain;
     width: 100%;
-    height: min-content;
+    max-height: 625px;
 }
 
 .block-photos__data-photo {

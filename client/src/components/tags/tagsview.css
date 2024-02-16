@@ -13,6 +13,7 @@
 .block-tags___title {
     color: #353535;
     font-size: 14px;
+    padding-left: 15px;
     height: min-content;
     width: min-content;
     white-space: nowrap;

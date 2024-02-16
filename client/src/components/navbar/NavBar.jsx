@@ -2,7 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import "./navbar.css";
 import UserContext from "../../context/userContext";
 import { NavLink, useNavigate } from "react-router-dom";
-function NavBar({ upload }) {
+// eslint-disable-next-line react/prop-types
+function NavBar({ openUploadModal }) {
   const [search, setSearch] = useState("");
   const { logged, avatar } = useContext(UserContext);
 
@@ -19,16 +20,21 @@ function NavBar({ upload }) {
           />
         </NavLink>
 
-        <NavLink to={"/"} className="nav-bar__app-name nav-link" href="/#">
+        <NavLink to={"/"} className="nav-bar__app-name nav-link">
           <p>Picsee</p>
         </NavLink>
 
         <div className="nav-bar__container-search">
           <input
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate(`/query/${search}`);
+              }
+            }}
             className="nav-bar__input-search"
             type="search"
             name=""
-            placeholder="busca algo"
+            placeholder="busca algo..."
             onChange={(e) => {
               setSearch(e.target.value);
             }}
@@ -56,23 +62,30 @@ function NavBar({ upload }) {
             <li className="menu__item-about item">
               <div
                 onClick={() => {
-                  upload();
+                  openUploadModal();
                 }}
                 className="menu__btn-upload-post nav-link"
               >
                 Subir imagen
               </div>
             </li>
+
+            {avatar !== "" ? (
+              <li className="menu__item-avatar item">
+                <div className="nav-bar__container-avatar">
+                  <img
+                    id="avatar"
+                    className="nav-bar__avatar"
+                    src={avatar}
+                    alt=""
+                  />
+                </div>
+              </li>
+            ) : (
+              <></>
+            )}
           </ul>
         </div>
-
-        {avatar !== "" ? (
-          <div className="nav-bar__container-avatar">
-            <img id="avatar" className="nav-bar__avatar" src={avatar} alt="" />
-          </div>
-        ) : (
-          <></>
-        )}
       </header>
     </>
   );

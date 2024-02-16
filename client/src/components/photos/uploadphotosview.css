@@ -1,5 +1,5 @@
 .block-upload {
-    position: absolute;
+    position: fixed;
     backdrop-filter: brightness(40%);
     display: flex;
     width: 60%;
@@ -20,7 +20,18 @@
     justify-content: center;
     width: 95%;
     border-radius: 20px;
-    height: 650px;
+    height: 610px;
+}
+
+.block-upload__title-drop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(190, 190, 190);
+    transform: translate(-50%, -50%);
 }
 
 .block-upload__drop-zone {
@@ -75,6 +86,7 @@
     align-self: flex-end;
     height: 30px;
     order: 100;
+    padding: 0;
     /*   border: 2px solid rgb(175, 175, 175); */
     border: none;
     width: 50%;
