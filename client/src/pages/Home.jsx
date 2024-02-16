@@ -1,24 +1,27 @@
 import NavBar from "../components/navbar/NavBar";
-import { Outlet } from "react-router-dom";
-import UploadPhotos from "../components/photos/UploadPhotosView";
+import { Outlet, useNavigate } from "react-router-dom";
+import UploadPhotos from "../components/photos/UploadPhotosModal";
 import { useContext, useState } from "react";
 import UserContext from "../context/userContext";
 
 function Home() {
-  const [visibleUploadBlock, setVisibleUploadBlock] = useState(false);
+  const [visibleUploadModal, setVisibleUploadModal] = useState(false);
   const { logged } = useContext(UserContext);
-  const openBlockUpload = () => {
+  const navigate = useNavigate();
+
+  const openUploadModal = () => {
     if (!logged) {
-      return alert("Debes iniciar sesion para subir una foto");
+      navigate("/forms/sign");
+    } else {
+      setVisibleUploadModal(true);
     }
-    setVisibleUploadBlock(true);
   };
   return (
     <>
       <div>
-        <NavBar upload={openBlockUpload} />
-        {visibleUploadBlock ? (
-          <UploadPhotos setVisible={setVisibleUploadBlock} />
+        <NavBar openUploadModal={openUploadModal} />
+        {visibleUploadModal ? (
+          <UploadPhotos visibleModel={setVisibleUploadModal} />
         ) : (
           <></>
         )}
